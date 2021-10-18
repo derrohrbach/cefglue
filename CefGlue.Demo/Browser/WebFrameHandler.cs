@@ -30,7 +30,7 @@
             Debug.Print($"{nameof(WebFrameHandler)}::{nameof(OnFrameDetached)}: BID={browser.Identifier} FID={frame.Identifier}");
         }
 
-        protected override void OnMainFrameChanged(CefBrowser browser, CefFrame? oldFrame, CefFrame? newFrame)
+        protected override void OnMainFrameChanged(CefBrowser browser, CefFrame oldFrame, CefFrame newFrame)
         {
             Debug.Print($"{nameof(WebFrameHandler)}::{nameof(OnFrameDetached)}: BID={browser.Identifier} OFID={oldFrame?.Identifier} NFID={newFrame?.Identifier}");
         }
