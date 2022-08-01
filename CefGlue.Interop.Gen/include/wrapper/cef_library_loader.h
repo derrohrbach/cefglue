@@ -36,8 +36,6 @@
 #ifdef __cplusplus
 #include <string>
 
-#include "include/base/cef_macros.h"
-
 extern "C" {
 #endif  // __cplusplus
 
@@ -51,7 +49,7 @@ int cef_load_library(const char* path);
 // Unload the CEF library that was previously loaded. Returns true (1)
 // on success and false (0) on failure.
 ///
-int cef_unload_library();
+int cef_unload_library(void);
 
 #ifdef __cplusplus
 }
@@ -99,6 +97,10 @@ int cef_unload_library();
 class CefScopedLibraryLoader {
  public:
   CefScopedLibraryLoader();
+
+  CefScopedLibraryLoader(const CefScopedLibraryLoader&) = delete;
+  CefScopedLibraryLoader& operator=(const CefScopedLibraryLoader&) = delete;
+
   ~CefScopedLibraryLoader();
 
   ///
@@ -119,7 +121,6 @@ class CefScopedLibraryLoader {
   bool Load(bool helper);
 
   bool loaded_;
-  DISALLOW_COPY_AND_ASSIGN(CefScopedLibraryLoader);
 };
 
 #endif  // defined(OS_MAC)
