@@ -121,7 +121,7 @@ def get_base_funcs(cls):
             get_base_func(cls, 0, 'Del', 'del'),
             ]
     else:
-        raise Exception("Unknown base class.")
+        raise Exception("Unknown base class: %s." % baseClassName)
 
 def make_file_header():
     return """//
@@ -163,19 +163,39 @@ def make_struct_file(cls):
         'body': indent + ('\n'+indent).join(body)
       }
 
-def get_funcs(cls, base = True):
+def get_funcs(cls, base = True, inherited = True):
     funcs = []
 
-    if base:
-        for func in get_base_funcs(cls):
-            funcs.append( func )
+    classes = []
+    current_cls = cls
+    while True:
+        classes.append(current_cls)
+        if base and is_base_class(current_cls.get_parent_name()):
+            for func in get_base_funcs(current_cls):
+                funcs.append( func )
+        if not inherited:
+            break
+        current_cls = current_cls.parent.get_class(current_cls.parent_name)
+        if current_cls is None:
+            break
 
     i = len(funcs)
-    for func in cls.get_virtual_funcs():
-        funcs.append( get_func_parts(func, i) )
-        i += 1
+    while len(classes) > 0:
+        current_cls = classes.pop()
+        if current_cls is None:
+            break
+        for func in current_cls.get_virtual_funcs():
+            funcs.append( get_func_parts(func, i) )
+            i += 1
 
     return funcs
+
+def get_top_base_class_name(cls):
+    while cls is not None:
+        if is_base_class(cls.parent_name):
+            return cls.get_parent_capi_name()
+        cls = cls.parent.get_class(cls.parent_name)
+    return None
 
 def make_struct_members(cls):
     result = []
@@ -190,7 +210,7 @@ def make_struct_members(cls):
     for func in cls.get_static_funcs():
         static_funcs.append( get_func_parts(func, 0) )
 
-    parentClassName = cls.get_parent_capi_name()
+    parentClassName = get_top_base_class_name(cls)
     if (parentClassName != "cef_base_ref_counted_t"
         and parentClassName != "cef_base_scoped_t"):
         message = "Error: Generation for base class \"" + cls.get_parent_name() + "\" is not supported."
@@ -311,24 +331,31 @@ def make_wrapper_g_file(cls):
     body.append('using System.Diagnostics;')
     body.append('using System.Runtime.InteropServices;')
     # body.append('using System.Diagnostics.CodeAnalysis;')
+    body.append('using System.Threading;')
     body.append('using %s;' % schema.interop_namespace)
     body.append('')
 
     for line in schema.get_overview(cls):
         body.append('// %s' % line)
 
-    isRefCounted = cls.get_parent_capi_name() == "cef_base_ref_counted_t"
-    isScoped = cls.get_parent_capi_name() == "cef_base_scoped_t"
+    isRefCountedImpl = cls.get_parent_capi_name() == "cef_base_ref_counted_t"
+    isScopedImpl = cls.get_parent_capi_name() == "cef_base_scoped_t"
+    maybeSealedModifier = "sealed "
+
+    if schema.is_abstract(cls):
+        maybeSealedModifier = ""
 
     if schema.is_proxy(cls):
         proxyBase = None
-        if isRefCounted:
+        if isRefCountedImpl:
             proxyBase = " : IDisposable"
-        elif isScoped:
+        elif isScopedImpl:
             proxyBase = ""
+        elif cls.get_parent_capi_name() == "cef_preference_manager_t":
+            proxyBase = " : CefPreferenceManager"
         else:
             raise Exception("Unknown base class type.")
-        body.append(('public sealed unsafe partial class %s' + proxyBase) % schema.cpp2csname(cls.get_name()))
+        body.append(('public ' + maybeSealedModifier + 'unsafe partial class %s' + proxyBase) % schema.cpp2csname(cls.get_name()))
         body.append('{')
         body.append( indent + ('\n' + indent + indent).join( make_proxy_g_body(cls) ) )
         body.append('}')
@@ -356,6 +383,23 @@ def make_proxy_g_body(cls):
     csname = schema.cpp2csname(cls.get_name())
     iname = schema.get_iname(cls)
 
+    isRefCountedImpl = cls.get_parent_capi_name() == "cef_base_ref_counted_t"
+    isScopedImpl = cls.get_parent_capi_name() == "cef_base_scoped_t"
+    isImpl = isRefCountedImpl or isScopedImpl
+    isRefCounted = get_top_base_class_name(cls) == "cef_base_ref_counted_t"
+
+    selfAccessor = "_self"
+    if not isImpl:
+        selfAccessor = "(%s*)_self" % iname
+
+    maybeNewKeyword = ""
+    if not isImpl:
+        maybeNewKeyword = "new "
+
+    privateOrProtected = "private"
+    if schema.is_abstract(cls):
+        privateOrProtected = "private protected"
+
     result = []
 
     # result.append('#if DEBUG')
@@ -379,28 +423,37 @@ def make_proxy_g_body(cls):
     result.append('')
 
     # private fields
-    result.append('private %s* _self;' % iname)
-    result.append('')
+    if isImpl:
+      result.append(privateOrProtected + ' %s* _self;' % iname)
+      result.append(privateOrProtected + ' int _disposed = 0;')
+      result.append('')
 
     # ctor
-    result.append('private %(csname)s(%(iname)s* ptr)' % { 'csname' : csname, 'iname' : iname })
-    result.append('{')
-    result.append(indent + 'if (ptr == null) throw new ArgumentNullException("ptr");')
-    result.append(indent + '_self = ptr;')
-    #
-    # todo: diagnostics code: Interlocked.Increment(ref _objCt);
-    #
-    result.append('}')
+    result.append(privateOrProtected + ' %(csname)s(%(iname)s* ptr)' % { 'csname' : csname, 'iname' : iname })
+    if isImpl:
+        result.append('{')
+        result.append(indent + 'if (ptr == null) throw new ArgumentNullException("ptr");')
+        result.append(indent + '_self = ptr;')
+        if isRefCountedImpl:
+            result.append(indent + 'CefObjectTracker.Track(this);')
+        #
+        # todo: diagnostics code: Interlocked.Increment(ref _objCt);
+        #
+        result.append('}')
+    else:
+        base_cls = cls.parent.get_class(cls.parent_name)
+        base_ptr_type = schema.get_iname(base_cls)
+        result.append('    : base((%s*)ptr) {}' % base_ptr_type)
     result.append('')
 
-    isRefCounted = cls.get_parent_capi_name() == "cef_base_ref_counted_t"
-    isScoped = cls.get_parent_capi_name() == "cef_base_scoped_t"
-
-    if isRefCounted:
+    if cls.get_parent_capi_name() == "cef_preference_manager_t":
+        # no-op
+        pass
+    elif isRefCountedImpl:
         # disposable
         result.append('~%s()' % csname)
         result.append('{')
-        result.append(indent + 'if (_self != null)')
+        result.append(indent + 'if (Interlocked.CompareExchange(ref _disposed, 1, 0) == 0)')
         result.append(indent + '{')
         result.append(indent + indent + 'Release();')
         result.append(indent + indent + '_self = null;')
@@ -410,11 +463,12 @@ def make_proxy_g_body(cls):
 
         result.append('public void Dispose()')
         result.append('{')
-        result.append(indent + 'if (_self != null)')
+        result.append(indent + 'if (Interlocked.CompareExchange(ref _disposed, 1, 0) == 0)')
         result.append(indent + '{')
         result.append(indent + indent + 'Release();')
         result.append(indent + indent + '_self = null;')
         result.append(indent + '}')
+        result.append(indent + 'CefObjectTracker.Untrack(this);')
         result.append(indent + 'GC.SuppressFinalize(this);')
         result.append('}')
         result.append('')
@@ -442,7 +496,7 @@ def make_proxy_g_body(cls):
         result.append(indent + 'get { return %(iname)s.has_at_least_one_ref(_self) != 0; }' % { 'iname': iname })
         result.append('}')
         result.append('')
-    elif isScoped:
+    elif isScopedImpl:
         result.append("// FIXME: code for CefBaseScoped is not generated")
         result.append("")
     else:
@@ -455,11 +509,11 @@ def make_proxy_g_body(cls):
     # result.append('}')
     # result.append('')
 
-    result.append('internal %(iname)s* ToNative()' % { 'iname' : iname })
+    result.append('internal %(maybeNewKeyword)s%(iname)s* ToNative()' % { 'iname' : iname, 'maybeNewKeyword': maybeNewKeyword })
     result.append('{')
     if isRefCounted:
         result.append(indent + 'AddRef();')
-    result.append(indent + 'return _self;')
+    result.append(indent + 'return ' + selfAccessor + ';')
     result.append('}')
 
     return result
@@ -484,9 +538,6 @@ def make_handler_g_body(cls):
     # result.append('private bool _disposed;')
     result.append('')
 
-    result.append('protected object SyncRoot { get { return this; } }')
-    result.append('')
-
     if schema.is_reversible(cls):
         result.append('internal static %s FromNativeOrNull(%s* ptr)' % (csname, iname))
         result.append('{')
@@ -495,6 +546,8 @@ def make_handler_g_body(cls):
         result.append(indent + 'lock (_roots)')
         result.append(indent + '{')
         result.append(indent + indent + 'found = _roots.TryGetValue((IntPtr)ptr, out value);')
+        result.append(indent + indent + '// as we\'re getting the ref from the outside, it\'s our responsibility to decrement it')
+        result.append(indent + indent + 'value.release(ptr);')
         result.append(indent + '}')
         result.append(indent + 'return found ? value : null;')
         result.append('}')
@@ -553,43 +606,35 @@ def make_handler_g_body(cls):
     # todo: verify self pointer in debug
     result.append('private void add_ref(%s* self)' % iname)
     result.append('{')
-    result.append(indent + 'lock (SyncRoot)')
+    result.append(indent + 'if (Interlocked.Increment(ref _refct) == 1)')
     result.append(indent + '{')
-    result.append(indent + indent + 'var result = ++_refct;')
-    result.append(indent + indent + 'if (result == 1)')
-    result.append(indent + indent + '{')
-    result.append(indent + indent + indent + 'lock (_roots) { _roots.Add((IntPtr)_self, this); }')
-    result.append(indent + indent + '}')
+    result.append(indent + indent + 'lock (_roots) { _roots.Add((IntPtr)_self, this); }')
     result.append(indent + '}')
     result.append('}')
     result.append('')
 
     result.append('private int release(%s* self)' % iname)
     result.append('{')
-    result.append(indent + 'lock (SyncRoot)')
+    result.append(indent + 'if (Interlocked.Decrement(ref _refct) == 0)')
     result.append(indent + '{')
-    result.append(indent + indent + 'var result = --_refct;')
-    result.append(indent + indent + 'if (result == 0)')
-    result.append(indent + indent + '{')
-    result.append(indent + indent + indent + 'lock (_roots) { _roots.Remove((IntPtr)_self); }')
+    result.append(indent + indent + 'lock (_roots) { _roots.Remove((IntPtr)_self); }')
     if schema.is_autodispose(cls):
-        result.append(indent + indent + indent + 'Dispose();')
-    result.append(indent + indent + indent + 'return 1;')
-    result.append(indent + indent + '}')
-    result.append(indent + indent + 'return 0;')
+        result.append(indent + indent + 'Dispose();')
+    result.append(indent + indent + 'return 1;')
     result.append(indent + '}')
+    result.append(indent + 'return 0;')
     result.append('}')
     result.append('')
 
     result.append('private int has_one_ref(%s* self)' % iname)
     result.append('{')
-    result.append(indent + 'lock (SyncRoot) { return _refct == 1 ? 1 : 0; }')
+    result.append(indent + 'return _refct == 1 ? 1 : 0;')
     result.append('}')
     result.append('')
 
     result.append('private int has_at_least_one_ref(%s* self)' % iname)
     result.append('{')
-    result.append(indent + 'lock (SyncRoot) { return _refct != 0 ? 1 : 0; }')
+    result.append(indent + 'return _refct != 0 ? 1 : 0;')
     result.append('}')
     result.append('')
 
@@ -655,7 +700,7 @@ def make_impl_tmpl_file(cls):
 def make_proxy_impl_tmpl_body(cls):
     csname = schema.cpp2csname(cls.get_name())
     iname = schema.get_iname(cls)
-    funcs = get_funcs(cls, False)
+    funcs = get_funcs(cls, False, False)
     static_funcs = []
     for func in cls.get_static_funcs():
         static_funcs.append( get_func_parts(func, 0) )
