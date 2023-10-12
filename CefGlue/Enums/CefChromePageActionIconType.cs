@@ -37,5 +37,7 @@ namespace Xilium.CefGlue
         VirtualCardManualFallback,
         Zoom,
         SaveIban,
+        MandatoryReauth,
+        PriceInsights,
     }
 }

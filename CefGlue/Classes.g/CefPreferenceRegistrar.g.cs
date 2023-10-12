@@ -7,7 +7,6 @@ namespace Xilium.CefGlue
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Runtime.InteropServices;
-    using System.Threading;
     using Xilium.CefGlue.Interop;
     
     // Role: PROXY
@@ -25,7 +24,6 @@ namespace Xilium.CefGlue
         }
         
         private cef_preference_registrar_t* _self;
-        private int _disposed = 0;
         
         private CefPreferenceRegistrar(cef_preference_registrar_t* ptr)
         {

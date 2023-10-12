@@ -234,7 +234,7 @@ def format_translation_changes(old, new):
               '\n  //   NOW: '+new['retval']
 
   if changed:
-    result += '\n  #pragma message("Warning: "__FILE__": '+new['name']+ \
+    result += '\n  #pragma message("Warning: " __FILE__ ": '+new['name']+ \
               ' prototype has changed")\n'
 
   return result
@@ -344,8 +344,6 @@ _cre_attrib = '/\*--cef\(([A-Za-z0-9_ ,=:\n]{0,})\)--\*/'
 _cre_cfname = '([A-Za-z0-9_]{1,})'
 # regex for matching class and function names including path separators
 _cre_cfnameorpath = '([A-Za-z0-9_\/]{1,})'
-# regex for matching function return values
-_cre_retval = '([A-Za-z0-9_<>:,\*\&]{1,})'
 # regex for matching typedef value and name combination
 _cre_typedef = '([A-Za-z0-9_<>:,\*\&\s]{1,})'
 # regex for matching function return value and name combination
@@ -363,12 +361,12 @@ _simpletypes = {
     'void': ['void', ''],
     'void*': ['void*', 'NULL'],
     'int': ['int', '0'],
-    'int16': ['int16', '0'],
-    'uint16': ['uint16', '0'],
-    'int32': ['int32', '0'],
-    'uint32': ['uint32', '0'],
-    'int64': ['int64', '0'],
-    'uint64': ['uint64', '0'],
+    'int16_t': ['int16_t', '0'],
+    'uint16_t': ['uint16_t', '0'],
+    'int32_t': ['int32_t', '0'],
+    'uint32_t': ['uint32_t', '0'],
+    'int64_t': ['int64_t', '0'],
+    'uint64_t': ['uint64_t', '0'],
     'double': ['double', '0'],
     'float': ['float', '0'],
     'float*': ['float*', 'NULL'],
@@ -418,6 +416,10 @@ def get_function_impls(content, ident, has_impl=True):
     return value, name, arguments and body. Ident must occur somewhere in
     the value.
     """
+  # Remove prefix from methods in CToCpp files.
+  content = content.replace('NO_SANITIZE("cfi-icall") ', '')
+  content = content.replace('NO_SANITIZE("cfi-icall")\n', '')
+
   # extract the functions
   find_regex = '\n' + _cre_func + '\((.*?)\)([A-Za-z0-9_\s]{0,})'
   if has_impl:
@@ -569,8 +571,12 @@ class obj_header:
       filename = os.path.relpath(filepath, self.root_directory)
       filename = filename.replace('\\', '/')
 
-    # read the input file into memory
-    self.add_data(filename, read_file(filepath))
+    try:
+      # read the input file into memory
+      self.add_data(filename, read_file(filepath))
+    except Exception:
+      print('Exception while parsing %s' % filepath)
+      raise
 
   def add_data(self, filename, data):
     """ Add header file contents. """

@@ -9,12 +9,11 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
 
-    <Version>112.3.0</Version>
+    <Version>118.1.1</Version>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="CefObjectTracker.cs" />
     <Compile Include="CefRuntime.cs" />
     <Compile Include="CefRuntimePlatform.cs" />
     <Compile Include="Classes.Handlers\CefAccessibilityHandler.cs" />
@@ -151,6 +150,8 @@
     <Compile Include="Enums\CefColorModel.cs" />
     <Compile Include="Enums\CefColorType.cs" />
     <Compile Include="Enums\CefCompositionUnderlineStyle.cs" />
+    <Compile Include="Enums\CefContentSettingTypes.cs" />
+    <Compile Include="Enums\CefContentSettingValues.cs" />
     <Compile Include="Enums\CefContextMenuEditStateFlags.cs" />
     <Compile Include="Enums\CefContextMenuMediaStateFlags.cs" />
     <Compile Include="Enums\CefContextMenuMediaType.cs" />
@@ -164,8 +165,11 @@
     <Compile Include="Enums\CefDomEventCategory.cs" />
     <Compile Include="Enums\CefDomEventPhase.cs" />
     <Compile Include="Enums\CefDomNodeType.cs" />
+    <Compile Include="Enums\CefDownloadInterruptReason.cs" />
     <Compile Include="Enums\CefDragOperationsMask.cs" />
     <Compile Include="Enums\CefChromePageActionIconType.cs" />
+    <Compile Include="Enums\CefGestureCommand.cs" />
+    <Compile Include="Enums\CefLogItems.cs" />
     <Compile Include="Enums\CefPreferencesType.cs" />
     <Compile Include="Enums\CefDuplexMode.cs" />
     <Compile Include="Enums\CefErrorCode.cs" />
