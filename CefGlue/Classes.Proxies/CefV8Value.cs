@@ -189,6 +189,11 @@
                 );
         }
 
+        public bool IsDisposed
+        {
+            get { return _self == null; }
+        }
+
         /// <summary>
         /// Returns true if the underlying handle is valid and it can be accessed on
         /// the current thread. Do not call any other methods if this method returns
