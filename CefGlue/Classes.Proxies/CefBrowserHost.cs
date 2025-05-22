@@ -173,6 +173,34 @@
                 );
         }
 
+        /// <summary>
+        /// Returns true if this browser can execute the specified zoom command.
+        /// This method can only be called on the UI thread.
+        /// </summary>
+        public bool CanZoom(CefZoomCommand command)
+        {
+            return cef_browser_host_t.can_zoom(_self, command) != 0;
+        }
+
+        /// <summary>
+        /// Execute a zoom command in this browser. If called on the UI thread
+        /// the change will be applied immediately. Otherwise, the change will be
+        /// applied asynchronously on the UI thread.
+        /// </summary>
+        public void Zoom(CefZoomCommand command)
+        {
+            cef_browser_host_t.zoom(_self, command);
+        }
+
+        /// <summary>
+        /// Get the default zoom level. This value will be 0.0 by default but can
+        /// be configured with the Chrome runtime. This method can only be called
+        /// on the UI thread.
+        /// </summary>
+        public double GetDefaultZoomLevel()
+        {
+            return cef_browser_host_t.get_default_zoom_level(_self);
+        }
 
         /// <summary>
         /// Get the current zoom level. The default zoom level is 0.0. This method can
