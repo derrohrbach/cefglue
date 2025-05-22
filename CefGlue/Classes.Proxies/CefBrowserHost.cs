@@ -915,5 +915,41 @@
                 return cef_browser_host_t.is_audio_muted(_self) != 0;
             }
         }
+
+        /// <summary>
+        /// Returns true if the browser is currently fullscreen. This method can only
+        /// be called on the UI thread.
+        /// </summary>
+        public bool IsFullscreen
+        {
+            get
+            {
+                return cef_browser_host_t.is_fullscreen(_self) != 0;
+            }
+        }
+
+        /// <summary>
+        /// Exit fullscreen mode. Pass true if exiting will cause a resize.
+        /// </summary>
+        public void ExitFullscreen(bool willCauseResize)
+        {
+            cef_browser_host_t.exit_fullscreen(_self, willCauseResize ? 1 : 0);
+        }
+
+        /// <summary>
+        /// Returns true if the specified Chrome command can be executed by the browser.
+        /// </summary>
+        public bool CanExecuteChromeCommand(int commandId)
+        {
+            return cef_browser_host_t.can_execute_chrome_command(_self, commandId) != 0;
+        }
+
+        /// <summary>
+        /// Execute the specified Chrome command with the given disposition.
+        /// </summary>
+        public void ExecuteChromeCommand(int commandId, CefWindowOpenDisposition disposition)
+        {
+            cef_browser_host_t.execute_chrome_command(_self, commandId, disposition);
+        }
     }
 }

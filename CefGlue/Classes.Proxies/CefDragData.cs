@@ -179,6 +179,22 @@
         }
 
         /// <summary>
+        /// Retrieve the list of file system paths that are being dragged into
+        /// the browser window.
+        /// </summary>
+        public string[] GetFilePaths()
+        {
+            var list = libcef.string_list_alloc();
+            try
+            {
+                return cef_drag_data_t.get_file_paths(_self, list) != 0
+                    ? cef_string_list.ToArray(list)
+                    : null;
+            }
+            finally { libcef.string_list_free(list); }
+        }
+
+        /// <summary>
         /// Set the link URL that is being dragged.
         /// </summary>
         public void SetLinkURL(string url)
