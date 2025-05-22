@@ -168,6 +168,8 @@
     <Compile Include="Enums\CefDownloadInterruptReason.cs" />
     <Compile Include="Enums\CefDragOperationsMask.cs" />
     <Compile Include="Enums\CefChromePageActionIconType.cs" />
+    <Compile Include="Enums\CefDomFormControlType.cs" />
+    <Compile Include="Enums\CefZoomCommand.cs" />
     <Compile Include="Enums\CefGestureCommand.cs" />
     <Compile Include="Enums\CefLogItems.cs" />
     <Compile Include="Enums\CefPreferencesType.cs" />

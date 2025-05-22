@@ -181,6 +181,8 @@ c2cs_enumtypes = {
     'cef_download_interrupt_reason_t': 'CefDownloadInterruptReason',
     'cef_content_setting_types_t': 'CefContentSettingTypes',
     'cef_content_setting_values_t': 'CefContentSettingValues',
+    'cef_zoom_command_t': 'CefZoomCommand',
+    'cef_dom_form_control_type_t': 'CefDomFormControlType',
     }
 
 c2cs_structtypes = { }

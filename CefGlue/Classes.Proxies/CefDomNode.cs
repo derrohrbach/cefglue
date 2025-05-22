@@ -55,12 +55,11 @@
         /// <summary>
         /// Returns the type of this form control element node.
         /// </summary>
-        public string FormControlElementType
+        public CefDomFormControlType FormControlElementType
         {
             get
             {
-                var n_result = cef_domnode_t.get_form_control_element_type(_self);
-                return cef_string_userfree.ToString(n_result);
+                return cef_domnode_t.get_form_control_element_type(_self);
             }
         }
 

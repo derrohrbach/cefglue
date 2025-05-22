@@ -35,5 +35,6 @@ namespace Xilium.CefGlue
         StorageAccess = 1 << 17,
         VrSession = 1 << 18,
         WindowManagement = 1 << 19,
+        FileSystemAccess = 1 << 20,
     }
 }
