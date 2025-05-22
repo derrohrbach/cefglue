@@ -9,6 +9,9 @@
     <UseWindowsForms>true</UseWindowsForms>
 
     <ApplicationManifest>app.manifest</ApplicationManifest>
+
+    <!-- Required for building with .NET SDK 8+ when resources contain non-string types -->
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,6 +30,14 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+
+  <!-- Reference System.Resources.Extensions from the local .NET SDK to avoid network dependency -->
+  <ItemGroup>
+    <Reference Include="System.Resources.Extensions">
+      <HintPath>$(MSBuildSDKsPath)/../System.Resources.Extensions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
   <ItemGroup>
     <None Include="app.config" />
     <None Include="app.manifest" />

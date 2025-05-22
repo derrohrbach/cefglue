@@ -3,6 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
 
+    <!-- Allow building this Windows-targeted sample on non-Windows agents -->
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+
     <OutputType>WinExe</OutputType>
     <AssemblyName>Xilium.Samples.WpfOsr</AssemblyName>
     <RootNamespace>Xilium.Samples.WpfOsr</RootNamespace>
