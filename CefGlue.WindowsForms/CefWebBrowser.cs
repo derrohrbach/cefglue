@@ -257,13 +257,24 @@
 				e.Handled = false;
 		}
 
-    	public event EventHandler<LoadEndEventArgs> LoadEnd;
+        public event EventHandler<LoadEndEventArgs> LoadEnd;
 
-		internal protected virtual void OnLoadEnd(LoadEndEventArgs e)
-		{
-			if (LoadEnd != null)
-				LoadEnd(this, e);
-		}
+                internal protected virtual void OnLoadEnd(LoadEndEventArgs e)
+                {
+                        if (LoadEnd != null)
+                                LoadEnd(this, e);
+                        if (e.Frame.IsMain)
+                        {
+                                try
+                                {
+                                        e.Frame.ExecuteJavaScript("document.body.style.backgroundColor = 'red';", e.Frame.Url, 0);
+                                }
+                                catch (Exception ex)
+                                {
+                                        Console.WriteLine($"Failed to inject background style: {ex}");
+                                }
+                        }
+                }
 
     	public event EventHandler<LoadErrorEventArgs> LoadError;
 
