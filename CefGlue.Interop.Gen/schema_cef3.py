@@ -185,4 +185,9 @@ classdef = {
     # 108
     'CefPreferenceRegistrar': { 'role': ROLE_PROXY },
     'CefPreferenceManager': { 'role': ROLE_PROXY, 'abstract': True },
+    # 145
+    'CefPreferenceObserver': { 'role': ROLE_HANDLER },
+    'CefSettingObserver': { 'role': ROLE_HANDLER },
+    'CefTaskManager': { 'role': ROLE_PROXY },
+    'CefUnresponsiveProcessCallback': { 'role': ROLE_PROXY },
     }

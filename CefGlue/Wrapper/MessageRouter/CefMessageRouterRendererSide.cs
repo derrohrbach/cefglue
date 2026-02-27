@@ -362,7 +362,7 @@
         }
 
         // Returns the new request ID.
-        private int SendQuery(CefBrowser browser, long frameId, int contextId, string request, bool persistent, CefV8Value successCallback, CefV8Value failureCallback)
+        private int SendQuery(CefBrowser browser, string frameId, int contextId, string request, bool persistent, CefV8Value successCallback, CefV8Value failureCallback)
         {
             Helpers.RequireRendererThread();
 
@@ -378,16 +378,15 @@
 
             var message = CefProcessMessage.Create(_queryMessageName);
             var args = message.Arguments;
-            args.SetInt(0, Helpers.Int64GetLow(frameId));
-            args.SetInt(1, Helpers.Int64GetHigh(frameId));
-            args.SetInt(2, contextId);
-            args.SetInt(3, requestId);
-            args.SetString(4, request);
-            args.SetBool(5, persistent);
+            args.SetString(0, frameId);
+            args.SetInt(1, contextId);
+            args.SetInt(2, requestId);
+            args.SetString(3, request);
+            args.SetBool(4, persistent);
 
-            var frame = browser.GetFrame(frameId);
-            if (frame.IsValid)
-                browser.GetFrame(frameId).SendProcessMessage(CefProcessId.Browser, message);
+            var frame = browser.GetFrameByIdentifier(frameId);
+            if (frame != null && frame.IsValid)
+                frame.SendProcessMessage(CefProcessId.Browser, message);
 
             args.Dispose();
             message.Dispose();
@@ -398,7 +397,7 @@
         // If |requestId| is kReservedId all requests associated with |contextId|
         // will be canceled, otherwise only the specified |requestId| will be
         // canceled. Returns true if any request was canceled.
-        private bool SendCancel(CefBrowser browser, long frameId, int contextId, int requestId)
+        private bool SendCancel(CefBrowser browser, string frameId, int contextId, int requestId)
         {
             Helpers.RequireRendererThread();
 
@@ -442,8 +441,8 @@
                 args.SetInt(0, contextId);
                 args.SetInt(1, requestId);
 
-                var frame = browser.GetFrame(frameId);
-                if (frame.IsValid)
+                var frame = browser.GetFrameByIdentifier(frameId);
+                if (frame != null && frame.IsValid)
                     frame.SendProcessMessage(CefProcessId.Browser, message);
 
                 return true;

@@ -17,7 +17,7 @@
             return base.OnBeforeBrowse(browser, frame, request, userGesture, isRedirect);
         }
 
-        protected override void OnRenderProcessTerminated(CefBrowser browser, CefTerminationStatus status)
+        protected override void OnRenderProcessTerminated(CefBrowser browser, CefTerminationStatus status, int errorCode, string errorString)
         {
             //DemoApp.BrowserMessageRouter.OnRenderProcessTerminated(browser);
         }

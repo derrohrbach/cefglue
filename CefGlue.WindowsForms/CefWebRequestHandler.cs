@@ -14,7 +14,7 @@
             return null;
         }
 
-        protected override void OnRenderProcessTerminated(CefBrowser browser, CefTerminationStatus status)
+        protected override void OnRenderProcessTerminated(CefBrowser browser, CefTerminationStatus status, int errorCode, string errorString)
         {
             _core.InvokeIfRequired(() => _core.OnRenderProcessTerminated(new RenderProcessTerminatedEventArgs(status)));
         }

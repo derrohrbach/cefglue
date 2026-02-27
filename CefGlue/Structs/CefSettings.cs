@@ -54,13 +54,6 @@
         public string MainBundlePath { get; set; }
 
         /// <summary>
-        /// Set to true to enable use of the Chrome runtime in CEF. This feature
-        /// is considered experimental and is not recommended for most users at this
-        /// time. See issue #2969 for details.
-        /// </summary>
-        public bool ChromeRuntime { get; set; }
-
-        /// <summary>
         /// Set to <c>true</c> to have the browser process message loop run in a separate
         /// thread. If <c>false</c> then the CefDoMessageLoopWork() function must be
         /// called from your application message loop. This option is only supported
@@ -136,16 +129,6 @@
         /// CefRequestContextSettings.persist_session_cookies value.
         /// </summary>
         public bool PersistSessionCookies { get; set; }
-
-        /// <summary>
-        /// To persist user preferences as a JSON file in the cache path directory set
-        /// this value to true. A |cache_path| value must also be specified
-        /// to enable this feature. Also configurable using the
-        /// "persist-user-preferences" command-line switch. Can be overridden for
-        /// individual CefRequestContext instances via the
-        /// CefRequestContextSettings.persist_user_preferences value.
-        /// </summary>
-        public bool PersistUserPreferences { get; set; }
 
         /// <summary>
         /// Value that will be returned as the User-Agent HTTP header. If empty the
@@ -225,15 +208,6 @@
         public string LocalesDirPath { get; set; }
 
         /// <summary>
-        /// Set to <c>true</c> to disable loading of pack files for resources and
-        /// locales. A resource bundle handler must be provided for the browser and
-        /// render processes via CefApp::GetResourceBundleHandler() if loading of pack
-        /// files is disabled. Also configurable using the "disable-pack-loading"
-        /// command- line switch.
-        /// </summary>
-        public bool PackLoadingDisabled { get; set; }
-
-        /// <summary>
         /// Set to a value between 1024 and 65535 to enable remote debugging on the
         /// specified port. Also configurable using the "remote-debugging-port"
         /// command-line switch. Remote debugging can be accessed by loading the
@@ -290,6 +264,26 @@
 
         public bool CookieableSchemesExcludeDefaults { get; set; }
 
+        /// <summary>
+        /// Specify an ID for chrome policy management via Platform and OS-level
+        /// management. On Windows, this is a registry key like
+        /// "SOFTWARE\\Policies\\Chromium". Defaults to the Chromium value of
+        /// "SOFTWARE\\Policies\\Chromium" if not set. Only used with Chrome runtime.
+        /// </summary>
+        public string ChromePolicyId { get; set; }
+
+        /// <summary>
+        /// Specify an ID for the app icon in Chrome runtime. The icon will be loaded
+        /// from the resource identified by this ID. Defaults to 0.
+        /// </summary>
+        public int ChromeAppIconId { get; set; }
+
+        /// <summary>
+        /// Set to true (1) to disable signal handling on POSIX systems.
+        /// Not used on Windows.
+        /// </summary>
+        public bool DisableSignalHandlers { get; set; }
+
         internal cef_settings_t* ToNative()
         {
             var ptr = cef_settings_t.Alloc();
@@ -297,7 +291,6 @@
             cef_string_t.Copy(BrowserSubprocessPath, &ptr->browser_subprocess_path);
             cef_string_t.Copy(FrameworkDirPath, &ptr->framework_dir_path);
             cef_string_t.Copy(MainBundlePath, &ptr->main_bundle_path);
-            ptr->chrome_runtime = ChromeRuntime ? 1 : 0;
             ptr->multi_threaded_message_loop = MultiThreadedMessageLoop ? 1 : 0;
             ptr->windowless_rendering_enabled = WindowlessRenderingEnabled ? 1 : 0;
             ptr->external_message_pump = ExternalMessagePump ? 1 : 0;
@@ -305,7 +298,6 @@
             cef_string_t.Copy(CachePath, &ptr->cache_path);
             cef_string_t.Copy(RootCachePath, &ptr->root_cache_path);
             ptr->persist_session_cookies = PersistSessionCookies ? 1 : 0;
-            ptr->persist_user_preferences = PersistUserPreferences ? 1 : 0;
             cef_string_t.Copy(UserAgent, &ptr->user_agent);
             cef_string_t.Copy(UserAgentProduct, &ptr->user_agent_product);
             cef_string_t.Copy(Locale, &ptr->locale);
@@ -315,13 +307,15 @@
             cef_string_t.Copy(JavaScriptFlags, &ptr->javascript_flags);
             cef_string_t.Copy(ResourcesDirPath, &ptr->resources_dir_path);
             cef_string_t.Copy(LocalesDirPath, &ptr->locales_dir_path);
-            ptr->pack_loading_disabled = PackLoadingDisabled ? 1 : 0;
             ptr->remote_debugging_port = RemoteDebuggingPort;
             ptr->uncaught_exception_stack_size = UncaughtExceptionStackSize;
             ptr->background_color = BackgroundColor.ToArgb();
             cef_string_t.Copy(AcceptLanguageList, &ptr->accept_language_list);
             cef_string_t.Copy(CookieableSchemesList, &ptr->cookieable_schemes_list);
             ptr->cookieable_schemes_exclude_defaults = CookieableSchemesExcludeDefaults ? 1 : 0;
+            cef_string_t.Copy(ChromePolicyId, &ptr->chrome_policy_id);
+            ptr->chrome_app_icon_id = ChromeAppIconId;
+            ptr->disable_signal_handlers = DisableSignalHandlers ? 1 : 0;
             return ptr;
         }
 
@@ -341,6 +335,7 @@
             libcef.string_clear(&ptr->locales_dir_path);
             libcef.string_clear(&ptr->accept_language_list);
             libcef.string_clear(&ptr->cookieable_schemes_list);
+            libcef.string_clear(&ptr->chrome_policy_id);
         }
 
         internal static void Free(cef_settings_t* ptr)

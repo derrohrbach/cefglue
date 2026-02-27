@@ -10,53 +10,53 @@ namespace Xilium.CefGlue.Interop
     
     [StructLayout(LayoutKind.Sequential, Pack = libcef.ALIGN)]
     [SuppressMessage("Microsoft.Design", "CA1049:TypesThatOwnNativeResourcesShouldBeDisposable")]
-    internal unsafe struct cef_get_extension_resource_callback_t
+    internal unsafe struct cef_unresponsive_process_callback_t
     {
         internal cef_base_ref_counted_t _base;
-        internal IntPtr _cont;
-        internal IntPtr _cancel;
+        internal IntPtr _wait;
+        internal IntPtr _terminate;
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate void add_ref_delegate(cef_get_extension_resource_callback_t* self);
+        private delegate void add_ref_delegate(cef_unresponsive_process_callback_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int release_delegate(cef_get_extension_resource_callback_t* self);
+        private delegate int release_delegate(cef_unresponsive_process_callback_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int has_one_ref_delegate(cef_get_extension_resource_callback_t* self);
+        private delegate int has_one_ref_delegate(cef_unresponsive_process_callback_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int has_at_least_one_ref_delegate(cef_get_extension_resource_callback_t* self);
+        private delegate int has_at_least_one_ref_delegate(cef_unresponsive_process_callback_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate void cont_delegate(cef_get_extension_resource_callback_t* self, cef_stream_reader_t* stream);
+        private delegate void wait_delegate(cef_unresponsive_process_callback_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate void cancel_delegate(cef_get_extension_resource_callback_t* self);
+        private delegate void terminate_delegate(cef_unresponsive_process_callback_t* self);
         
         // AddRef
         private static IntPtr _p0;
         private static add_ref_delegate _d0;
         
-        public static void add_ref(cef_get_extension_resource_callback_t* self)
+        public static void add_ref(cef_unresponsive_process_callback_t* self)
         {
             add_ref_delegate d;
             var p = self->_base._add_ref;
@@ -73,7 +73,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p1;
         private static release_delegate _d1;
         
-        public static int release(cef_get_extension_resource_callback_t* self)
+        public static int release(cef_unresponsive_process_callback_t* self)
         {
             release_delegate d;
             var p = self->_base._release;
@@ -90,7 +90,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p2;
         private static has_one_ref_delegate _d2;
         
-        public static int has_one_ref(cef_get_extension_resource_callback_t* self)
+        public static int has_one_ref(cef_unresponsive_process_callback_t* self)
         {
             has_one_ref_delegate d;
             var p = self->_base._has_one_ref;
@@ -107,7 +107,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p3;
         private static has_at_least_one_ref_delegate _d3;
         
-        public static int has_at_least_one_ref(cef_get_extension_resource_callback_t* self)
+        public static int has_at_least_one_ref(cef_unresponsive_process_callback_t* self)
         {
             has_at_least_one_ref_delegate d;
             var p = self->_base._has_at_least_one_ref;
@@ -120,35 +120,35 @@ namespace Xilium.CefGlue.Interop
             return d(self);
         }
         
-        // Continue
+        // Wait
         private static IntPtr _p4;
-        private static cont_delegate _d4;
+        private static wait_delegate _d4;
         
-        public static void cont(cef_get_extension_resource_callback_t* self, cef_stream_reader_t* stream)
+        public static void wait(cef_unresponsive_process_callback_t* self)
         {
-            cont_delegate d;
-            var p = self->_cont;
+            wait_delegate d;
+            var p = self->_wait;
             if (p == _p4) { d = _d4; }
             else
             {
-                d = (cont_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(cont_delegate));
+                d = (wait_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(wait_delegate));
                 if (_p4 == IntPtr.Zero) { _d4 = d; _p4 = p; }
             }
-            d(self, stream);
+            d(self);
         }
         
-        // Cancel
+        // Terminate
         private static IntPtr _p5;
-        private static cancel_delegate _d5;
+        private static terminate_delegate _d5;
         
-        public static void cancel(cef_get_extension_resource_callback_t* self)
+        public static void terminate(cef_unresponsive_process_callback_t* self)
         {
-            cancel_delegate d;
-            var p = self->_cancel;
+            terminate_delegate d;
+            var p = self->_terminate;
             if (p == _p5) { d = _d5; }
             else
             {
-                d = (cancel_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(cancel_delegate));
+                d = (terminate_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(terminate_delegate));
                 if (_p5 == IntPtr.Zero) { _d5 = d; _p5 = p; }
             }
             d(self);

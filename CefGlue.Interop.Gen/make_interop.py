@@ -793,7 +793,7 @@ def append_xmldoc(result, lines):
     return
 
 
-def make_version_cs(content, api_hash_content):
+def make_version_cs(content, api_hash_content, api_versions_content=None):
     result = []
 
     result.append('public const string CEF_VERSION = %s;' % __get_version_constant(content, "CEF_VERSION"))
@@ -808,11 +808,24 @@ def make_version_cs(content, api_hash_content):
     result.append('public const int CHROME_VERSION_PATCH = %s;' % __get_version_constant(content, "CHROME_VERSION_PATCH"))
     result.append("");
 
-    result.append('public const string CEF_API_HASH_UNIVERSAL = %s;' % __get_version_constant(api_hash_content, "CEF_API_HASH_UNIVERSAL"))
+    # CEF 145+ uses versioned API hashes in cef_api_versions.h
+    # Use experimental version (999999) hashes as default platform hashes
+    hash_content = api_versions_content if api_versions_content else api_hash_content
+    try:
+        result.append('public const string CEF_API_HASH_UNIVERSAL = %s;' % __get_version_constant(api_hash_content, "CEF_API_HASH_UNIVERSAL"))
+    except Exception:
+        # CEF 145+: no universal hash, use experimental platform hash instead
+        result.append('public const string CEF_API_HASH_UNIVERSAL = %s;' % __get_version_constant(hash_content, "CEF_API_HASH_999999", "WIN"))
     result.append("");
-    result.append('public const string CEF_API_HASH_PLATFORM_WIN = %s;' % __get_version_constant(api_hash_content, "CEF_API_HASH_PLATFORM", "WIN"))
-    result.append('public const string CEF_API_HASH_PLATFORM_MACOS = %s;' % __get_version_constant(api_hash_content, "CEF_API_HASH_PLATFORM", "MAC"))
-    result.append('public const string CEF_API_HASH_PLATFORM_LINUX = %s;' % __get_version_constant(api_hash_content, "CEF_API_HASH_PLATFORM", "LINUX"))
+    try:
+        result.append('public const string CEF_API_HASH_PLATFORM_WIN = %s;' % __get_version_constant(api_hash_content, "CEF_API_HASH_PLATFORM", "WIN"))
+        result.append('public const string CEF_API_HASH_PLATFORM_MACOS = %s;' % __get_version_constant(api_hash_content, "CEF_API_HASH_PLATFORM", "MAC"))
+        result.append('public const string CEF_API_HASH_PLATFORM_LINUX = %s;' % __get_version_constant(api_hash_content, "CEF_API_HASH_PLATFORM", "LINUX"))
+    except Exception:
+        # CEF 145+: use versioned hashes from cef_api_versions.h
+        result.append('public const string CEF_API_HASH_PLATFORM_WIN = %s;' % __get_version_constant(hash_content, "CEF_API_HASH_999999", "WIN"))
+        result.append('public const string CEF_API_HASH_PLATFORM_MACOS = %s;' % __get_version_constant(hash_content, "CEF_API_HASH_999999", "MAC"))
+        result.append('public const string CEF_API_HASH_PLATFORM_LINUX = %s;' % __get_version_constant(hash_content, "CEF_API_HASH_999999", "LINUX"))
 
     body = []
     body.append('using System;')
@@ -894,8 +907,10 @@ def write_interop(header, filepath, backup, schema_name, cppheaderdir):
             tmplpath = schema.proxy_tmpl_path
         writect += update_file(None, './' + tmplpath, schema.cpp2csname(cls.get_name()) + ".tmpl.g.cs", content, backup)
 
-    # process cef_version.h and cef_api_hash.h
-    content = make_version_cs(read_file(cppheaderdir + '/' + 'cef_version.h'), read_file(cppheaderdir + '/' + 'cef_api_hash.h'),)
+    # process cef_version.h, cef_api_hash.h and cef_api_versions.h
+    api_versions_file = cppheaderdir + '/' + 'cef_api_versions.h'
+    api_versions_content = read_file(api_versions_file) if os.path.exists(api_versions_file) else None
+    content = make_version_cs(read_file(cppheaderdir + '/' + 'cef_version.h'), read_file(cppheaderdir + '/' + 'cef_api_hash.h'), api_versions_content)
     writect += update_file(project_props_compile_items, filepath + '/' + schema.libcef_path, schema.libcef_version_filename, content, backup)
 
     # make project props file
