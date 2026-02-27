@@ -237,5 +237,58 @@
         /// </summary>
         protected virtual void OnMediaAccessChange(CefBrowser browser, bool hasVideoAccess, bool hasAudioAccess)
         { }
+
+
+        private int on_contents_bounds_change(cef_display_handler_t* self, cef_browser_t* browser, cef_rect_t* new_bounds)
+        {
+            CheckSelf(self);
+
+            var mBrowser = CefBrowser.FromNative(browser);
+            var mNewBounds = new CefRectangle(new_bounds->x, new_bounds->y, new_bounds->width, new_bounds->height);
+
+            return OnContentsBoundsChange(mBrowser, mNewBounds) ? 1 : 0;
+        }
+
+        /// <summary>
+        /// Called when the content bounds (position and size excluding browser chrome)
+        /// of the browser are changed. |new_bounds| will be in DIP screen coordinates
+        /// and may be 0 if not available. Return true if the bounds change was handled
+        /// or false for default handling.
+        /// </summary>
+        protected virtual bool OnContentsBoundsChange(CefBrowser browser, CefRectangle newBounds)
+        {
+            return false;
+        }
+
+
+        private int get_root_window_screen_rect(cef_display_handler_t* self, cef_browser_t* browser, cef_rect_t* rect)
+        {
+            CheckSelf(self);
+
+            var mBrowser = CefBrowser.FromNative(browser);
+            var mRect = new CefRectangle(rect->x, rect->y, rect->width, rect->height);
+
+            if (GetRootWindowScreenRect(mBrowser, ref mRect))
+            {
+                rect->x = mRect.X;
+                rect->y = mRect.Y;
+                rect->width = mRect.Width;
+                rect->height = mRect.Height;
+                return 1;
+            }
+
+            return 0;
+        }
+
+        /// <summary>
+        /// Called when the root window (non-popup browser or CefBrowserView top-level
+        /// window) screen rect is available or has changed. |rect| will be in DIP
+        /// screen coordinates and may be 0 if not available. Return true if the rect
+        /// was handled or false for default handling.
+        /// </summary>
+        protected virtual bool GetRootWindowScreenRect(CefBrowser browser, ref CefRectangle rect)
+        {
+            return false;
+        }
     }
 }

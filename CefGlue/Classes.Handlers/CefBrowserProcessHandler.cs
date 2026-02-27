@@ -164,5 +164,22 @@
         /// with the chrome runtime.
         /// </summary>
         protected virtual CefClient GetDefaultClient() => null;
+
+
+        private cef_request_context_handler_t* get_default_request_context_handler(cef_browser_process_handler_t* self)
+        {
+            CheckSelf(self);
+
+            var m_handler = GetDefaultRequestContextHandler();
+
+            return m_handler != null ? m_handler.ToNative() : null;
+        }
+
+        /// <summary>
+        /// Return the default request context handler for use with a newly created
+        /// browser window. If null is returned the default request context will be
+        /// used. This method is currently only used with the chrome runtime.
+        /// </summary>
+        protected virtual CefRequestContextHandler GetDefaultRequestContextHandler() => null;
     }
 }

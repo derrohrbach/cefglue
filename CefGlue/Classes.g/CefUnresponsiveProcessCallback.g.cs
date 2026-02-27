@@ -10,28 +10,28 @@ namespace Xilium.CefGlue
     using Xilium.CefGlue.Interop;
     
     // Role: PROXY
-    public sealed unsafe partial class CefGetExtensionResourceCallback : IDisposable
+    public sealed unsafe partial class CefUnresponsiveProcessCallback : IDisposable
     {
-        internal static CefGetExtensionResourceCallback FromNative(cef_get_extension_resource_callback_t* ptr)
+        internal static CefUnresponsiveProcessCallback FromNative(cef_unresponsive_process_callback_t* ptr)
         {
-            return new CefGetExtensionResourceCallback(ptr);
+            return new CefUnresponsiveProcessCallback(ptr);
         }
         
-        internal static CefGetExtensionResourceCallback FromNativeOrNull(cef_get_extension_resource_callback_t* ptr)
+        internal static CefUnresponsiveProcessCallback FromNativeOrNull(cef_unresponsive_process_callback_t* ptr)
         {
             if (ptr == null) return null;
-            return new CefGetExtensionResourceCallback(ptr);
+            return new CefUnresponsiveProcessCallback(ptr);
         }
         
-        private cef_get_extension_resource_callback_t* _self;
+        private cef_unresponsive_process_callback_t* _self;
         
-        private CefGetExtensionResourceCallback(cef_get_extension_resource_callback_t* ptr)
+        private CefUnresponsiveProcessCallback(cef_unresponsive_process_callback_t* ptr)
         {
             if (ptr == null) throw new ArgumentNullException("ptr");
             _self = ptr;
         }
         
-        ~CefGetExtensionResourceCallback()
+        ~CefUnresponsiveProcessCallback()
         {
             if (_self != null)
             {
@@ -52,25 +52,25 @@ namespace Xilium.CefGlue
         
         internal void AddRef()
         {
-            cef_get_extension_resource_callback_t.add_ref(_self);
+            cef_unresponsive_process_callback_t.add_ref(_self);
         }
         
         internal bool Release()
         {
-            return cef_get_extension_resource_callback_t.release(_self) != 0;
+            return cef_unresponsive_process_callback_t.release(_self) != 0;
         }
         
         internal bool HasOneRef
         {
-            get { return cef_get_extension_resource_callback_t.has_one_ref(_self) != 0; }
+            get { return cef_unresponsive_process_callback_t.has_one_ref(_self) != 0; }
         }
         
         internal bool HasAtLeastOneRef
         {
-            get { return cef_get_extension_resource_callback_t.has_at_least_one_ref(_self) != 0; }
+            get { return cef_unresponsive_process_callback_t.has_at_least_one_ref(_self) != 0; }
         }
         
-        internal cef_get_extension_resource_callback_t* ToNative()
+        internal cef_unresponsive_process_callback_t* ToNative()
         {
             AddRef();
             return _self;

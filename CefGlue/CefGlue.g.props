@@ -34,14 +34,11 @@
         <Compile Include="Classes.g\CefDragData.g.cs"/>
         <Compile Include="Classes.g\CefDragHandler.g.cs"/>
         <Compile Include="Classes.g\CefEndTracingCallback.g.cs"/>
-        <Compile Include="Classes.g\CefExtension.g.cs"/>
-        <Compile Include="Classes.g\CefExtensionHandler.g.cs"/>
         <Compile Include="Classes.g\CefFileDialogCallback.g.cs"/>
         <Compile Include="Classes.g\CefFindHandler.g.cs"/>
         <Compile Include="Classes.g\CefFocusHandler.g.cs"/>
         <Compile Include="Classes.g\CefFrame.g.cs"/>
         <Compile Include="Classes.g\CefFrameHandler.g.cs"/>
-        <Compile Include="Classes.g\CefGetExtensionResourceCallback.g.cs"/>
         <Compile Include="Classes.g\CefImage.g.cs"/>
         <Compile Include="Classes.g\CefJSDialogCallback.g.cs"/>
         <Compile Include="Classes.g\CefJSDialogHandler.g.cs"/>
@@ -67,6 +64,7 @@
         <Compile Include="Classes.g\CefPostData.g.cs"/>
         <Compile Include="Classes.g\CefPostDataElement.g.cs"/>
         <Compile Include="Classes.g\CefPreferenceManager.g.cs"/>
+        <Compile Include="Classes.g\CefPreferenceObserver.g.cs"/>
         <Compile Include="Classes.g\CefPreferenceRegistrar.g.cs"/>
         <Compile Include="Classes.g\CefPrintDialogCallback.g.cs"/>
         <Compile Include="Classes.g\CefPrintHandler.g.cs"/>
@@ -99,6 +97,7 @@
         <Compile Include="Classes.g\CefServer.g.cs"/>
         <Compile Include="Classes.g\CefServerHandler.g.cs"/>
         <Compile Include="Classes.g\CefSetCookieCallback.g.cs"/>
+        <Compile Include="Classes.g\CefSettingObserver.g.cs"/>
         <Compile Include="Classes.g\CefSharedMemoryRegion.g.cs"/>
         <Compile Include="Classes.g\CefSharedProcessMessageBuilder.g.cs"/>
         <Compile Include="Classes.g\CefSslInfo.g.cs"/>
@@ -107,7 +106,9 @@
         <Compile Include="Classes.g\CefStreamWriter.g.cs"/>
         <Compile Include="Classes.g\CefStringVisitor.g.cs"/>
         <Compile Include="Classes.g\CefTask.g.cs"/>
+        <Compile Include="Classes.g\CefTaskManager.g.cs"/>
         <Compile Include="Classes.g\CefTaskRunner.g.cs"/>
+        <Compile Include="Classes.g\CefUnresponsiveProcessCallback.g.cs"/>
         <Compile Include="Classes.g\CefUrlRequest.g.cs"/>
         <Compile Include="Classes.g\CefUrlRequestClient.g.cs"/>
         <Compile Include="Classes.g\CefUserData.g.cs"/>
@@ -160,14 +161,11 @@
         <Compile Include="Interop\Classes.g\cef_drag_data_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_drag_handler_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_end_tracing_callback_t.g.cs"/>
-        <Compile Include="Interop\Classes.g\cef_extension_handler_t.g.cs"/>
-        <Compile Include="Interop\Classes.g\cef_extension_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_file_dialog_callback_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_find_handler_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_focus_handler_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_frame_handler_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_frame_t.g.cs"/>
-        <Compile Include="Interop\Classes.g\cef_get_extension_resource_callback_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_image_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_jsdialog_callback_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_jsdialog_handler_t.g.cs"/>
@@ -193,6 +191,7 @@
         <Compile Include="Interop\Classes.g\cef_post_data_element_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_post_data_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_preference_manager_t.g.cs"/>
+        <Compile Include="Interop\Classes.g\cef_preference_observer_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_preference_registrar_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_print_dialog_callback_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_print_handler_t.g.cs"/>
@@ -225,6 +224,7 @@
         <Compile Include="Interop\Classes.g\cef_server_handler_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_server_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_set_cookie_callback_t.g.cs"/>
+        <Compile Include="Interop\Classes.g\cef_setting_observer_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_shared_memory_region_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_shared_process_message_builder_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_sslinfo_t.g.cs"/>
@@ -232,8 +232,10 @@
         <Compile Include="Interop\Classes.g\cef_stream_reader_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_stream_writer_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_string_visitor_t.g.cs"/>
+        <Compile Include="Interop\Classes.g\cef_task_manager_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_task_runner_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_task_t.g.cs"/>
+        <Compile Include="Interop\Classes.g\cef_unresponsive_process_callback_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_urlrequest_client_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_urlrequest_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_user_data_t.g.cs"/>

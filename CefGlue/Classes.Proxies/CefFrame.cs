@@ -186,12 +186,16 @@
         }
 
         /// <summary>
-        /// Returns the globally unique identifier for this frame or &lt; 0 if the
+        /// Returns the globally unique identifier for this frame or empty if the
         /// underlying frame does not yet exist.
         /// </summary>
-        public long Identifier
+        public string Identifier
         {
-            get { return cef_frame_t.get_identifier(_self); }
+            get
+            {
+                var n_result = cef_frame_t.get_identifier(_self);
+                return cef_string_userfree.ToString(n_result);
+            }
         }
 
         /// <summary>

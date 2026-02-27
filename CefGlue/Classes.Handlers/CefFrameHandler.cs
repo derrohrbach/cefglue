@@ -134,6 +134,27 @@
         { }
 
 
+        private void on_frame_destroyed(cef_frame_handler_t* self, cef_browser_t* browser, cef_frame_t* frame)
+        {
+            CheckSelf(self);
+
+            var mBrowser = CefBrowser.FromNative(browser);
+            var mFrame = CefFrame.FromNative(frame);
+            OnFrameDestroyed(mBrowser, mFrame);
+        }
+
+        /// <summary>
+        /// Called when a frame's backing (RenderFrame) has been destroyed. This will
+        /// be called after OnFrameDetached for the same |frame|. Any pending or
+        /// future commands will be discarded. CefFrame::IsValid() will now return
+        /// false for |frame|. If called after CefLifeSpanHandler::OnBeforeClose()
+        /// during browser destruction then CefBrowser::IsValid() will return false
+        /// for |browser|.
+        /// </summary>
+        protected virtual void OnFrameDestroyed(CefBrowser browser, CefFrame frame)
+        { }
+
+
         private void on_main_frame_changed(cef_frame_handler_t* self, cef_browser_t* browser, cef_frame_t* old_frame, cef_frame_t* new_frame)
         {
             CheckSelf(self);

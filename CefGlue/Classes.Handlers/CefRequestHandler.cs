@@ -244,21 +244,66 @@
         }
 
 
-        private void on_render_process_terminated(cef_request_handler_t* self, cef_browser_t* browser, CefTerminationStatus status)
+        private void on_render_process_terminated(cef_request_handler_t* self, cef_browser_t* browser, CefTerminationStatus status, int error_code, cef_string_t* error_string)
         {
             CheckSelf(self);
 
             var m_browser = CefBrowser.FromNative(browser);
+            var m_errorString = cef_string_t.ToString(error_string);
 
-            OnRenderProcessTerminated(m_browser, status);
+            OnRenderProcessTerminated(m_browser, status, error_code, m_errorString);
         }
 
         /// <summary>
         /// Called on the browser process UI thread when the render process
         /// terminates unexpectedly. |status| indicates how the process
-        /// terminated.
+        /// terminated. |error_code| and |error_string| represent the error that
+        /// caused the termination, if known.
         /// </summary>
-        protected virtual void OnRenderProcessTerminated(CefBrowser browser, CefTerminationStatus status)
+        protected virtual void OnRenderProcessTerminated(CefBrowser browser, CefTerminationStatus status, int errorCode, string errorString)
+        {
+        }
+
+
+        private int on_render_process_unresponsive(cef_request_handler_t* self, cef_browser_t* browser, cef_unresponsive_process_callback_t* callback)
+        {
+            CheckSelf(self);
+
+            var m_browser = CefBrowser.FromNative(browser);
+            var m_callback = CefUnresponsiveProcessCallback.FromNative(callback);
+
+            return OnRenderProcessUnresponsive(m_browser, m_callback) ? 1 : 0;
+        }
+
+        /// <summary>
+        /// Called on the browser process UI thread when the render process is
+        /// detected to be unresponsive. Call CefUnresponsiveProcessCallback::Wait
+        /// either in this method or at a later time to reset the timeout for the
+        /// unresponsive process. Call CefUnresponsiveProcessCallback::Terminate
+        /// either in this method or at a later time to terminate the unresponsive
+        /// process. Return true if the unresponsive state was handled or false for
+        /// default handling.
+        /// </summary>
+        protected virtual bool OnRenderProcessUnresponsive(CefBrowser browser, CefUnresponsiveProcessCallback callback)
+        {
+            return false;
+        }
+
+
+        private void on_render_process_responsive(cef_request_handler_t* self, cef_browser_t* browser)
+        {
+            CheckSelf(self);
+
+            var m_browser = CefBrowser.FromNative(browser);
+
+            OnRenderProcessResponsive(m_browser);
+        }
+
+        /// <summary>
+        /// Called on the browser process UI thread when the render process becomes
+        /// responsive after being detected as unresponsive.
+        /// </summary>
+        protected virtual void OnRenderProcessResponsive(CefBrowser browser)
         {
         }
 
