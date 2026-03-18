@@ -16,6 +16,8 @@
 
         protected override void OnRenderProcessTerminated(CefBrowser browser, CefTerminationStatus status, int errorCode, string errorString)
         {
+            var coreBrowser = _core.Browser;
+            if (coreBrowser == null || !browser.IsSame(coreBrowser)) return;
             _core.InvokeIfRequired(() => _core.OnRenderProcessTerminated(new RenderProcessTerminatedEventArgs(status)));
         }
     }

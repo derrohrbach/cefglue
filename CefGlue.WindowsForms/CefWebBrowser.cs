@@ -54,7 +54,7 @@
 		internal void InvokeIfRequired(Action a)
 		{
 			if (InvokeRequired)
-				Invoke(a);
+				BeginInvoke(a);
 			else
 				a();
 		}

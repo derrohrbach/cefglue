@@ -10,7 +10,7 @@ namespace Xilium.CefGlue.Interop
     
     [StructLayout(LayoutKind.Sequential, Pack = libcef.ALIGN)]
     [SuppressMessage("Microsoft.Design", "CA1049:TypesThatOwnNativeResourcesShouldBeDisposable")]
-    internal unsafe struct cef_v8stack_trace_t
+    internal unsafe struct cef_v8_stack_trace_t
     {
         internal cef_base_ref_counted_t _base;
         internal IntPtr _is_valid;
@@ -18,56 +18,56 @@ namespace Xilium.CefGlue.Interop
         internal IntPtr _get_frame;
         
         // GetCurrent
-        [DllImport(libcef.DllName, EntryPoint = "cef_v8stack_trace_get_current", CallingConvention = libcef.CEF_CALL)]
-        public static extern cef_v8stack_trace_t* get_current(int frame_limit);
+        [DllImport(libcef.DllName, EntryPoint = "cef_v8_stack_trace_get_current", CallingConvention = libcef.CEF_CALL)]
+        public static extern cef_v8_stack_trace_t* get_current(int frame_limit);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate void add_ref_delegate(cef_v8stack_trace_t* self);
+        private delegate void add_ref_delegate(cef_v8_stack_trace_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int release_delegate(cef_v8stack_trace_t* self);
+        private delegate int release_delegate(cef_v8_stack_trace_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int has_one_ref_delegate(cef_v8stack_trace_t* self);
+        private delegate int has_one_ref_delegate(cef_v8_stack_trace_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int has_at_least_one_ref_delegate(cef_v8stack_trace_t* self);
+        private delegate int has_at_least_one_ref_delegate(cef_v8_stack_trace_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int is_valid_delegate(cef_v8stack_trace_t* self);
+        private delegate int is_valid_delegate(cef_v8_stack_trace_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int get_frame_count_delegate(cef_v8stack_trace_t* self);
+        private delegate int get_frame_count_delegate(cef_v8_stack_trace_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate cef_v8stack_frame_t* get_frame_delegate(cef_v8stack_trace_t* self, int index);
+        private delegate cef_v8_stack_frame_t* get_frame_delegate(cef_v8_stack_trace_t* self, int index);
         
         // AddRef
         private static IntPtr _p0;
         private static add_ref_delegate _d0;
         
-        public static void add_ref(cef_v8stack_trace_t* self)
+        public static void add_ref(cef_v8_stack_trace_t* self)
         {
             add_ref_delegate d;
             var p = self->_base._add_ref;
@@ -84,7 +84,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p1;
         private static release_delegate _d1;
         
-        public static int release(cef_v8stack_trace_t* self)
+        public static int release(cef_v8_stack_trace_t* self)
         {
             release_delegate d;
             var p = self->_base._release;
@@ -101,7 +101,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p2;
         private static has_one_ref_delegate _d2;
         
-        public static int has_one_ref(cef_v8stack_trace_t* self)
+        public static int has_one_ref(cef_v8_stack_trace_t* self)
         {
             has_one_ref_delegate d;
             var p = self->_base._has_one_ref;
@@ -118,7 +118,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p3;
         private static has_at_least_one_ref_delegate _d3;
         
-        public static int has_at_least_one_ref(cef_v8stack_trace_t* self)
+        public static int has_at_least_one_ref(cef_v8_stack_trace_t* self)
         {
             has_at_least_one_ref_delegate d;
             var p = self->_base._has_at_least_one_ref;
@@ -135,7 +135,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p4;
         private static is_valid_delegate _d4;
         
-        public static int is_valid(cef_v8stack_trace_t* self)
+        public static int is_valid(cef_v8_stack_trace_t* self)
         {
             is_valid_delegate d;
             var p = self->_is_valid;
@@ -152,7 +152,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p5;
         private static get_frame_count_delegate _d5;
         
-        public static int get_frame_count(cef_v8stack_trace_t* self)
+        public static int get_frame_count(cef_v8_stack_trace_t* self)
         {
             get_frame_count_delegate d;
             var p = self->_get_frame_count;
@@ -169,7 +169,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p6;
         private static get_frame_delegate _d6;
         
-        public static cef_v8stack_frame_t* get_frame(cef_v8stack_trace_t* self, int index)
+        public static cef_v8_stack_frame_t* get_frame(cef_v8_stack_trace_t* self, int index)
         {
             get_frame_delegate d;
             var p = self->_get_frame;

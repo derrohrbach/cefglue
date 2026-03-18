@@ -9,23 +9,33 @@
 			_core = core;
 		}
 
+		private bool IsMainBrowser(CefBrowser browser)
+		{
+			var coreBrowser = _core.Browser;
+			return coreBrowser != null && browser.IsSame(coreBrowser);
+		}
+
 		protected override void OnLoadEnd(CefBrowser browser, CefFrame frame, int httpStatusCode)
 		{
+			if (!IsMainBrowser(browser)) return;
 			_core.InvokeIfRequired(() => _core.OnLoadEnd(new LoadEndEventArgs(frame, httpStatusCode)));
 		}
 
 		protected override void OnLoadError(CefBrowser browser, CefFrame frame, CefErrorCode errorCode, string errorText, string failedUrl)
 		{
+			if (!IsMainBrowser(browser)) return;
 			_core.InvokeIfRequired(() => _core.OnLoadError(new LoadErrorEventArgs(frame, errorCode, errorText, failedUrl)));
 		}
 
 		protected override void OnLoadStart(CefBrowser browser, CefFrame frame, CefTransitionType transitionType)
 		{
+			if (!IsMainBrowser(browser)) return;
 			_core.InvokeIfRequired(() => _core.OnLoadStart(new LoadStartEventArgs(frame)));
 		}
 
         protected override void OnLoadingStateChange(CefBrowser browser, bool isLoading, bool canGoBack, bool canGoForward)
         {
+            if (!IsMainBrowser(browser)) return;
             _core.InvokeIfRequired(() => _core.OnLoadingStateChange(new LoadingStateChangeEventArgs(isLoading, canGoBack, canGoForward)));
         }
     }

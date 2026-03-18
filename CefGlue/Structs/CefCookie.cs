@@ -76,19 +76,19 @@
         internal static CefCookie FromNative(cef_cookie_t* ptr)
         {
             return new CefCookie
-                {
-                    Name = cef_string_t.ToString(&ptr->name),
-                    Value = cef_string_t.ToString(&ptr->value),
-                    Domain = cef_string_t.ToString(&ptr->domain),
-                    Path = cef_string_t.ToString(&ptr->path),
-                    Secure = ptr->secure != 0,
-                    HttpOnly = ptr->httponly != 0,
-                    Creation = ptr->creation,
-                    LastAccess = ptr->last_access,
-                    Expires = ptr->has_expires != 0 ? ptr->expires : null,
-                    SameSite = ptr->same_site,
-                    Priority = ptr->priority,
-                };
+            {
+                Name = cef_string_t.ToString(&ptr->name),
+                Value = cef_string_t.ToString(&ptr->value),
+                Domain = cef_string_t.ToString(&ptr->domain),
+                Path = cef_string_t.ToString(&ptr->path),
+                Secure = ptr->secure != 0,
+                HttpOnly = ptr->httponly != 0,
+                Creation = ptr->creation,
+                LastAccess = ptr->last_access,
+                Expires = ptr->has_expires != 0 ? ptr->expires : null,
+                SameSite = ptr->same_site,
+                Priority = ptr->priority,
+            };
         }
 
         internal cef_cookie_t* ToNative()

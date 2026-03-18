@@ -18,5 +18,6 @@ namespace Xilium.CefGlue.Interop
         public int number_of_processors;
         public long memory;
         public long gpu_memory;
+        public int is_gpu_memory_inflated;
     }
 }

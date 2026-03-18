@@ -19,9 +19,6 @@ namespace Xilium.CefGlue.Interop
         public const int CHROME_VERSION_BUILD = 7632;
         public const int CHROME_VERSION_PATCH = 117;
         
-        // CEF API version. Using experimental (unversioned) API by default.
-        public const int CEF_API_VERSION = 999999;
-        
         public const string CEF_API_HASH_UNIVERSAL = "d48f9c16e47566bb41436e734d87f481a297fad9";
         
         public const string CEF_API_HASH_PLATFORM_WIN = "d48f9c16e47566bb41436e734d87f481a297fad9";

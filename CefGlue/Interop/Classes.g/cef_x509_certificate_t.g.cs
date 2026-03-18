@@ -10,7 +10,7 @@ namespace Xilium.CefGlue.Interop
     
     [StructLayout(LayoutKind.Sequential, Pack = libcef.ALIGN)]
     [SuppressMessage("Microsoft.Design", "CA1049:TypesThatOwnNativeResourcesShouldBeDisposable")]
-    internal unsafe struct cef_x509certificate_t
+    internal unsafe struct cef_x509_certificate_t
     {
         internal cef_base_ref_counted_t _base;
         internal IntPtr _get_subject;
@@ -28,91 +28,91 @@ namespace Xilium.CefGlue.Interop
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate void add_ref_delegate(cef_x509certificate_t* self);
+        private delegate void add_ref_delegate(cef_x509_certificate_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int release_delegate(cef_x509certificate_t* self);
+        private delegate int release_delegate(cef_x509_certificate_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int has_one_ref_delegate(cef_x509certificate_t* self);
+        private delegate int has_one_ref_delegate(cef_x509_certificate_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int has_at_least_one_ref_delegate(cef_x509certificate_t* self);
+        private delegate int has_at_least_one_ref_delegate(cef_x509_certificate_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate cef_x509cert_principal_t* get_subject_delegate(cef_x509certificate_t* self);
+        private delegate cef_x509_cert_principal_t* get_subject_delegate(cef_x509_certificate_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate cef_x509cert_principal_t* get_issuer_delegate(cef_x509certificate_t* self);
+        private delegate cef_x509_cert_principal_t* get_issuer_delegate(cef_x509_certificate_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate cef_binary_value_t* get_serial_number_delegate(cef_x509certificate_t* self);
+        private delegate cef_binary_value_t* get_serial_number_delegate(cef_x509_certificate_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate CefBaseTime get_valid_start_delegate(cef_x509certificate_t* self);
+        private delegate CefBaseTime get_valid_start_delegate(cef_x509_certificate_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate CefBaseTime get_valid_expiry_delegate(cef_x509certificate_t* self);
+        private delegate CefBaseTime get_valid_expiry_delegate(cef_x509_certificate_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate cef_binary_value_t* get_derencoded_delegate(cef_x509certificate_t* self);
+        private delegate cef_binary_value_t* get_derencoded_delegate(cef_x509_certificate_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate cef_binary_value_t* get_pemencoded_delegate(cef_x509certificate_t* self);
+        private delegate cef_binary_value_t* get_pemencoded_delegate(cef_x509_certificate_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate UIntPtr get_issuer_chain_size_delegate(cef_x509certificate_t* self);
+        private delegate UIntPtr get_issuer_chain_size_delegate(cef_x509_certificate_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate void get_derencoded_issuer_chain_delegate(cef_x509certificate_t* self, UIntPtr* chainCount, cef_binary_value_t** chain);
+        private delegate void get_derencoded_issuer_chain_delegate(cef_x509_certificate_t* self, UIntPtr* chainCount, cef_binary_value_t** chain);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate void get_pemencoded_issuer_chain_delegate(cef_x509certificate_t* self, UIntPtr* chainCount, cef_binary_value_t** chain);
+        private delegate void get_pemencoded_issuer_chain_delegate(cef_x509_certificate_t* self, UIntPtr* chainCount, cef_binary_value_t** chain);
         
         // AddRef
         private static IntPtr _p0;
         private static add_ref_delegate _d0;
         
-        public static void add_ref(cef_x509certificate_t* self)
+        public static void add_ref(cef_x509_certificate_t* self)
         {
             add_ref_delegate d;
             var p = self->_base._add_ref;
@@ -129,7 +129,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p1;
         private static release_delegate _d1;
         
-        public static int release(cef_x509certificate_t* self)
+        public static int release(cef_x509_certificate_t* self)
         {
             release_delegate d;
             var p = self->_base._release;
@@ -146,7 +146,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p2;
         private static has_one_ref_delegate _d2;
         
-        public static int has_one_ref(cef_x509certificate_t* self)
+        public static int has_one_ref(cef_x509_certificate_t* self)
         {
             has_one_ref_delegate d;
             var p = self->_base._has_one_ref;
@@ -163,7 +163,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p3;
         private static has_at_least_one_ref_delegate _d3;
         
-        public static int has_at_least_one_ref(cef_x509certificate_t* self)
+        public static int has_at_least_one_ref(cef_x509_certificate_t* self)
         {
             has_at_least_one_ref_delegate d;
             var p = self->_base._has_at_least_one_ref;
@@ -180,7 +180,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p4;
         private static get_subject_delegate _d4;
         
-        public static cef_x509cert_principal_t* get_subject(cef_x509certificate_t* self)
+        public static cef_x509_cert_principal_t* get_subject(cef_x509_certificate_t* self)
         {
             get_subject_delegate d;
             var p = self->_get_subject;
@@ -197,7 +197,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p5;
         private static get_issuer_delegate _d5;
         
-        public static cef_x509cert_principal_t* get_issuer(cef_x509certificate_t* self)
+        public static cef_x509_cert_principal_t* get_issuer(cef_x509_certificate_t* self)
         {
             get_issuer_delegate d;
             var p = self->_get_issuer;
@@ -214,7 +214,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p6;
         private static get_serial_number_delegate _d6;
         
-        public static cef_binary_value_t* get_serial_number(cef_x509certificate_t* self)
+        public static cef_binary_value_t* get_serial_number(cef_x509_certificate_t* self)
         {
             get_serial_number_delegate d;
             var p = self->_get_serial_number;
@@ -231,7 +231,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p7;
         private static get_valid_start_delegate _d7;
         
-        public static CefBaseTime get_valid_start(cef_x509certificate_t* self)
+        public static CefBaseTime get_valid_start(cef_x509_certificate_t* self)
         {
             get_valid_start_delegate d;
             var p = self->_get_valid_start;
@@ -248,7 +248,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p8;
         private static get_valid_expiry_delegate _d8;
         
-        public static CefBaseTime get_valid_expiry(cef_x509certificate_t* self)
+        public static CefBaseTime get_valid_expiry(cef_x509_certificate_t* self)
         {
             get_valid_expiry_delegate d;
             var p = self->_get_valid_expiry;
@@ -265,7 +265,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p9;
         private static get_derencoded_delegate _d9;
         
-        public static cef_binary_value_t* get_derencoded(cef_x509certificate_t* self)
+        public static cef_binary_value_t* get_derencoded(cef_x509_certificate_t* self)
         {
             get_derencoded_delegate d;
             var p = self->_get_derencoded;
@@ -282,7 +282,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _pa;
         private static get_pemencoded_delegate _da;
         
-        public static cef_binary_value_t* get_pemencoded(cef_x509certificate_t* self)
+        public static cef_binary_value_t* get_pemencoded(cef_x509_certificate_t* self)
         {
             get_pemencoded_delegate d;
             var p = self->_get_pemencoded;
@@ -299,7 +299,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _pb;
         private static get_issuer_chain_size_delegate _db;
         
-        public static UIntPtr get_issuer_chain_size(cef_x509certificate_t* self)
+        public static UIntPtr get_issuer_chain_size(cef_x509_certificate_t* self)
         {
             get_issuer_chain_size_delegate d;
             var p = self->_get_issuer_chain_size;
@@ -316,7 +316,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _pc;
         private static get_derencoded_issuer_chain_delegate _dc;
         
-        public static void get_derencoded_issuer_chain(cef_x509certificate_t* self, UIntPtr* chainCount, cef_binary_value_t** chain)
+        public static void get_derencoded_issuer_chain(cef_x509_certificate_t* self, UIntPtr* chainCount, cef_binary_value_t** chain)
         {
             get_derencoded_issuer_chain_delegate d;
             var p = self->_get_derencoded_issuer_chain;
@@ -333,7 +333,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _pd;
         private static get_pemencoded_issuer_chain_delegate _dd;
         
-        public static void get_pemencoded_issuer_chain(cef_x509certificate_t* self, UIntPtr* chainCount, cef_binary_value_t** chain)
+        public static void get_pemencoded_issuer_chain(cef_x509_certificate_t* self, UIntPtr* chainCount, cef_binary_value_t** chain)
         {
             get_pemencoded_issuer_chain_delegate d;
             var p = self->_get_pemencoded_issuer_chain;

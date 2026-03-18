@@ -10,95 +10,114 @@ namespace Xilium.CefGlue.Interop
     
     [StructLayout(LayoutKind.Sequential, Pack = libcef.ALIGN)]
     [SuppressMessage("Microsoft.Design", "CA1049:TypesThatOwnNativeResourcesShouldBeDisposable")]
-    internal unsafe struct cef_v8exception_t
+    internal unsafe struct cef_v8_context_t
     {
         internal cef_base_ref_counted_t _base;
-        internal IntPtr _get_message;
-        internal IntPtr _get_source_line;
-        internal IntPtr _get_script_resource_name;
-        internal IntPtr _get_line_number;
-        internal IntPtr _get_start_position;
-        internal IntPtr _get_end_position;
-        internal IntPtr _get_start_column;
-        internal IntPtr _get_end_column;
+        internal IntPtr _get_task_runner;
+        internal IntPtr _is_valid;
+        internal IntPtr _get_browser;
+        internal IntPtr _get_frame;
+        internal IntPtr _get_global;
+        internal IntPtr _enter;
+        internal IntPtr _exit;
+        internal IntPtr _is_same;
+        internal IntPtr _eval;
+        
+        // GetCurrentContext
+        [DllImport(libcef.DllName, EntryPoint = "cef_v8_context_get_current_context", CallingConvention = libcef.CEF_CALL)]
+        public static extern cef_v8_context_t* get_current_context();
+        
+        // GetEnteredContext
+        [DllImport(libcef.DllName, EntryPoint = "cef_v8_context_get_entered_context", CallingConvention = libcef.CEF_CALL)]
+        public static extern cef_v8_context_t* get_entered_context();
+        
+        // InContext
+        [DllImport(libcef.DllName, EntryPoint = "cef_v8_context_in_context", CallingConvention = libcef.CEF_CALL)]
+        public static extern int in_context();
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate void add_ref_delegate(cef_v8exception_t* self);
+        private delegate void add_ref_delegate(cef_v8_context_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int release_delegate(cef_v8exception_t* self);
+        private delegate int release_delegate(cef_v8_context_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int has_one_ref_delegate(cef_v8exception_t* self);
+        private delegate int has_one_ref_delegate(cef_v8_context_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int has_at_least_one_ref_delegate(cef_v8exception_t* self);
+        private delegate int has_at_least_one_ref_delegate(cef_v8_context_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate cef_string_userfree* get_message_delegate(cef_v8exception_t* self);
+        private delegate cef_task_runner_t* get_task_runner_delegate(cef_v8_context_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate cef_string_userfree* get_source_line_delegate(cef_v8exception_t* self);
+        private delegate int is_valid_delegate(cef_v8_context_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate cef_string_userfree* get_script_resource_name_delegate(cef_v8exception_t* self);
+        private delegate cef_browser_t* get_browser_delegate(cef_v8_context_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int get_line_number_delegate(cef_v8exception_t* self);
+        private delegate cef_frame_t* get_frame_delegate(cef_v8_context_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int get_start_position_delegate(cef_v8exception_t* self);
+        private delegate cef_v8_value_t* get_global_delegate(cef_v8_context_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int get_end_position_delegate(cef_v8exception_t* self);
+        private delegate int enter_delegate(cef_v8_context_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int get_start_column_delegate(cef_v8exception_t* self);
+        private delegate int exit_delegate(cef_v8_context_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int get_end_column_delegate(cef_v8exception_t* self);
+        private delegate int is_same_delegate(cef_v8_context_t* self, cef_v8_context_t* that);
+        
+        [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
+        #if !DEBUG
+        [SuppressUnmanagedCodeSecurity]
+        #endif
+        private delegate int eval_delegate(cef_v8_context_t* self, cef_string_t* code, cef_string_t* script_url, int start_line, cef_v8_value_t** retval, cef_v8_exception_t** exception);
         
         // AddRef
         private static IntPtr _p0;
         private static add_ref_delegate _d0;
         
-        public static void add_ref(cef_v8exception_t* self)
+        public static void add_ref(cef_v8_context_t* self)
         {
             add_ref_delegate d;
             var p = self->_base._add_ref;
@@ -115,7 +134,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p1;
         private static release_delegate _d1;
         
-        public static int release(cef_v8exception_t* self)
+        public static int release(cef_v8_context_t* self)
         {
             release_delegate d;
             var p = self->_base._release;
@@ -132,7 +151,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p2;
         private static has_one_ref_delegate _d2;
         
-        public static int has_one_ref(cef_v8exception_t* self)
+        public static int has_one_ref(cef_v8_context_t* self)
         {
             has_one_ref_delegate d;
             var p = self->_base._has_one_ref;
@@ -149,7 +168,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p3;
         private static has_at_least_one_ref_delegate _d3;
         
-        public static int has_at_least_one_ref(cef_v8exception_t* self)
+        public static int has_at_least_one_ref(cef_v8_context_t* self)
         {
             has_at_least_one_ref_delegate d;
             var p = self->_base._has_at_least_one_ref;
@@ -162,140 +181,157 @@ namespace Xilium.CefGlue.Interop
             return d(self);
         }
         
-        // GetMessage
+        // GetTaskRunner
         private static IntPtr _p4;
-        private static get_message_delegate _d4;
+        private static get_task_runner_delegate _d4;
         
-        public static cef_string_userfree* get_message(cef_v8exception_t* self)
+        public static cef_task_runner_t* get_task_runner(cef_v8_context_t* self)
         {
-            get_message_delegate d;
-            var p = self->_get_message;
+            get_task_runner_delegate d;
+            var p = self->_get_task_runner;
             if (p == _p4) { d = _d4; }
             else
             {
-                d = (get_message_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(get_message_delegate));
+                d = (get_task_runner_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(get_task_runner_delegate));
                 if (_p4 == IntPtr.Zero) { _d4 = d; _p4 = p; }
             }
             return d(self);
         }
         
-        // GetSourceLine
+        // IsValid
         private static IntPtr _p5;
-        private static get_source_line_delegate _d5;
+        private static is_valid_delegate _d5;
         
-        public static cef_string_userfree* get_source_line(cef_v8exception_t* self)
+        public static int is_valid(cef_v8_context_t* self)
         {
-            get_source_line_delegate d;
-            var p = self->_get_source_line;
+            is_valid_delegate d;
+            var p = self->_is_valid;
             if (p == _p5) { d = _d5; }
             else
             {
-                d = (get_source_line_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(get_source_line_delegate));
+                d = (is_valid_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(is_valid_delegate));
                 if (_p5 == IntPtr.Zero) { _d5 = d; _p5 = p; }
             }
             return d(self);
         }
         
-        // GetScriptResourceName
+        // GetBrowser
         private static IntPtr _p6;
-        private static get_script_resource_name_delegate _d6;
+        private static get_browser_delegate _d6;
         
-        public static cef_string_userfree* get_script_resource_name(cef_v8exception_t* self)
+        public static cef_browser_t* get_browser(cef_v8_context_t* self)
         {
-            get_script_resource_name_delegate d;
-            var p = self->_get_script_resource_name;
+            get_browser_delegate d;
+            var p = self->_get_browser;
             if (p == _p6) { d = _d6; }
             else
             {
-                d = (get_script_resource_name_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(get_script_resource_name_delegate));
+                d = (get_browser_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(get_browser_delegate));
                 if (_p6 == IntPtr.Zero) { _d6 = d; _p6 = p; }
             }
             return d(self);
         }
         
-        // GetLineNumber
+        // GetFrame
         private static IntPtr _p7;
-        private static get_line_number_delegate _d7;
+        private static get_frame_delegate _d7;
         
-        public static int get_line_number(cef_v8exception_t* self)
+        public static cef_frame_t* get_frame(cef_v8_context_t* self)
         {
-            get_line_number_delegate d;
-            var p = self->_get_line_number;
+            get_frame_delegate d;
+            var p = self->_get_frame;
             if (p == _p7) { d = _d7; }
             else
             {
-                d = (get_line_number_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(get_line_number_delegate));
+                d = (get_frame_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(get_frame_delegate));
                 if (_p7 == IntPtr.Zero) { _d7 = d; _p7 = p; }
             }
             return d(self);
         }
         
-        // GetStartPosition
+        // GetGlobal
         private static IntPtr _p8;
-        private static get_start_position_delegate _d8;
+        private static get_global_delegate _d8;
         
-        public static int get_start_position(cef_v8exception_t* self)
+        public static cef_v8_value_t* get_global(cef_v8_context_t* self)
         {
-            get_start_position_delegate d;
-            var p = self->_get_start_position;
+            get_global_delegate d;
+            var p = self->_get_global;
             if (p == _p8) { d = _d8; }
             else
             {
-                d = (get_start_position_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(get_start_position_delegate));
+                d = (get_global_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(get_global_delegate));
                 if (_p8 == IntPtr.Zero) { _d8 = d; _p8 = p; }
             }
             return d(self);
         }
         
-        // GetEndPosition
+        // Enter
         private static IntPtr _p9;
-        private static get_end_position_delegate _d9;
+        private static enter_delegate _d9;
         
-        public static int get_end_position(cef_v8exception_t* self)
+        public static int enter(cef_v8_context_t* self)
         {
-            get_end_position_delegate d;
-            var p = self->_get_end_position;
+            enter_delegate d;
+            var p = self->_enter;
             if (p == _p9) { d = _d9; }
             else
             {
-                d = (get_end_position_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(get_end_position_delegate));
+                d = (enter_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(enter_delegate));
                 if (_p9 == IntPtr.Zero) { _d9 = d; _p9 = p; }
             }
             return d(self);
         }
         
-        // GetStartColumn
+        // Exit
         private static IntPtr _pa;
-        private static get_start_column_delegate _da;
+        private static exit_delegate _da;
         
-        public static int get_start_column(cef_v8exception_t* self)
+        public static int exit(cef_v8_context_t* self)
         {
-            get_start_column_delegate d;
-            var p = self->_get_start_column;
+            exit_delegate d;
+            var p = self->_exit;
             if (p == _pa) { d = _da; }
             else
             {
-                d = (get_start_column_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(get_start_column_delegate));
+                d = (exit_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(exit_delegate));
                 if (_pa == IntPtr.Zero) { _da = d; _pa = p; }
             }
             return d(self);
         }
         
-        // GetEndColumn
+        // IsSame
         private static IntPtr _pb;
-        private static get_end_column_delegate _db;
+        private static is_same_delegate _db;
         
-        public static int get_end_column(cef_v8exception_t* self)
+        public static int is_same(cef_v8_context_t* self, cef_v8_context_t* that)
         {
-            get_end_column_delegate d;
-            var p = self->_get_end_column;
+            is_same_delegate d;
+            var p = self->_is_same;
             if (p == _pb) { d = _db; }
             else
             {
-                d = (get_end_column_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(get_end_column_delegate));
+                d = (is_same_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(is_same_delegate));
                 if (_pb == IntPtr.Zero) { _db = d; _pb = p; }
             }
-            return d(self);
+            return d(self, that);
+        }
+        
+        // Eval
+        private static IntPtr _pc;
+        private static eval_delegate _dc;
+        
+        public static int eval(cef_v8_context_t* self, cef_string_t* code, cef_string_t* script_url, int start_line, cef_v8_value_t** retval, cef_v8_exception_t** exception)
+        {
+            eval_delegate d;
+            var p = self->_eval;
+            if (p == _pc) { d = _dc; }
+            else
+            {
+                d = (eval_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(eval_delegate));
+                if (_pc == IntPtr.Zero) { _dc = d; _pc = p; }
+            }
+            return d(self, code, script_url, start_line, retval, exception);
         }
         
     }

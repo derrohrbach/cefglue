@@ -137,7 +137,7 @@
             string actual;
             try
             {
-                var n_actual = libcef.api_hash(libcef.CEF_API_VERSION, 0);
+                var n_actual = libcef.api_hash(999999, 0);
                 actual = n_actual != null ? new string(n_actual) : null;
             }
             catch (EntryPointNotFoundException ex)
@@ -645,7 +645,7 @@
         /// </summary>
         public static unsafe string Base64Encode(void* data, int size)
         {
-            var n_result = libcef.base64encode(data, (UIntPtr)size);
+            var n_result = libcef.base64_encode(data, (UIntPtr)size);
             return cef_string_userfree.ToString(n_result);
         }
 
@@ -673,7 +673,7 @@
             fixed (char* data_str = data)
             {
                 var n_data = new cef_string_t(data_str, data != null ? data.Length : 0);
-                return CefBinaryValue.FromNative(libcef.base64decode(&n_data));
+                return CefBinaryValue.FromNative(libcef.base64_decode(&n_data));
             }
         }
 

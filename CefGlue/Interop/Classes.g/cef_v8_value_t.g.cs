@@ -10,7 +10,7 @@ namespace Xilium.CefGlue.Interop
     
     [StructLayout(LayoutKind.Sequential, Pack = libcef.ALIGN)]
     [SuppressMessage("Microsoft.Design", "CA1049:TypesThatOwnNativeResourcesShouldBeDisposable")]
-    internal unsafe struct cef_v8value_t
+    internal unsafe struct cef_v8_value_t
     {
         internal cef_base_ref_counted_t _base;
         internal IntPtr _is_valid;
@@ -67,402 +67,402 @@ namespace Xilium.CefGlue.Interop
         internal IntPtr _reject_promise;
         
         // CreateUndefined
-        [DllImport(libcef.DllName, EntryPoint = "cef_v8value_create_undefined", CallingConvention = libcef.CEF_CALL)]
-        public static extern cef_v8value_t* create_undefined();
+        [DllImport(libcef.DllName, EntryPoint = "cef_v8_value_create_undefined", CallingConvention = libcef.CEF_CALL)]
+        public static extern cef_v8_value_t* create_undefined();
         
         // CreateNull
-        [DllImport(libcef.DllName, EntryPoint = "cef_v8value_create_null", CallingConvention = libcef.CEF_CALL)]
-        public static extern cef_v8value_t* create_null();
+        [DllImport(libcef.DllName, EntryPoint = "cef_v8_value_create_null", CallingConvention = libcef.CEF_CALL)]
+        public static extern cef_v8_value_t* create_null();
         
         // CreateBool
-        [DllImport(libcef.DllName, EntryPoint = "cef_v8value_create_bool", CallingConvention = libcef.CEF_CALL)]
-        public static extern cef_v8value_t* create_bool(int value);
+        [DllImport(libcef.DllName, EntryPoint = "cef_v8_value_create_bool", CallingConvention = libcef.CEF_CALL)]
+        public static extern cef_v8_value_t* create_bool(int value);
         
         // CreateInt
-        [DllImport(libcef.DllName, EntryPoint = "cef_v8value_create_int", CallingConvention = libcef.CEF_CALL)]
-        public static extern cef_v8value_t* create_int(int value);
+        [DllImport(libcef.DllName, EntryPoint = "cef_v8_value_create_int", CallingConvention = libcef.CEF_CALL)]
+        public static extern cef_v8_value_t* create_int(int value);
         
         // CreateUInt
-        [DllImport(libcef.DllName, EntryPoint = "cef_v8value_create_uint", CallingConvention = libcef.CEF_CALL)]
-        public static extern cef_v8value_t* create_uint(uint value);
+        [DllImport(libcef.DllName, EntryPoint = "cef_v8_value_create_uint", CallingConvention = libcef.CEF_CALL)]
+        public static extern cef_v8_value_t* create_uint(uint value);
         
         // CreateDouble
-        [DllImport(libcef.DllName, EntryPoint = "cef_v8value_create_double", CallingConvention = libcef.CEF_CALL)]
-        public static extern cef_v8value_t* create_double(double value);
+        [DllImport(libcef.DllName, EntryPoint = "cef_v8_value_create_double", CallingConvention = libcef.CEF_CALL)]
+        public static extern cef_v8_value_t* create_double(double value);
         
         // CreateDate
-        [DllImport(libcef.DllName, EntryPoint = "cef_v8value_create_date", CallingConvention = libcef.CEF_CALL)]
-        public static extern cef_v8value_t* create_date(CefBaseTime date);
+        [DllImport(libcef.DllName, EntryPoint = "cef_v8_value_create_date", CallingConvention = libcef.CEF_CALL)]
+        public static extern cef_v8_value_t* create_date(CefBaseTime date);
         
         // CreateString
-        [DllImport(libcef.DllName, EntryPoint = "cef_v8value_create_string", CallingConvention = libcef.CEF_CALL)]
-        public static extern cef_v8value_t* create_string(cef_string_t* value);
+        [DllImport(libcef.DllName, EntryPoint = "cef_v8_value_create_string", CallingConvention = libcef.CEF_CALL)]
+        public static extern cef_v8_value_t* create_string(cef_string_t* value);
         
         // CreateObject
-        [DllImport(libcef.DllName, EntryPoint = "cef_v8value_create_object", CallingConvention = libcef.CEF_CALL)]
-        public static extern cef_v8value_t* create_object(cef_v8accessor_t* accessor, cef_v8interceptor_t* interceptor);
+        [DllImport(libcef.DllName, EntryPoint = "cef_v8_value_create_object", CallingConvention = libcef.CEF_CALL)]
+        public static extern cef_v8_value_t* create_object(cef_v8_accessor_t* accessor, cef_v8_interceptor_t* interceptor);
         
         // CreateArray
-        [DllImport(libcef.DllName, EntryPoint = "cef_v8value_create_array", CallingConvention = libcef.CEF_CALL)]
-        public static extern cef_v8value_t* create_array(int length);
+        [DllImport(libcef.DllName, EntryPoint = "cef_v8_value_create_array", CallingConvention = libcef.CEF_CALL)]
+        public static extern cef_v8_value_t* create_array(int length);
         
         // CreateArrayBuffer
-        [DllImport(libcef.DllName, EntryPoint = "cef_v8value_create_array_buffer", CallingConvention = libcef.CEF_CALL)]
-        public static extern cef_v8value_t* create_array_buffer(void* buffer, UIntPtr length, cef_v8array_buffer_release_callback_t* release_callback);
+        [DllImport(libcef.DllName, EntryPoint = "cef_v8_value_create_array_buffer", CallingConvention = libcef.CEF_CALL)]
+        public static extern cef_v8_value_t* create_array_buffer(void* buffer, UIntPtr length, cef_v8_array_buffer_release_callback_t* release_callback);
         
         // CreateArrayBufferWithCopy
-        [DllImport(libcef.DllName, EntryPoint = "cef_v8value_create_array_buffer_with_copy", CallingConvention = libcef.CEF_CALL)]
-        public static extern cef_v8value_t* create_array_buffer_with_copy(void* buffer, UIntPtr length);
+        [DllImport(libcef.DllName, EntryPoint = "cef_v8_value_create_array_buffer_with_copy", CallingConvention = libcef.CEF_CALL)]
+        public static extern cef_v8_value_t* create_array_buffer_with_copy(void* buffer, UIntPtr length);
         
         // CreateFunction
-        [DllImport(libcef.DllName, EntryPoint = "cef_v8value_create_function", CallingConvention = libcef.CEF_CALL)]
-        public static extern cef_v8value_t* create_function(cef_string_t* name, cef_v8handler_t* handler);
+        [DllImport(libcef.DllName, EntryPoint = "cef_v8_value_create_function", CallingConvention = libcef.CEF_CALL)]
+        public static extern cef_v8_value_t* create_function(cef_string_t* name, cef_v8_handler_t* handler);
         
         // CreatePromise
-        [DllImport(libcef.DllName, EntryPoint = "cef_v8value_create_promise", CallingConvention = libcef.CEF_CALL)]
-        public static extern cef_v8value_t* create_promise();
+        [DllImport(libcef.DllName, EntryPoint = "cef_v8_value_create_promise", CallingConvention = libcef.CEF_CALL)]
+        public static extern cef_v8_value_t* create_promise();
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate void add_ref_delegate(cef_v8value_t* self);
+        private delegate void add_ref_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int release_delegate(cef_v8value_t* self);
+        private delegate int release_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int has_one_ref_delegate(cef_v8value_t* self);
+        private delegate int has_one_ref_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int has_at_least_one_ref_delegate(cef_v8value_t* self);
+        private delegate int has_at_least_one_ref_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int is_valid_delegate(cef_v8value_t* self);
+        private delegate int is_valid_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int is_undefined_delegate(cef_v8value_t* self);
+        private delegate int is_undefined_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int is_null_delegate(cef_v8value_t* self);
+        private delegate int is_null_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int is_bool_delegate(cef_v8value_t* self);
+        private delegate int is_bool_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int is_int_delegate(cef_v8value_t* self);
+        private delegate int is_int_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int is_uint_delegate(cef_v8value_t* self);
+        private delegate int is_uint_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int is_double_delegate(cef_v8value_t* self);
+        private delegate int is_double_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int is_date_delegate(cef_v8value_t* self);
+        private delegate int is_date_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int is_string_delegate(cef_v8value_t* self);
+        private delegate int is_string_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int is_object_delegate(cef_v8value_t* self);
+        private delegate int is_object_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int is_array_delegate(cef_v8value_t* self);
+        private delegate int is_array_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int is_array_buffer_delegate(cef_v8value_t* self);
+        private delegate int is_array_buffer_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int is_function_delegate(cef_v8value_t* self);
+        private delegate int is_function_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int is_promise_delegate(cef_v8value_t* self);
+        private delegate int is_promise_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int is_same_delegate(cef_v8value_t* self, cef_v8value_t* that);
+        private delegate int is_same_delegate(cef_v8_value_t* self, cef_v8_value_t* that);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int get_bool_value_delegate(cef_v8value_t* self);
+        private delegate int get_bool_value_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int get_int_value_delegate(cef_v8value_t* self);
+        private delegate int get_int_value_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate uint get_uint_value_delegate(cef_v8value_t* self);
+        private delegate uint get_uint_value_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate double get_double_value_delegate(cef_v8value_t* self);
+        private delegate double get_double_value_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate CefBaseTime get_date_value_delegate(cef_v8value_t* self);
+        private delegate CefBaseTime get_date_value_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate cef_string_userfree* get_string_value_delegate(cef_v8value_t* self);
+        private delegate cef_string_userfree* get_string_value_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int is_user_created_delegate(cef_v8value_t* self);
+        private delegate int is_user_created_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int has_exception_delegate(cef_v8value_t* self);
+        private delegate int has_exception_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate cef_v8exception_t* get_exception_delegate(cef_v8value_t* self);
+        private delegate cef_v8_exception_t* get_exception_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int clear_exception_delegate(cef_v8value_t* self);
+        private delegate int clear_exception_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int will_rethrow_exceptions_delegate(cef_v8value_t* self);
+        private delegate int will_rethrow_exceptions_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int set_rethrow_exceptions_delegate(cef_v8value_t* self, int rethrow);
+        private delegate int set_rethrow_exceptions_delegate(cef_v8_value_t* self, int rethrow);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int has_value_bykey_delegate(cef_v8value_t* self, cef_string_t* key);
+        private delegate int has_value_bykey_delegate(cef_v8_value_t* self, cef_string_t* key);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int has_value_byindex_delegate(cef_v8value_t* self, int index);
+        private delegate int has_value_byindex_delegate(cef_v8_value_t* self, int index);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int delete_value_bykey_delegate(cef_v8value_t* self, cef_string_t* key);
+        private delegate int delete_value_bykey_delegate(cef_v8_value_t* self, cef_string_t* key);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int delete_value_byindex_delegate(cef_v8value_t* self, int index);
+        private delegate int delete_value_byindex_delegate(cef_v8_value_t* self, int index);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate cef_v8value_t* get_value_bykey_delegate(cef_v8value_t* self, cef_string_t* key);
+        private delegate cef_v8_value_t* get_value_bykey_delegate(cef_v8_value_t* self, cef_string_t* key);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate cef_v8value_t* get_value_byindex_delegate(cef_v8value_t* self, int index);
+        private delegate cef_v8_value_t* get_value_byindex_delegate(cef_v8_value_t* self, int index);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int set_value_bykey_delegate(cef_v8value_t* self, cef_string_t* key, cef_v8value_t* value, CefV8PropertyAttribute attribute);
+        private delegate int set_value_bykey_delegate(cef_v8_value_t* self, cef_string_t* key, cef_v8_value_t* value, CefV8PropertyAttribute attribute);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int set_value_byindex_delegate(cef_v8value_t* self, int index, cef_v8value_t* value);
+        private delegate int set_value_byindex_delegate(cef_v8_value_t* self, int index, cef_v8_value_t* value);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int set_value_byaccessor_delegate(cef_v8value_t* self, cef_string_t* key, CefV8PropertyAttribute attribute);
+        private delegate int set_value_byaccessor_delegate(cef_v8_value_t* self, cef_string_t* key, CefV8PropertyAttribute attribute);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int get_keys_delegate(cef_v8value_t* self, cef_string_list* keys);
+        private delegate int get_keys_delegate(cef_v8_value_t* self, cef_string_list* keys);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int set_user_data_delegate(cef_v8value_t* self, cef_base_ref_counted_t* user_data);
+        private delegate int set_user_data_delegate(cef_v8_value_t* self, cef_base_ref_counted_t* user_data);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate cef_base_ref_counted_t* get_user_data_delegate(cef_v8value_t* self);
+        private delegate cef_base_ref_counted_t* get_user_data_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int get_externally_allocated_memory_delegate(cef_v8value_t* self);
+        private delegate int get_externally_allocated_memory_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int adjust_externally_allocated_memory_delegate(cef_v8value_t* self, int change_in_bytes);
+        private delegate int adjust_externally_allocated_memory_delegate(cef_v8_value_t* self, int change_in_bytes);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int get_array_length_delegate(cef_v8value_t* self);
+        private delegate int get_array_length_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate cef_v8array_buffer_release_callback_t* get_array_buffer_release_callback_delegate(cef_v8value_t* self);
+        private delegate cef_v8_array_buffer_release_callback_t* get_array_buffer_release_callback_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int neuter_array_buffer_delegate(cef_v8value_t* self);
+        private delegate int neuter_array_buffer_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate UIntPtr get_array_buffer_byte_length_delegate(cef_v8value_t* self);
+        private delegate UIntPtr get_array_buffer_byte_length_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate void* get_array_buffer_data_delegate(cef_v8value_t* self);
+        private delegate void* get_array_buffer_data_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate cef_string_userfree* get_function_name_delegate(cef_v8value_t* self);
+        private delegate cef_string_userfree* get_function_name_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate cef_v8handler_t* get_function_handler_delegate(cef_v8value_t* self);
+        private delegate cef_v8_handler_t* get_function_handler_delegate(cef_v8_value_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate cef_v8value_t* execute_function_delegate(cef_v8value_t* self, cef_v8value_t* @object, UIntPtr argumentsCount, cef_v8value_t** arguments);
+        private delegate cef_v8_value_t* execute_function_delegate(cef_v8_value_t* self, cef_v8_value_t* @object, UIntPtr argumentsCount, cef_v8_value_t** arguments);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate cef_v8value_t* execute_function_with_context_delegate(cef_v8value_t* self, cef_v8context_t* context, cef_v8value_t* @object, UIntPtr argumentsCount, cef_v8value_t** arguments);
+        private delegate cef_v8_value_t* execute_function_with_context_delegate(cef_v8_value_t* self, cef_v8_context_t* context, cef_v8_value_t* @object, UIntPtr argumentsCount, cef_v8_value_t** arguments);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int resolve_promise_delegate(cef_v8value_t* self, cef_v8value_t* arg);
+        private delegate int resolve_promise_delegate(cef_v8_value_t* self, cef_v8_value_t* arg);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate int reject_promise_delegate(cef_v8value_t* self, cef_string_t* errorMsg);
+        private delegate int reject_promise_delegate(cef_v8_value_t* self, cef_string_t* errorMsg);
         
         // AddRef
         private static IntPtr _p0;
         private static add_ref_delegate _d0;
         
-        public static void add_ref(cef_v8value_t* self)
+        public static void add_ref(cef_v8_value_t* self)
         {
             add_ref_delegate d;
             var p = self->_base._add_ref;
@@ -479,7 +479,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p1;
         private static release_delegate _d1;
         
-        public static int release(cef_v8value_t* self)
+        public static int release(cef_v8_value_t* self)
         {
             release_delegate d;
             var p = self->_base._release;
@@ -496,7 +496,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p2;
         private static has_one_ref_delegate _d2;
         
-        public static int has_one_ref(cef_v8value_t* self)
+        public static int has_one_ref(cef_v8_value_t* self)
         {
             has_one_ref_delegate d;
             var p = self->_base._has_one_ref;
@@ -513,7 +513,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p3;
         private static has_at_least_one_ref_delegate _d3;
         
-        public static int has_at_least_one_ref(cef_v8value_t* self)
+        public static int has_at_least_one_ref(cef_v8_value_t* self)
         {
             has_at_least_one_ref_delegate d;
             var p = self->_base._has_at_least_one_ref;
@@ -530,7 +530,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p4;
         private static is_valid_delegate _d4;
         
-        public static int is_valid(cef_v8value_t* self)
+        public static int is_valid(cef_v8_value_t* self)
         {
             is_valid_delegate d;
             var p = self->_is_valid;
@@ -547,7 +547,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p5;
         private static is_undefined_delegate _d5;
         
-        public static int is_undefined(cef_v8value_t* self)
+        public static int is_undefined(cef_v8_value_t* self)
         {
             is_undefined_delegate d;
             var p = self->_is_undefined;
@@ -564,7 +564,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p6;
         private static is_null_delegate _d6;
         
-        public static int is_null(cef_v8value_t* self)
+        public static int is_null(cef_v8_value_t* self)
         {
             is_null_delegate d;
             var p = self->_is_null;
@@ -581,7 +581,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p7;
         private static is_bool_delegate _d7;
         
-        public static int is_bool(cef_v8value_t* self)
+        public static int is_bool(cef_v8_value_t* self)
         {
             is_bool_delegate d;
             var p = self->_is_bool;
@@ -598,7 +598,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p8;
         private static is_int_delegate _d8;
         
-        public static int is_int(cef_v8value_t* self)
+        public static int is_int(cef_v8_value_t* self)
         {
             is_int_delegate d;
             var p = self->_is_int;
@@ -615,7 +615,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p9;
         private static is_uint_delegate _d9;
         
-        public static int is_uint(cef_v8value_t* self)
+        public static int is_uint(cef_v8_value_t* self)
         {
             is_uint_delegate d;
             var p = self->_is_uint;
@@ -632,7 +632,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _pa;
         private static is_double_delegate _da;
         
-        public static int is_double(cef_v8value_t* self)
+        public static int is_double(cef_v8_value_t* self)
         {
             is_double_delegate d;
             var p = self->_is_double;
@@ -649,7 +649,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _pb;
         private static is_date_delegate _db;
         
-        public static int is_date(cef_v8value_t* self)
+        public static int is_date(cef_v8_value_t* self)
         {
             is_date_delegate d;
             var p = self->_is_date;
@@ -666,7 +666,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _pc;
         private static is_string_delegate _dc;
         
-        public static int is_string(cef_v8value_t* self)
+        public static int is_string(cef_v8_value_t* self)
         {
             is_string_delegate d;
             var p = self->_is_string;
@@ -683,7 +683,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _pd;
         private static is_object_delegate _dd;
         
-        public static int is_object(cef_v8value_t* self)
+        public static int is_object(cef_v8_value_t* self)
         {
             is_object_delegate d;
             var p = self->_is_object;
@@ -700,7 +700,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _pe;
         private static is_array_delegate _de;
         
-        public static int is_array(cef_v8value_t* self)
+        public static int is_array(cef_v8_value_t* self)
         {
             is_array_delegate d;
             var p = self->_is_array;
@@ -717,7 +717,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _pf;
         private static is_array_buffer_delegate _df;
         
-        public static int is_array_buffer(cef_v8value_t* self)
+        public static int is_array_buffer(cef_v8_value_t* self)
         {
             is_array_buffer_delegate d;
             var p = self->_is_array_buffer;
@@ -734,7 +734,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p10;
         private static is_function_delegate _d10;
         
-        public static int is_function(cef_v8value_t* self)
+        public static int is_function(cef_v8_value_t* self)
         {
             is_function_delegate d;
             var p = self->_is_function;
@@ -751,7 +751,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p11;
         private static is_promise_delegate _d11;
         
-        public static int is_promise(cef_v8value_t* self)
+        public static int is_promise(cef_v8_value_t* self)
         {
             is_promise_delegate d;
             var p = self->_is_promise;
@@ -768,7 +768,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p12;
         private static is_same_delegate _d12;
         
-        public static int is_same(cef_v8value_t* self, cef_v8value_t* that)
+        public static int is_same(cef_v8_value_t* self, cef_v8_value_t* that)
         {
             is_same_delegate d;
             var p = self->_is_same;
@@ -785,7 +785,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p13;
         private static get_bool_value_delegate _d13;
         
-        public static int get_bool_value(cef_v8value_t* self)
+        public static int get_bool_value(cef_v8_value_t* self)
         {
             get_bool_value_delegate d;
             var p = self->_get_bool_value;
@@ -802,7 +802,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p14;
         private static get_int_value_delegate _d14;
         
-        public static int get_int_value(cef_v8value_t* self)
+        public static int get_int_value(cef_v8_value_t* self)
         {
             get_int_value_delegate d;
             var p = self->_get_int_value;
@@ -819,7 +819,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p15;
         private static get_uint_value_delegate _d15;
         
-        public static uint get_uint_value(cef_v8value_t* self)
+        public static uint get_uint_value(cef_v8_value_t* self)
         {
             get_uint_value_delegate d;
             var p = self->_get_uint_value;
@@ -836,7 +836,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p16;
         private static get_double_value_delegate _d16;
         
-        public static double get_double_value(cef_v8value_t* self)
+        public static double get_double_value(cef_v8_value_t* self)
         {
             get_double_value_delegate d;
             var p = self->_get_double_value;
@@ -853,7 +853,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p17;
         private static get_date_value_delegate _d17;
         
-        public static CefBaseTime get_date_value(cef_v8value_t* self)
+        public static CefBaseTime get_date_value(cef_v8_value_t* self)
         {
             get_date_value_delegate d;
             var p = self->_get_date_value;
@@ -870,7 +870,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p18;
         private static get_string_value_delegate _d18;
         
-        public static cef_string_userfree* get_string_value(cef_v8value_t* self)
+        public static cef_string_userfree* get_string_value(cef_v8_value_t* self)
         {
             get_string_value_delegate d;
             var p = self->_get_string_value;
@@ -887,7 +887,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p19;
         private static is_user_created_delegate _d19;
         
-        public static int is_user_created(cef_v8value_t* self)
+        public static int is_user_created(cef_v8_value_t* self)
         {
             is_user_created_delegate d;
             var p = self->_is_user_created;
@@ -904,7 +904,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p1a;
         private static has_exception_delegate _d1a;
         
-        public static int has_exception(cef_v8value_t* self)
+        public static int has_exception(cef_v8_value_t* self)
         {
             has_exception_delegate d;
             var p = self->_has_exception;
@@ -921,7 +921,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p1b;
         private static get_exception_delegate _d1b;
         
-        public static cef_v8exception_t* get_exception(cef_v8value_t* self)
+        public static cef_v8_exception_t* get_exception(cef_v8_value_t* self)
         {
             get_exception_delegate d;
             var p = self->_get_exception;
@@ -938,7 +938,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p1c;
         private static clear_exception_delegate _d1c;
         
-        public static int clear_exception(cef_v8value_t* self)
+        public static int clear_exception(cef_v8_value_t* self)
         {
             clear_exception_delegate d;
             var p = self->_clear_exception;
@@ -955,7 +955,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p1d;
         private static will_rethrow_exceptions_delegate _d1d;
         
-        public static int will_rethrow_exceptions(cef_v8value_t* self)
+        public static int will_rethrow_exceptions(cef_v8_value_t* self)
         {
             will_rethrow_exceptions_delegate d;
             var p = self->_will_rethrow_exceptions;
@@ -972,7 +972,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p1e;
         private static set_rethrow_exceptions_delegate _d1e;
         
-        public static int set_rethrow_exceptions(cef_v8value_t* self, int rethrow)
+        public static int set_rethrow_exceptions(cef_v8_value_t* self, int rethrow)
         {
             set_rethrow_exceptions_delegate d;
             var p = self->_set_rethrow_exceptions;
@@ -989,7 +989,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p1f;
         private static has_value_bykey_delegate _d1f;
         
-        public static int has_value_bykey(cef_v8value_t* self, cef_string_t* key)
+        public static int has_value_bykey(cef_v8_value_t* self, cef_string_t* key)
         {
             has_value_bykey_delegate d;
             var p = self->_has_value_bykey;
@@ -1006,7 +1006,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p20;
         private static has_value_byindex_delegate _d20;
         
-        public static int has_value_byindex(cef_v8value_t* self, int index)
+        public static int has_value_byindex(cef_v8_value_t* self, int index)
         {
             has_value_byindex_delegate d;
             var p = self->_has_value_byindex;
@@ -1023,7 +1023,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p21;
         private static delete_value_bykey_delegate _d21;
         
-        public static int delete_value_bykey(cef_v8value_t* self, cef_string_t* key)
+        public static int delete_value_bykey(cef_v8_value_t* self, cef_string_t* key)
         {
             delete_value_bykey_delegate d;
             var p = self->_delete_value_bykey;
@@ -1040,7 +1040,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p22;
         private static delete_value_byindex_delegate _d22;
         
-        public static int delete_value_byindex(cef_v8value_t* self, int index)
+        public static int delete_value_byindex(cef_v8_value_t* self, int index)
         {
             delete_value_byindex_delegate d;
             var p = self->_delete_value_byindex;
@@ -1057,7 +1057,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p23;
         private static get_value_bykey_delegate _d23;
         
-        public static cef_v8value_t* get_value_bykey(cef_v8value_t* self, cef_string_t* key)
+        public static cef_v8_value_t* get_value_bykey(cef_v8_value_t* self, cef_string_t* key)
         {
             get_value_bykey_delegate d;
             var p = self->_get_value_bykey;
@@ -1074,7 +1074,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p24;
         private static get_value_byindex_delegate _d24;
         
-        public static cef_v8value_t* get_value_byindex(cef_v8value_t* self, int index)
+        public static cef_v8_value_t* get_value_byindex(cef_v8_value_t* self, int index)
         {
             get_value_byindex_delegate d;
             var p = self->_get_value_byindex;
@@ -1091,7 +1091,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p25;
         private static set_value_bykey_delegate _d25;
         
-        public static int set_value_bykey(cef_v8value_t* self, cef_string_t* key, cef_v8value_t* value, CefV8PropertyAttribute attribute)
+        public static int set_value_bykey(cef_v8_value_t* self, cef_string_t* key, cef_v8_value_t* value, CefV8PropertyAttribute attribute)
         {
             set_value_bykey_delegate d;
             var p = self->_set_value_bykey;
@@ -1108,7 +1108,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p26;
         private static set_value_byindex_delegate _d26;
         
-        public static int set_value_byindex(cef_v8value_t* self, int index, cef_v8value_t* value)
+        public static int set_value_byindex(cef_v8_value_t* self, int index, cef_v8_value_t* value)
         {
             set_value_byindex_delegate d;
             var p = self->_set_value_byindex;
@@ -1125,7 +1125,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p27;
         private static set_value_byaccessor_delegate _d27;
         
-        public static int set_value_byaccessor(cef_v8value_t* self, cef_string_t* key, CefV8PropertyAttribute attribute)
+        public static int set_value_byaccessor(cef_v8_value_t* self, cef_string_t* key, CefV8PropertyAttribute attribute)
         {
             set_value_byaccessor_delegate d;
             var p = self->_set_value_byaccessor;
@@ -1142,7 +1142,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p28;
         private static get_keys_delegate _d28;
         
-        public static int get_keys(cef_v8value_t* self, cef_string_list* keys)
+        public static int get_keys(cef_v8_value_t* self, cef_string_list* keys)
         {
             get_keys_delegate d;
             var p = self->_get_keys;
@@ -1159,7 +1159,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p29;
         private static set_user_data_delegate _d29;
         
-        public static int set_user_data(cef_v8value_t* self, cef_base_ref_counted_t* user_data)
+        public static int set_user_data(cef_v8_value_t* self, cef_base_ref_counted_t* user_data)
         {
             set_user_data_delegate d;
             var p = self->_set_user_data;
@@ -1176,7 +1176,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p2a;
         private static get_user_data_delegate _d2a;
         
-        public static cef_base_ref_counted_t* get_user_data(cef_v8value_t* self)
+        public static cef_base_ref_counted_t* get_user_data(cef_v8_value_t* self)
         {
             get_user_data_delegate d;
             var p = self->_get_user_data;
@@ -1193,7 +1193,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p2b;
         private static get_externally_allocated_memory_delegate _d2b;
         
-        public static int get_externally_allocated_memory(cef_v8value_t* self)
+        public static int get_externally_allocated_memory(cef_v8_value_t* self)
         {
             get_externally_allocated_memory_delegate d;
             var p = self->_get_externally_allocated_memory;
@@ -1210,7 +1210,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p2c;
         private static adjust_externally_allocated_memory_delegate _d2c;
         
-        public static int adjust_externally_allocated_memory(cef_v8value_t* self, int change_in_bytes)
+        public static int adjust_externally_allocated_memory(cef_v8_value_t* self, int change_in_bytes)
         {
             adjust_externally_allocated_memory_delegate d;
             var p = self->_adjust_externally_allocated_memory;
@@ -1227,7 +1227,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p2d;
         private static get_array_length_delegate _d2d;
         
-        public static int get_array_length(cef_v8value_t* self)
+        public static int get_array_length(cef_v8_value_t* self)
         {
             get_array_length_delegate d;
             var p = self->_get_array_length;
@@ -1244,7 +1244,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p2e;
         private static get_array_buffer_release_callback_delegate _d2e;
         
-        public static cef_v8array_buffer_release_callback_t* get_array_buffer_release_callback(cef_v8value_t* self)
+        public static cef_v8_array_buffer_release_callback_t* get_array_buffer_release_callback(cef_v8_value_t* self)
         {
             get_array_buffer_release_callback_delegate d;
             var p = self->_get_array_buffer_release_callback;
@@ -1261,7 +1261,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p2f;
         private static neuter_array_buffer_delegate _d2f;
         
-        public static int neuter_array_buffer(cef_v8value_t* self)
+        public static int neuter_array_buffer(cef_v8_value_t* self)
         {
             neuter_array_buffer_delegate d;
             var p = self->_neuter_array_buffer;
@@ -1278,7 +1278,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p30;
         private static get_array_buffer_byte_length_delegate _d30;
         
-        public static UIntPtr get_array_buffer_byte_length(cef_v8value_t* self)
+        public static UIntPtr get_array_buffer_byte_length(cef_v8_value_t* self)
         {
             get_array_buffer_byte_length_delegate d;
             var p = self->_get_array_buffer_byte_length;
@@ -1295,7 +1295,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p31;
         private static get_array_buffer_data_delegate _d31;
         
-        public static void* get_array_buffer_data(cef_v8value_t* self)
+        public static void* get_array_buffer_data(cef_v8_value_t* self)
         {
             get_array_buffer_data_delegate d;
             var p = self->_get_array_buffer_data;
@@ -1312,7 +1312,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p32;
         private static get_function_name_delegate _d32;
         
-        public static cef_string_userfree* get_function_name(cef_v8value_t* self)
+        public static cef_string_userfree* get_function_name(cef_v8_value_t* self)
         {
             get_function_name_delegate d;
             var p = self->_get_function_name;
@@ -1329,7 +1329,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p33;
         private static get_function_handler_delegate _d33;
         
-        public static cef_v8handler_t* get_function_handler(cef_v8value_t* self)
+        public static cef_v8_handler_t* get_function_handler(cef_v8_value_t* self)
         {
             get_function_handler_delegate d;
             var p = self->_get_function_handler;
@@ -1346,7 +1346,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p34;
         private static execute_function_delegate _d34;
         
-        public static cef_v8value_t* execute_function(cef_v8value_t* self, cef_v8value_t* @object, UIntPtr argumentsCount, cef_v8value_t** arguments)
+        public static cef_v8_value_t* execute_function(cef_v8_value_t* self, cef_v8_value_t* @object, UIntPtr argumentsCount, cef_v8_value_t** arguments)
         {
             execute_function_delegate d;
             var p = self->_execute_function;
@@ -1363,7 +1363,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p35;
         private static execute_function_with_context_delegate _d35;
         
-        public static cef_v8value_t* execute_function_with_context(cef_v8value_t* self, cef_v8context_t* context, cef_v8value_t* @object, UIntPtr argumentsCount, cef_v8value_t** arguments)
+        public static cef_v8_value_t* execute_function_with_context(cef_v8_value_t* self, cef_v8_context_t* context, cef_v8_value_t* @object, UIntPtr argumentsCount, cef_v8_value_t** arguments)
         {
             execute_function_with_context_delegate d;
             var p = self->_execute_function_with_context;
@@ -1380,7 +1380,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p36;
         private static resolve_promise_delegate _d36;
         
-        public static int resolve_promise(cef_v8value_t* self, cef_v8value_t* arg)
+        public static int resolve_promise(cef_v8_value_t* self, cef_v8_value_t* arg)
         {
             resolve_promise_delegate d;
             var p = self->_resolve_promise;
@@ -1397,7 +1397,7 @@ namespace Xilium.CefGlue.Interop
         private static IntPtr _p37;
         private static reject_promise_delegate _d37;
         
-        public static int reject_promise(cef_v8value_t* self, cef_string_t* errorMsg)
+        public static int reject_promise(cef_v8_value_t* self, cef_string_t* errorMsg)
         {
             reject_promise_delegate d;
             var p = self->_reject_promise;

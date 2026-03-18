@@ -70,20 +70,73 @@ unter `CefGlue/Interop/Structs`.
 
 ## 6. Manuell gepflegte Interop-Structs abgleichen
 
-Einige Interop-Structs werden **nicht** vom Generator erzeugt, sondern von Hand
-gepflegt. Dazu gehören u.a.:
+Alle Dateien unter `CefGlue/Interop/Structs/` werden **nicht** vom Generator
+erzeugt, sondern von Hand gepflegt. Dazu gehören u.a.:
 
 - `cef_settings_t.cs`
 - `cef_browser_settings_t.cs`
 - `cef_request_context_settings_t.cs`
 - `cef_window_info_t.cs`
+- `cef_cookie_t.cs`
+- `cef_key_event_t.cs`
+- `cef_screen_info_t.cs`
+- … und alle weiteren Dateien in diesem Ordner
 
-Vergleiche diese mit den Definitionen in `include/internal/cef_types.h` bzw.
-`cef_types_win.h`. Entfernte Felder müssen gelöscht, neue Felder ergänzt
-werden – die **Reihenfolge** muss exakt mit dem C-Header übereinstimmen, da
-sonst das Struct-Layout nicht passt und CEF beim Initialisieren abstürzt.
+Jedes dieser C#-Structs muss **feldgenau** mit der entsprechenden
+`typedef struct`-Definition in `include/internal/cef_types.h` (bzw.
+`cef_types_win.h`, `cef_types_mac.h`) übereinstimmen – sowohl in der
+**Reihenfolge** als auch im **Typ** jedes Feldes. Bereits eine fehlende oder
+verschobene Zeile führt dazu, dass alle nachfolgenden Felder an der falschen
+Adresse liegen, was zu falschen Werten, Abstürzen oder einem fehlschlagenden
+`cef_initialize`-Aufruf führt.
+
+### Worauf besonders zu achten ist
+
+**`size_t size` als erstes Feld:**  
+CEF fügt neuen Structs regelmäßig ein `size_t size`-Feld als allererstes
+hinzu (vergleichbar mit `cbSize` in Win32-APIs). Fehlt dieses Feld im
+C#-Pendant, ist das gesamte Layout ab dem ersten Nutzdatenfeld um
+`sizeof(size_t)` = 8 Byte (x64) verschoben. Das C#-Äquivalent ist
+`public UIntPtr size;`. Außerdem muss `Alloc()` dieses Feld initialisieren:
+
+```csharp
+public static cef_cookie_t* Alloc()
+{
+    var ptr = (cef_cookie_t*)Marshal.AllocHGlobal(_sizeof);
+    *ptr = new cef_cookie_t();
+    ptr->size = (UIntPtr)_sizeof;   // ← zwingend erforderlich
+    return ptr;
+}
+```
+
+**Umbenannte oder entfernte Felder:**  
+CEF benennt Felder zwischen Versionen um oder entfernt sie. Jedes Feld im
+C#-Struct, das im Header nicht (mehr) existiert, muss entfernt werden – und
+umgekehrt.
+
+**Neue Enum- oder Struct-Typen als Feldtypen:**  
+Wird ein `int`-Feld durch einen Enum-Typ ersetzt oder umgekehrt, ändert sich
+mindestens der semantische Typ, manchmal auch die Größe.
+
+### Vorgehensweise
+
+Für jede Datei in `CefGlue/Interop/Structs/`:
+
+1. Den C-Struct-Namen aus dem Dateinamen ableiten (z.B. `cef_cookie_t.cs` →
+   `typedef struct _cef_cookie_t`).
+2. Die Struct-Definition im entsprechenden CEF-Header suchen.
+3. Felder des Headers **der Reihe nach** mit dem C#-Struct vergleichen:
+   - Gleiches Feld, gleicher Typ, gleiche Position → OK
+   - Feld im Header vorhanden, in C# fehlend → hinzufügen
+   - Feld in C# vorhanden, im Header fehlend → entfernen
+   - Typ unterschiedlich → anpassen
+4. Falls ein `size_t size`-Feld vorhanden ist: sicherstellen, dass `Alloc()`
+   dieses setzt.
+5. Den zugehörigen Wrapper in `CefGlue/Structs/` auf neue/entfernte Felder
+   prüfen und anpassen.
+
 Aktualisiere parallel die zugehörigen Wrapper-Klassen in `CefGlue/Structs`
-(z.B. `CefSettings.cs`, `CefBrowserSettings.cs`).
+(z.B. `CefSettings.cs`, `CefBrowserSettings.cs`, `CefCookie.cs`).
 
 ## 7. Partial-Klassen aktualisieren
 

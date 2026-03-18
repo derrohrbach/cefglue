@@ -23,7 +23,7 @@
         public static CefV8Value CreateUndefined()
         {
             return CefV8Value.FromNative(
-                cef_v8value_t.create_undefined()
+                cef_v8_value_t.create_undefined()
                 );
         }
 
@@ -33,7 +33,7 @@
         public static CefV8Value CreateNull()
         {
             return CefV8Value.FromNative(
-                cef_v8value_t.create_null()
+                cef_v8_value_t.create_null()
                 );
         }
 
@@ -43,7 +43,7 @@
         public static CefV8Value CreateBool(bool value)
         {
             return CefV8Value.FromNative(
-                cef_v8value_t.create_bool(value ? 1 : 0)
+                cef_v8_value_t.create_bool(value ? 1 : 0)
                 );
         }
 
@@ -53,7 +53,7 @@
         public static CefV8Value CreateInt(int value)
         {
             return CefV8Value.FromNative(
-                cef_v8value_t.create_int(value)
+                cef_v8_value_t.create_int(value)
                 );
         }
 
@@ -63,7 +63,7 @@
         public static CefV8Value CreateUInt(uint value)
         {
             return CefV8Value.FromNative(
-                cef_v8value_t.create_uint(value)
+                cef_v8_value_t.create_uint(value)
                 );
         }
 
@@ -73,7 +73,7 @@
         public static CefV8Value CreateDouble(double value)
         {
             return CefV8Value.FromNative(
-                cef_v8value_t.create_double(value)
+                cef_v8_value_t.create_double(value)
                 );
         }
 
@@ -86,7 +86,7 @@
         public static CefV8Value CreateDate(CefBaseTime value)
         {
             return CefV8Value.FromNative(
-                cef_v8value_t.create_date(value)
+                cef_v8_value_t.create_date(value)
                 );
         }
 
@@ -99,7 +99,7 @@
             {
                 var n_value = new cef_string_t(value_str, value != null ? value.Length : 0);
                 return CefV8Value.FromNative(
-                    cef_v8value_t.create_string(&n_value)
+                    cef_v8_value_t.create_string(&n_value)
                     );
             }
         }
@@ -114,7 +114,7 @@
         public static CefV8Value CreateObject(CefV8Accessor? accessor = null, CefV8Interceptor? interceptor = null)
         {
             return CefV8Value.FromNative(
-                cef_v8value_t.create_object(
+                cef_v8_value_t.create_object(
                     accessor != null ? accessor.ToNative() : null,
                     interceptor != null ? interceptor.ToNative() : null
                     )
@@ -131,7 +131,7 @@
         public static CefV8Value CreateArray(int length)
         {
             return CefV8Value.FromNative(
-                cef_v8value_t.create_array(length)
+                cef_v8_value_t.create_array(length)
                 );
         }
 
@@ -149,7 +149,7 @@
         {
             if (releaseCallback == null) throw new ArgumentNullException(nameof(releaseCallback));
 
-            var n_value = cef_v8value_t.create_array_buffer(
+            var n_value = cef_v8_value_t.create_array_buffer(
                 (void*)buffer,
                 checked((UIntPtr)length),
                 releaseCallback.ToNative()
@@ -171,7 +171,7 @@
                 var n_name = new cef_string_t(name_str, name != null ? name.Length : 0);
 
                 return CefV8Value.FromNative(
-                    cef_v8value_t.create_function(&n_name, handler.ToNative())
+                    cef_v8_value_t.create_function(&n_name, handler.ToNative())
                     );
             }
         }
@@ -185,7 +185,7 @@
         public static CefV8Value CreatePromise()
         {
             return CefV8Value.FromNative(
-                cef_v8value_t.create_promise()
+                cef_v8_value_t.create_promise()
                 );
         }
 
@@ -201,7 +201,7 @@
         /// </summary>
         public bool IsValid
         {
-            get { return cef_v8value_t.is_valid(_self) != 0; }
+            get { return cef_v8_value_t.is_valid(_self) != 0; }
         }
 
         /// <summary>
@@ -209,7 +209,7 @@
         /// </summary>
         public bool IsUndefined
         {
-            get { return cef_v8value_t.is_undefined(_self) != 0; }
+            get { return cef_v8_value_t.is_undefined(_self) != 0; }
         }
 
         /// <summary>
@@ -217,7 +217,7 @@
         /// </summary>
         public bool IsNull
         {
-            get { return cef_v8value_t.is_null(_self) != 0; }
+            get { return cef_v8_value_t.is_null(_self) != 0; }
         }
 
         /// <summary>
@@ -225,7 +225,7 @@
         /// </summary>
         public bool IsBool
         {
-            get { return cef_v8value_t.is_bool(_self) != 0; }
+            get { return cef_v8_value_t.is_bool(_self) != 0; }
         }
 
         /// <summary>
@@ -233,7 +233,7 @@
         /// </summary>
         public bool IsInt
         {
-            get { return cef_v8value_t.is_int(_self) != 0; }
+            get { return cef_v8_value_t.is_int(_self) != 0; }
         }
 
         /// <summary>
@@ -241,7 +241,7 @@
         /// </summary>
         public bool IsUInt
         {
-            get { return cef_v8value_t.is_uint(_self) != 0; }
+            get { return cef_v8_value_t.is_uint(_self) != 0; }
         }
 
         /// <summary>
@@ -249,7 +249,7 @@
         /// </summary>
         public bool IsDouble
         {
-            get { return cef_v8value_t.is_double(_self) != 0; }
+            get { return cef_v8_value_t.is_double(_self) != 0; }
         }
 
         /// <summary>
@@ -257,7 +257,7 @@
         /// </summary>
         public bool IsDate
         {
-            get { return cef_v8value_t.is_date(_self) != 0; }
+            get { return cef_v8_value_t.is_date(_self) != 0; }
         }
 
         /// <summary>
@@ -265,7 +265,7 @@
         /// </summary>
         public bool IsString
         {
-            get { return cef_v8value_t.is_string(_self) != 0; }
+            get { return cef_v8_value_t.is_string(_self) != 0; }
         }
 
         /// <summary>
@@ -273,7 +273,7 @@
         /// </summary>
         public bool IsObject
         {
-            get { return cef_v8value_t.is_object(_self) != 0; }
+            get { return cef_v8_value_t.is_object(_self) != 0; }
         }
 
         /// <summary>
@@ -281,7 +281,7 @@
         /// </summary>
         public bool IsArray
         {
-            get { return cef_v8value_t.is_array(_self) != 0; }
+            get { return cef_v8_value_t.is_array(_self) != 0; }
         }
 
         /// <summary>
@@ -289,7 +289,7 @@
         /// </summary>
         public bool IsArrayBuffer
         {
-            get { return cef_v8value_t.is_array_buffer(_self) != 0; }
+            get { return cef_v8_value_t.is_array_buffer(_self) != 0; }
         }
 
         /// <summary>
@@ -297,14 +297,14 @@
         /// </summary>
         public bool IsFunction
         {
-            get { return cef_v8value_t.is_function(_self) != 0; }
+            get { return cef_v8_value_t.is_function(_self) != 0; }
         }
 
         /// <summary>
         /// True if the value type is a Promise.
         /// </summary>
         public bool IsPromise
-            => cef_v8value_t.is_promise(_self) != 0;
+            => cef_v8_value_t.is_promise(_self) != 0;
 
         /// <summary>
         /// Returns true if this object is pointing to the same handle as |that|
@@ -314,7 +314,7 @@
         {
             if (that == null) return false;
 
-            return cef_v8value_t.is_same(_self, that.ToNative()) != 0;
+            return cef_v8_value_t.is_same(_self, that.ToNative()) != 0;
         }
 
         /// <summary>
@@ -322,7 +322,7 @@
         /// </summary>
         public bool GetBoolValue()
         {
-            return cef_v8value_t.get_bool_value(_self) != 0;
+            return cef_v8_value_t.get_bool_value(_self) != 0;
         }
 
         /// <summary>
@@ -330,7 +330,7 @@
         /// </summary>
         public int GetIntValue()
         {
-            return cef_v8value_t.get_int_value(_self);
+            return cef_v8_value_t.get_int_value(_self);
         }
 
         /// <summary>
@@ -338,7 +338,7 @@
         /// </summary>
         public uint GetUIntValue()
         {
-            return cef_v8value_t.get_uint_value(_self);
+            return cef_v8_value_t.get_uint_value(_self);
         }
 
         /// <summary>
@@ -346,7 +346,7 @@
         /// </summary>
         public double GetDoubleValue()
         {
-            return cef_v8value_t.get_double_value(_self);
+            return cef_v8_value_t.get_double_value(_self);
         }
 
         /// <summary>
@@ -354,7 +354,7 @@
         /// </summary>
         public CefBaseTime GetDateValue()
         {
-            return cef_v8value_t.get_date_value(_self);
+            return cef_v8_value_t.get_date_value(_self);
         }
 
         /// <summary>
@@ -362,7 +362,7 @@
         /// </summary>
         public string GetStringValue()
         {
-            var n_result = cef_v8value_t.get_string_value(_self);
+            var n_result = cef_v8_value_t.get_string_value(_self);
             return cef_string_userfree.ToString(n_result);
         }
 
@@ -374,7 +374,7 @@
         /// </summary>
         public bool IsUserCreated
         {
-            get { return cef_v8value_t.is_user_created(_self) != 0; }
+            get { return cef_v8_value_t.is_user_created(_self) != 0; }
         }
 
         /// <summary>
@@ -383,7 +383,7 @@
         /// </summary>
         public bool HasException
         {
-            get { return cef_v8value_t.has_exception(_self) != 0; }
+            get { return cef_v8_value_t.has_exception(_self) != 0; }
         }
 
         /// <summary>
@@ -393,7 +393,7 @@
         public CefV8Exception GetException()
         {
             return CefV8Exception.FromNativeOrNull(
-                cef_v8value_t.get_exception(_self)
+                cef_v8_value_t.get_exception(_self)
                 );
         }
 
@@ -402,7 +402,7 @@
         /// </summary>
         public bool ClearException()
         {
-            return cef_v8value_t.clear_exception(_self) != 0;
+            return cef_v8_value_t.clear_exception(_self) != 0;
         }
 
         /// <summary>
@@ -411,7 +411,7 @@
         /// </summary>
         public bool WillRethrowExceptions()
         {
-            return cef_v8value_t.will_rethrow_exceptions(_self) != 0;
+            return cef_v8_value_t.will_rethrow_exceptions(_self) != 0;
         }
 
         /// <summary>
@@ -423,7 +423,7 @@
         /// </summary>
         public bool SetRethrowExceptions(bool rethrow)
         {
-            return cef_v8value_t.set_rethrow_exceptions(_self, rethrow ? 1 : 0) != 0;
+            return cef_v8_value_t.set_rethrow_exceptions(_self, rethrow ? 1 : 0) != 0;
         }
 
         /// <summary>
@@ -434,7 +434,7 @@
             fixed (char* key_str = key)
             {
                 var n_key = new cef_string_t(key_str, key != null ? key.Length : 0);
-                return cef_v8value_t.has_value_bykey(_self, &n_key) != 0;
+                return cef_v8_value_t.has_value_bykey(_self, &n_key) != 0;
             }
         }
 
@@ -443,7 +443,7 @@
         /// </summary>
         public bool HasValue(int index)
         {
-            return cef_v8value_t.has_value_byindex(_self, index) != 0;
+            return cef_v8_value_t.has_value_byindex(_self, index) != 0;
         }
 
         /// <summary>
@@ -457,7 +457,7 @@
             fixed (char* key_str = key)
             {
                 var n_key = new cef_string_t(key_str, key != null ? key.Length : 0);
-                return cef_v8value_t.delete_value_bykey(_self, &n_key) != 0;
+                return cef_v8_value_t.delete_value_bykey(_self, &n_key) != 0;
             }
         }
 
@@ -469,7 +469,7 @@
         /// </summary>
         public bool DeleteValue(int index)
         {
-            return cef_v8value_t.delete_value_byindex(_self, index) != 0;
+            return cef_v8_value_t.delete_value_byindex(_self, index) != 0;
         }
 
         /// <summary>
@@ -482,7 +482,7 @@
             {
                 var n_key = new cef_string_t(key_str, key != null ? key.Length : 0);
                 return CefV8Value.FromNativeOrNull(
-                    cef_v8value_t.get_value_bykey(_self, &n_key)
+                    cef_v8_value_t.get_value_bykey(_self, &n_key)
                     );
             }
         }
@@ -494,7 +494,7 @@
         public CefV8Value GetValue(int index)
         {
             return CefV8Value.FromNativeOrNull(
-                    cef_v8value_t.get_value_byindex(_self, index)
+                    cef_v8_value_t.get_value_byindex(_self, index)
                     );
         }
 
@@ -509,7 +509,7 @@
             fixed (char* key_str = key)
             {
                 var n_key = new cef_string_t(key_str, key != null ? key.Length : 0);
-                return cef_v8value_t.set_value_bykey(_self, &n_key, value.ToNative(), attribute) != 0;
+                return cef_v8_value_t.set_value_bykey(_self, &n_key, value.ToNative(), attribute) != 0;
             }
         }
 
@@ -521,7 +521,7 @@
         /// </summary>
         public bool SetValue(int index, CefV8Value value)
         {
-            return cef_v8value_t.set_value_byindex(_self, index, value.ToNative()) != 0;
+            return cef_v8_value_t.set_value_byindex(_self, index, value.ToNative()) != 0;
         }
 
         /// <summary>
@@ -536,7 +536,7 @@
             fixed (char* key_str = key)
             {
                 var n_key = new cef_string_t(key_str, key != null ? key.Length : 0);
-                return cef_v8value_t.set_value_byaccessor(_self, &n_key, attribute) != 0;
+                return cef_v8_value_t.set_value_byaccessor(_self, &n_key, attribute) != 0;
             }
         }
 
@@ -547,7 +547,7 @@
         public bool TryGetKeys(out string[] keys)
         {
             var list = libcef.string_list_alloc();
-            var result = cef_v8value_t.get_keys(_self, list) != 0;
+            var result = cef_v8_value_t.get_keys(_self, list) != 0;
             if (result) keys = cef_string_list.ToArray(list);
             else keys = null;
             libcef.string_list_free(list);
@@ -572,7 +572,7 @@
         /// </summary>
         public bool SetUserData(CefUserData userData)
         {
-            return cef_v8value_t.set_user_data(_self, userData != null ? (cef_base_ref_counted_t*)userData.ToNative() : null) != 0;
+            return cef_v8_value_t.set_user_data(_self, userData != null ? (cef_base_ref_counted_t*)userData.ToNative() : null) != 0;
         }
 
         /// <summary>
@@ -581,7 +581,7 @@
         public CefUserData GetUserData()
         {
             return CefUserData.FromNativeOrNull(
-                (cef_user_data_t*)cef_v8value_t.get_user_data(_self)
+                (cef_user_data_t*)cef_v8_value_t.get_user_data(_self)
                 );
         }
 
@@ -591,7 +591,7 @@
         /// </summary>
         public int GetExternallyAllocatedMemory()
         {
-            return cef_v8value_t.get_externally_allocated_memory(_self);
+            return cef_v8_value_t.get_externally_allocated_memory(_self);
         }
 
         /// <summary>
@@ -607,7 +607,7 @@
         /// </summary>
         public int AdjustExternallyAllocatedMemory(int changeInBytes)
         {
-            return cef_v8value_t.adjust_externally_allocated_memory(_self, changeInBytes);
+            return cef_v8_value_t.adjust_externally_allocated_memory(_self, changeInBytes);
         }
 
         // ARRAY METHODS - These methods are only available on arrays.
@@ -617,7 +617,7 @@
         /// </summary>
         public int GetArrayLength()
         {
-            return cef_v8value_t.get_array_length(_self);
+            return cef_v8_value_t.get_array_length(_self);
         }
 
         // ARRAY BUFFER METHODS - These methods are only available on ArrayBuffers.
@@ -628,7 +628,7 @@
         /// </summary>
         public CefV8ArrayBufferReleaseCallback GetArrayBufferReleaseCallback()
         {
-            var n_releaseCallback = cef_v8value_t.get_array_buffer_release_callback(_self);
+            var n_releaseCallback = cef_v8_value_t.get_array_buffer_release_callback(_self);
             return CefV8ArrayBufferReleaseCallback.FromNativeOrNull(n_releaseCallback);
         }
 
@@ -640,7 +640,7 @@
         /// </summary>
         public bool NeuterArrayBuffer()
         {
-            return cef_v8value_t.neuter_array_buffer(_self) != 0;
+            return cef_v8_value_t.neuter_array_buffer(_self) != 0;
         }
 
         // FUNCTION METHODS - These methods are only available on functions.
@@ -650,7 +650,7 @@
         /// </summary>
         public string GetFunctionName()
         {
-            var n_result = cef_v8value_t.get_function_name(_self);
+            var n_result = cef_v8_value_t.get_function_name(_self);
             return cef_string_userfree.ToString(n_result);
         }
 
@@ -660,7 +660,7 @@
         public CefV8Handler GetFunctionHandler()
         {
             return CefV8Handler.FromNativeOrNull(
-                cef_v8value_t.get_function_handler(_self)
+                cef_v8_value_t.get_function_handler(_self)
                 );
         }
 
@@ -677,11 +677,11 @@
         public CefV8Value ExecuteFunction(CefV8Value obj, CefV8Value[] arguments)
         {
             var n_arguments = CreateArguments(arguments);
-            cef_v8value_t* n_retval;
+            cef_v8_value_t* n_retval;
 
-            fixed (cef_v8value_t** n_arguments_ptr = n_arguments)
+            fixed (cef_v8_value_t** n_arguments_ptr = n_arguments)
             {
-                n_retval = cef_v8value_t.execute_function(
+                n_retval = cef_v8_value_t.execute_function(
                     _self,
                     obj != null ? obj.ToNative() : null,
                     n_arguments != null ? (UIntPtr)n_arguments.Length : UIntPtr.Zero,
@@ -703,11 +703,11 @@
         public CefV8Value ExecuteFunctionWithContext(CefV8Context context, CefV8Value obj, CefV8Value[] arguments)
         {
             var n_arguments = CreateArguments(arguments);
-            cef_v8value_t* n_retval;
+            cef_v8_value_t* n_retval;
 
-            fixed (cef_v8value_t** n_arguments_ptr = n_arguments)
+            fixed (cef_v8_value_t** n_arguments_ptr = n_arguments)
             {
-                n_retval = cef_v8value_t.execute_function_with_context(
+                n_retval = cef_v8_value_t.execute_function_with_context(
                     _self,
                     context.ToNative(),
                     obj != null ? obj.ToNative() : null,
@@ -719,14 +719,14 @@
             return CefV8Value.FromNativeOrNull(n_retval);
         }
 
-        private static cef_v8value_t*[] CreateArguments(CefV8Value[] arguments)
+        private static cef_v8_value_t*[] CreateArguments(CefV8Value[] arguments)
         {
             if (arguments == null) return null;
 
             var length = arguments.Length;
             if (length == 0) return null;
 
-            var result = new cef_v8value_t*[arguments.Length];
+            var result = new cef_v8_value_t*[arguments.Length];
 
             for (var i = 0; i < length; i++)
             {
@@ -747,7 +747,7 @@
         /// </summary>
         public bool ResolvePromise(CefV8Value value)
         {
-            return cef_v8value_t.resolve_promise(_self, value.ToNative()) != 0;
+            return cef_v8_value_t.resolve_promise(_self, value.ToNative()) != 0;
         }
 
         /// <summary>
@@ -762,7 +762,7 @@
             fixed (char* errorMessage_str = errorMessage)
             {
                 var n_errorMessage = new cef_string_t(errorMessage_str, errorMessage != null ? errorMessage.Length : 0);
-                return cef_v8value_t.reject_promise(_self, &n_errorMessage) != 0;
+                return cef_v8_value_t.reject_promise(_self, &n_errorMessage) != 0;
             }
         }
     }

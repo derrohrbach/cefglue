@@ -145,6 +145,13 @@
         /// </summary>
         public abstract bool ExternalBeginFrameEnabled { get; set; }
 
+        /// <summary>
+        /// Optionally change the runtime style. Alloy style will always be used if
+        /// WindowlessRenderingEnabled is true. See CefRuntimeStyle documentation
+        /// for details.
+        /// </summary>
+        public abstract CefRuntimeStyle RuntimeStyle { get; set; }
+
         public void SetAsChild(IntPtr parentHandle, CefRectangle bounds)
         {
             ThrowIfDisposed();

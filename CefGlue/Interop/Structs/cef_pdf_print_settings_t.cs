@@ -9,6 +9,7 @@ namespace Xilium.CefGlue.Interop
     [StructLayout(LayoutKind.Sequential, Pack = libcef.ALIGN)]
     internal unsafe struct cef_pdf_print_settings_t
     {
+        public UIntPtr size;
         public int landscape;
         public int print_background;
         public double scale;
@@ -25,6 +26,7 @@ namespace Xilium.CefGlue.Interop
         public cef_string_t header_template;
         public cef_string_t footer_template;
         public int generate_tagged_pdf;
+        public int generate_document_outline;
 
         internal static void Clear(cef_pdf_print_settings_t* ptr)
         {
@@ -45,6 +47,7 @@ namespace Xilium.CefGlue.Interop
         {
             var ptr = (cef_pdf_print_settings_t*)Marshal.AllocHGlobal(_sizeof);
             *ptr = new cef_pdf_print_settings_t();
+            ptr->size = (UIntPtr)_sizeof;
             return ptr;
         }
 

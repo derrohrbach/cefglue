@@ -35,7 +35,7 @@ namespace Xilium.CefGlue.Interop
         internal IntPtr _get_parent;
         internal IntPtr _get_url;
         internal IntPtr _get_browser;
-        internal IntPtr _get_v8context;
+        internal IntPtr _get_v8_context;
         internal IntPtr _visit_dom;
         internal IntPtr _create_urlrequest;
         internal IntPtr _send_process_message;
@@ -200,7 +200,7 @@ namespace Xilium.CefGlue.Interop
         #if !DEBUG
         [SuppressUnmanagedCodeSecurity]
         #endif
-        private delegate cef_v8context_t* get_v8context_delegate(cef_frame_t* self);
+        private delegate cef_v8_context_t* get_v8_context_delegate(cef_frame_t* self);
         
         [UnmanagedFunctionPointer(libcef.CEF_CALLBACK)]
         #if !DEBUG
@@ -664,16 +664,16 @@ namespace Xilium.CefGlue.Interop
         
         // GetV8Context
         private static IntPtr _p1a;
-        private static get_v8context_delegate _d1a;
+        private static get_v8_context_delegate _d1a;
         
-        public static cef_v8context_t* get_v8context(cef_frame_t* self)
+        public static cef_v8_context_t* get_v8_context(cef_frame_t* self)
         {
-            get_v8context_delegate d;
-            var p = self->_get_v8context;
+            get_v8_context_delegate d;
+            var p = self->_get_v8_context;
             if (p == _p1a) { d = _d1a; }
             else
             {
-                d = (get_v8context_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(get_v8context_delegate));
+                d = (get_v8_context_delegate)Marshal.GetDelegateForFunctionPointer(p, typeof(get_v8_context_delegate));
                 if (_p1a == IntPtr.Zero) { _d1a = d; _p1a = p; }
             }
             return d(self);
