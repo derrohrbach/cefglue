@@ -150,6 +150,17 @@ namespace Xilium.CefGlue.WPF
                 var e = new LoadEndEventArgs(frame, httpStatusCode);
                 this.LoadEnd(this, e);
             }
+            if (frame.IsMain)
+            {
+                try
+                {
+                    frame.ExecuteJavaScript("document.body.style.backgroundColor = 'red';", frame.Url, 0);
+                }
+                catch (Exception ex)
+                {
+                    _logger.ErrorException("Failed to inject background style", ex);
+                }
+            }
         }
         internal void OnLoadingStateChange(bool isLoading, bool canGoBack, bool canGoForward)
         {
