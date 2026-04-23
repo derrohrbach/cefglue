@@ -13,7 +13,7 @@
     /// </summary>
     public abstract unsafe partial class CefCommandHandler
     {
-        private int on_chrome_command(cef_command_handler_t* self, cef_browser_t* browser, int command_id, CefWindowOpenDisposition disposition)
+        private int on_chrome_command(cef_command_handler_t* self, cef_browser_t* browser, CefCommandId command_id, CefWindowOpenDisposition disposition)
         {
             CheckSelf(self);
 
@@ -30,9 +30,9 @@
         /// called after CefContextMenuHandler::OnContextMenuCommand. Only used with
         /// the Chrome runtime.
         /// </summary>
-        protected abstract bool OnChromeCommand(CefBrowser browser, int commandId, CefWindowOpenDisposition disposition);
+        protected abstract bool OnChromeCommand(CefBrowser browser, CefCommandId commandId, CefWindowOpenDisposition disposition);
 
-        private int is_chrome_app_menu_item_visible(cef_command_handler_t* self, cef_browser_t* browser, int command_id)
+        private int is_chrome_app_menu_item_visible(cef_command_handler_t* self, cef_browser_t* browser, CefCommandId command_id)
         {
             CheckSelf(self);
 
@@ -47,10 +47,10 @@
         /// menu items that would be visible by default. Only used with the Chrome
         /// runtime.
         /// </summary>
-        protected virtual bool IsChromeAppMenuItemVisible(CefBrowser browser, int commandId)
+        protected virtual bool IsChromeAppMenuItemVisible(CefBrowser browser, CefCommandId commandId)
             => true;
 
-        private int is_chrome_app_menu_item_enabled(cef_command_handler_t* self, cef_browser_t* browser, int command_id)
+        private int is_chrome_app_menu_item_enabled(cef_command_handler_t* self, cef_browser_t* browser, CefCommandId command_id)
         {
             CheckSelf(self);
 
@@ -65,7 +65,7 @@
         /// menu items that would be enabled by default. Only used with the Chrome
         /// runtime.
         /// </summary>
-        protected virtual bool IsChromeAppMenuItemEnabled(CefBrowser browser, int commandId)
+        protected virtual bool IsChromeAppMenuItemEnabled(CefBrowser browser, CefCommandId commandId)
             => true;
 
         private int is_chrome_page_action_icon_visible(cef_command_handler_t* self, CefChromePageActionIconType icon_type)
