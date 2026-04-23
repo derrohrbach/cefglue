@@ -151,6 +151,7 @@
     <Compile Include="Enums\CefColorModel.cs" />
     <Compile Include="Enums\CefColorVariant.cs" />
     <Compile Include="Enums\CefColorType.cs" />
+    <Compile Include="Enums\CefCommandId.cs" />
     <Compile Include="Enums\CefCompositionUnderlineStyle.cs" />
     <Compile Include="Enums\CefContentSettingTypes.cs" />
     <Compile Include="Enums\CefContentSettingValues.cs" />
