@@ -42,6 +42,7 @@ namespace Xilium.CefGlue.Interop
         public uint background_color;
         public CefState chrome_status_bubble;
         public CefState chrome_zoom_bubble;
+        public CefState ax_viewport_collapse;
 
         #region Alloc & Free
         private static int _sizeof;

@@ -9,7 +9,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
 
-    <Version>145.0.27</Version>
+    <Version>147.0.10</Version>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 
@@ -23,6 +23,7 @@
     <Compile Include="Classes.Handlers\CefClient.cs" />
     <Compile Include="Classes.Handlers\CefCommandHandler.cs" />
     <Compile Include="Classes.Handlers\CefCompletionCallback.cs" />
+    <Compile Include="Classes.Handlers\CefComponentUpdateCallback.cs" />
     <Compile Include="Classes.Handlers\CefContextMenuHandler.cs" />
     <Compile Include="Classes.Handlers\CefCookieAccessFilter.cs" />
     <Compile Include="Classes.Handlers\CefCookieVisitor.cs" />
@@ -82,6 +83,8 @@
     <Compile Include="Classes.Proxies\CefBrowserHost.cs" />
     <Compile Include="Classes.Proxies\CefCallback.cs" />
     <Compile Include="Classes.Proxies\CefCommandLine.cs" />
+    <Compile Include="Classes.Proxies\CefComponent.cs" />
+    <Compile Include="Classes.Proxies\CefComponentUpdater.cs" />
     <Compile Include="Classes.Proxies\CefContextMenuParams.cs" />
     <Compile Include="Classes.Proxies\CefCookieManager.cs" />
     <Compile Include="Classes.Proxies\CefDictionaryValue.cs" />
@@ -134,6 +137,7 @@
     <Compile Include="Classes.Proxies\CefUnresponsiveProcessCallback.cs" />
     <Compile Include="Classes.Proxies\CefUrlRequest.cs" />
     <Compile Include="Classes.Proxies\CefV8Context.cs" />
+    <Compile Include="Classes.Proxies\CefV8BackingStore.cs" />
     <Compile Include="Classes.Proxies\CefV8Exception.cs" />
     <Compile Include="Classes.Proxies\CefV8StackFrame.cs" />
     <Compile Include="Classes.Proxies\CefV8StackTrace.cs" />
@@ -152,6 +156,9 @@
     <Compile Include="Enums\CefColorVariant.cs" />
     <Compile Include="Enums\CefColorType.cs" />
     <Compile Include="Enums\CefCommandId.cs" />
+    <Compile Include="Enums\CefComponentState.cs" />
+    <Compile Include="Enums\CefComponentUpdateError.cs" />
+    <Compile Include="Enums\CefComponentUpdatePriority.cs" />
     <Compile Include="Enums\CefCompositionUnderlineStyle.cs" />
     <Compile Include="Enums\CefContentSettingTypes.cs" />
     <Compile Include="Enums\CefContentSettingValues.cs" />

@@ -186,6 +186,9 @@ c2cs_enumtypes = {
     'cef_runtime_style_t': 'CefRuntimeStyle',
     'cef_color_variant_t': 'CefColorVariant',
     'cef_task_type_t': 'CefTaskType',
+    'cef_component_update_error_t': 'CefComponentUpdateError',
+    'cef_component_update_priority_t': 'CefComponentUpdatePriority',
+    'cef_component_state_t': 'CefComponentState',
     }
 
 c2cs_structtypes = { }

@@ -292,5 +292,15 @@
             get { return _self->chrome_zoom_bubble; }
             set { _self->chrome_zoom_bubble = value; }
         }
+
+        /// <summary>
+        /// Controls whether CDP accessibility tree serialization collapses off-screen
+        /// nodes. (Experimental)
+        /// </summary>
+        public CefState AxViewportCollapse
+        {
+            get { return _self->ax_viewport_collapse; }
+            set { _self->ax_viewport_collapse = value; }
+        }
     }
 }

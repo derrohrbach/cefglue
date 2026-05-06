@@ -19,10 +19,6 @@
     <ProjectReference Include="..\CefGlue.WindowsForms\CefGlue.WindowsForms.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="chromiumembeddedframework.runtime" Version="145.0.26" GeneratePathProperty="true" />
-    <PackageReference Include="chromiumembeddedframework.runtime.win-x64" Version="145.0.26" GeneratePathProperty="true" />
-  </ItemGroup>
 
   <Target Name="CopyCefRuntimeToOutput" AfterTargets="Build">
     <ItemGroup>

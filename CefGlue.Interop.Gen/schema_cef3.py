@@ -190,4 +190,9 @@ classdef = {
     'CefSettingObserver': { 'role': ROLE_HANDLER },
     'CefTaskManager': { 'role': ROLE_PROXY },
     'CefUnresponsiveProcessCallback': { 'role': ROLE_PROXY },
+    # 147
+    'CefComponent': { 'role': ROLE_PROXY },
+    'CefComponentUpdater': { 'role': ROLE_PROXY },
+    'CefComponentUpdateCallback': { 'role': ROLE_HANDLER },
+    'CefV8BackingStore': { 'role': ROLE_PROXY },
     }

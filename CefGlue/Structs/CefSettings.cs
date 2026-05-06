@@ -284,6 +284,14 @@
         /// </summary>
         public bool DisableSignalHandlers { get; set; }
 
+        /// <summary>
+        /// If true use a Views (bare-bones) window instead of a Chrome UI window when
+        /// creating default popups for Chrome style native-hosted (non-Views)
+        /// browsers. This applies when CefLifeSpanHandler::OnBeforePopup has not been
+        /// implemented to provide parent window information for the new popup.
+        /// </summary>
+        public bool UseViewsDefaultPopup { get; set; }
+
         internal cef_settings_t* ToNative()
         {
             var ptr = cef_settings_t.Alloc();
@@ -316,6 +324,7 @@
             cef_string_t.Copy(ChromePolicyId, &ptr->chrome_policy_id);
             ptr->chrome_app_icon_id = ChromeAppIconId;
             ptr->disable_signal_handlers = DisableSignalHandlers ? 1 : 0;
+            ptr->use_views_default_popup = UseViewsDefaultPopup ? 1 : 0;
             return ptr;
         }
 

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <TargetFramework>net48</TargetFramework>
@@ -71,16 +71,7 @@
     <ProjectReference Include="..\CefGlue\CefGlue.csproj" />
   </ItemGroup>
 
-  <!-- CEF native runtime binaries -->
-  <ItemGroup>
-    <!--
-      Meta-package: contains locales in CEF/win-x64/locales/.
-      Platform package: contains libcef.dll etc. in runtimes/win-x64/native/.
-      GeneratePathProperty lets us reference the package folder via $(Pkg...) in targets.
-    -->
-    <PackageReference Include="chromiumembeddedframework.runtime" Version="145.0.26" GeneratePathProperty="true" />
-    <PackageReference Include="chromiumembeddedframework.runtime.win-x64" Version="145.0.26" GeneratePathProperty="true" />
-  </ItemGroup>
+
 
   <!--
     For net48 (classic .NET Framework) the SDK does NOT automatically copy

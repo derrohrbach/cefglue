@@ -14,6 +14,9 @@
         <Compile Include="Classes.g\CefCommandHandler.g.cs"/>
         <Compile Include="Classes.g\CefCommandLine.g.cs"/>
         <Compile Include="Classes.g\CefCompletionCallback.g.cs"/>
+        <Compile Include="Classes.g\CefComponent.g.cs"/>
+        <Compile Include="Classes.g\CefComponentUpdateCallback.g.cs"/>
+        <Compile Include="Classes.g\CefComponentUpdater.g.cs"/>
         <Compile Include="Classes.g\CefContextMenuHandler.g.cs"/>
         <Compile Include="Classes.g\CefContextMenuParams.g.cs"/>
         <Compile Include="Classes.g\CefCookieAccessFilter.g.cs"/>
@@ -114,6 +117,7 @@
         <Compile Include="Classes.g\CefUserData.g.cs"/>
         <Compile Include="Classes.g\CefV8Accessor.g.cs"/>
         <Compile Include="Classes.g\CefV8ArrayBufferReleaseCallback.g.cs"/>
+        <Compile Include="Classes.g\CefV8BackingStore.g.cs"/>
         <Compile Include="Classes.g\CefV8Context.g.cs"/>
         <Compile Include="Classes.g\CefV8Exception.g.cs"/>
         <Compile Include="Classes.g\CefV8Handler.g.cs"/>
@@ -141,6 +145,9 @@
         <Compile Include="Interop\Classes.g\cef_command_handler_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_command_line_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_completion_callback_t.g.cs"/>
+        <Compile Include="Interop\Classes.g\cef_component_t.g.cs"/>
+        <Compile Include="Interop\Classes.g\cef_component_update_callback_t.g.cs"/>
+        <Compile Include="Interop\Classes.g\cef_component_updater_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_context_menu_handler_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_context_menu_params_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_cookie_access_filter_t.g.cs"/>
@@ -241,6 +248,7 @@
         <Compile Include="Interop\Classes.g\cef_user_data_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_v8_accessor_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_v8_array_buffer_release_callback_t.g.cs"/>
+        <Compile Include="Interop\Classes.g\cef_v8_backing_store_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_v8_context_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_v8_exception_t.g.cs"/>
         <Compile Include="Interop\Classes.g\cef_v8_handler_t.g.cs"/>

@@ -468,6 +468,12 @@ struct CefSettingsTraits {
 #if defined(OS_POSIX) && !defined(OS_ANDROID)
     target->disable_signal_handlers = src->disable_signal_handlers;
 #endif
+
+#if CEF_API_ADDED(14600)
+    if (CEF_MEMBER_EXISTS(src, use_views_default_popup)) {
+      target->use_views_default_popup = src->use_views_default_popup;
+    }
+#endif
   }
 };
 
@@ -576,6 +582,9 @@ struct CefBrowserSettingsTraits {
 
     target->chrome_status_bubble = src->chrome_status_bubble;
     target->chrome_zoom_bubble = src->chrome_zoom_bubble;
+#if CEF_API_ADDED(CEF_EXPERIMENTAL)
+    target->ax_viewport_collapse = src->ax_viewport_collapse;
+#endif
   }
 };
 

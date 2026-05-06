@@ -12,6 +12,9 @@
 [Bb]in/
 [Oo]bj/
 
+/cef_binary_*
+*.bak
+
 # Python
 *.pyc
 

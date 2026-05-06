@@ -13,12 +13,12 @@
     /// </summary>
     public abstract unsafe partial class CefCommandHandler
     {
-        private int on_chrome_command(cef_command_handler_t* self, cef_browser_t* browser, CefCommandId command_id, CefWindowOpenDisposition disposition)
+        private int on_chrome_command(cef_command_handler_t* self, cef_browser_t* browser, int command_id, CefWindowOpenDisposition disposition)
         {
             CheckSelf(self);
 
             var m_browser = CefBrowser.FromNative(browser);
-            return OnChromeCommand(m_browser, command_id, disposition) ? 1 : 0;
+            return OnChromeCommand(m_browser, (CefCommandId)command_id, disposition) ? 1 : 0;
         }
 
         /// <summary>
@@ -32,12 +32,12 @@
         /// </summary>
         protected abstract bool OnChromeCommand(CefBrowser browser, CefCommandId commandId, CefWindowOpenDisposition disposition);
 
-        private int is_chrome_app_menu_item_visible(cef_command_handler_t* self, cef_browser_t* browser, CefCommandId command_id)
+        private int is_chrome_app_menu_item_visible(cef_command_handler_t* self, cef_browser_t* browser, int command_id)
         {
             CheckSelf(self);
 
             var m_browser = CefBrowser.FromNative(browser);
-            var result = IsChromeAppMenuItemVisible(m_browser, command_id);
+            var result = IsChromeAppMenuItemVisible(m_browser, (CefCommandId)command_id);
             return result ? 1 : 0;
         }
 
@@ -50,12 +50,12 @@
         protected virtual bool IsChromeAppMenuItemVisible(CefBrowser browser, CefCommandId commandId)
             => true;
 
-        private int is_chrome_app_menu_item_enabled(cef_command_handler_t* self, cef_browser_t* browser, CefCommandId command_id)
+        private int is_chrome_app_menu_item_enabled(cef_command_handler_t* self, cef_browser_t* browser, int command_id)
         {
             CheckSelf(self);
 
             var m_browser = CefBrowser.FromNative(browser);
-            var result = IsChromeAppMenuItemEnabled(m_browser, command_id);
+            var result = IsChromeAppMenuItemEnabled(m_browser, (CefCommandId)command_id);
             return result ? 1 : 0;
         }
 
