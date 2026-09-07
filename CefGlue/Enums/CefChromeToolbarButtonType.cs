@@ -1,4 +1,4 @@
-﻿//
+//
 // This file manually written from cef/include/internal/cef_types.h.
 // C API name: cef_chrome_toolbar_button_type_t.
 //
@@ -12,9 +12,13 @@ namespace Xilium.CefGlue
     /// </summary>
     public enum CefChromeToolbarButtonType
     {
-        Cast = 0,
-        Download,
-        SendTabToSelf,
-        SidePanel,
+        CastDeprecated = 0,
+        DownloadDeprecated,
+        SendTabToSelfDeprecated,
+        SidePanelDeprecated,
+        Media,
+        TabSearchDeprecated,
+        BatterySaver,
+        Avatar,
     }
 }

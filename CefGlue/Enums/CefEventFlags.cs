@@ -1,4 +1,4 @@
-﻿//
+//
 // This file manually written from cef/include/internal/cef_types.h.
 // C API name: cef_event_flags_t.
 //
@@ -36,5 +36,8 @@ namespace Xilium.CefGlue
         AltGrDown         = 1 << 12,
 
         IsRepeat          = 1 << 13,
+
+        PrecisionScrollingDelta = 1 << 14,
+        ScrollByPage            = 1 << 15,
     }
 }

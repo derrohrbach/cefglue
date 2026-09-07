@@ -1,6 +1,6 @@
-﻿//
+//
 // This file manually written from cef/include/internal/cef_types.h.
-// C API name: cef_urlrequest_flags_t.
+// C API name: cef_urlrequest_status_t.
 //
 namespace Xilium.CefGlue
 {

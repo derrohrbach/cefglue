@@ -1,4 +1,4 @@
-﻿//
+//
 // This file manually written from cef/include/internal/cef_types.h.
 // C API name: cef_termination_status_t.
 //
@@ -25,8 +25,18 @@ namespace Xilium.CefGlue
         ProcessCrashed,
 
         /// <summary>
-        /// Out of memory. Some platforms may use TS_PROCESS_CRASHED instead.
+        /// Out of memory. Some platforms may use ProcessCrashed instead.
         /// </summary>
         OutOfMemory,
+
+        /// <summary>
+        /// Failed to launch the process.
+        /// </summary>
+        LaunchFailed,
+
+        /// <summary>
+        /// Process integrity check failed.
+        /// </summary>
+        IntegrityFailure,
     }
 }

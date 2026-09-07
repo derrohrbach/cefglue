@@ -168,27 +168,7 @@ Projekte wie `CefGlue.WindowsForms`, `CefGlue.WPF` und die Demo-Anwendungen
 Signaturen, müssen die Overrides in diesen Projekten ebenfalls aktualisiert
 werden. Ein Solution-weiter Build deckt fehlende Anpassungen zuverlässig auf.
 
-## 11. NuGet-Paketversion aktualisieren
-
-Die nativen CEF-Binaries werden über die NuGet-Pakete
-`chromiumembeddedframework.runtime` und
-`chromiumembeddedframework.runtime.win-x64` (analog für win-x86 / win-arm64)
-eingebunden. Passe die Versionsnummer in allen Launcher-Projekten an:
-
-```xml
-<PackageReference Include="chromiumembeddedframework.runtime"
-                  Version="145.0.26" GeneratePathProperty="true" />
-<PackageReference Include="chromiumembeddedframework.runtime.win-x64"
-                  Version="145.0.26" GeneratePathProperty="true" />
-```
-
-Die verfügbaren Versionen findest du unter
-`https://www.nuget.org/packages/chromiumembeddedframework.runtime`.
-
-Wähle die neueste Patch-Version, die zu deiner CEF-Hauptversion passt. Kleine
-Abweichungen (z.B. `145.0.26` vs. `145.0.27`) sind unkritisch.
-
-## 12. Assembly-Version anpassen
+## 11. Assembly-Version anpassen
 
 In `CefGlue/CefGlue.csproj` steht die Assembly-Version des Pakets.
 Setze sie auf die neue CEF-Version, damit die versionierten Assemblys

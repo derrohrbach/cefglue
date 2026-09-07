@@ -1,4 +1,4 @@
-﻿//
+//
 // This file manually written from cef/include/base/internal/cef_types.h.
 // C API name: cef_dom_form_control_type_t.
 //
@@ -13,7 +13,7 @@ namespace Xilium.CefGlue
         ButtonButton,
         ButtonSubmit,
         ButtonReset,
-        ButtonSelectList,
+        ButtonPopover,
         Fieldset,
         InputButton,
         InputCheckbox,
@@ -40,7 +40,6 @@ namespace Xilium.CefGlue
         Output,
         SelectOne,
         SelectMultiple,
-        SelectList,
         TextArea,
     }
 }

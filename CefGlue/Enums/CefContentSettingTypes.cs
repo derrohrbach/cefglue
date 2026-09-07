@@ -1,4 +1,4 @@
-﻿//
+//
 // This file manually written from cef/include/internal/cef_types_content_settings.h.
 // C API name: cef_content_setting_types_t.
 //
@@ -44,7 +44,7 @@ namespace Xilium.CefGlue
         ProtectedMediaIdentifier,
         AppBanner,
         SiteEngagement,
-        DurableStorage,
+        PersistentStorage,
         UsbChooserData,
         BluetoothGuard,
         BackgroundSync,
@@ -209,7 +209,7 @@ namespace Xilium.CefGlue
         /// requests.
         /// See also: https://wicg.github.io/cors-rfc1918
         /// Set through enterprise policies only.
-        InsecurePrivateNetwork,
+        InsecurePrivateNetworkDeprecated,
 
         /// Content setting which stores whether or not a site can access low-level
         /// locally installed font data using the Local Fonts Access API.
@@ -291,8 +291,8 @@ namespace Xilium.CefGlue
 
         /// Website setting to store permissions granted to access particular devices
         /// in private network.
-        PrivateNetworkGuard,
-        PrivateNetworkChooserData,
+        PrivateNetworkGuardDeprecated,
+        PrivateNetworkChooserDataDeprecated,
 
         /// Website setting which stores whether the browser has observed the user
         /// signing into an identity-provider based on observing the IdP-SignIn-Status
@@ -322,7 +322,7 @@ namespace Xilium.CefGlue
 
         /// Content setting used to indicate whether third-party storage partitioning
         /// should be enabled.
-        ThirdPartyStoragePartitioning,
+        ThirdPartyStoragePartitioningDeprecated,
 
         /// Used to indicate whether HTTPS-First Mode is enabled on the hostname.
         HttpsEnforced,
@@ -334,26 +334,163 @@ namespace Xilium.CefGlue
         /// Stores per origin metadata for cookie controls.
         CookieControlsMetadata,
 
-        /// Content Setting for 3PC accesses granted via 3PC deprecation trial.
-        TpcdSupport,
+        TpcdHeuristicsGrantsDeprecated,
+        TpcdMetadataGrantsDeprecated,
+        TpcdTrialDeprecated,
+        TopLevelTpcdTrialDeprecated,
+        TopLevelTpcdOriginTrialDeprecated,
 
         /// Content setting used to indicate whether entering picture-in-picture
         /// automatically should be enabled.
         AutoPictureInPicture,
 
-        /// Content Setting for 3PC accesses granted by metadata delivered via the
-        /// component updater service. This type will only be used when
-        /// `net::features::kTpcdMetadataGrants` is enabled.
-        TpcdMetadataGrants,
-
         /// Whether user has opted into keeping file/directory permissions persistent
         /// between visits for a given origin. When enabled, permission metadata
-        /// stored under |FILE_SYSTEM_ACCESS_CHOOSER_DATA| can auto-grant incoming
+        /// stored under |FileSystemAccessChooserData| can auto-grant incoming
         /// permission request.
         FileSystemAccessExtendedPermission,
 
-        /// Content Setting for temporary 3PC accesses granted by user behavior
-        /// heuristics.
-        TpcdHeuristicsGrants,
+        /// Whether the FSA Persistent Permissions restore prompt is eligible to be
+        /// shown to the user, for a given origin.
+        FileSystemAccessRestorePermission,
+
+        /// Whether an application capturing another tab, may scroll and zoom
+        /// the captured tab.
+        CapturedSurfaceControl,
+
+        /// Content setting for access to smart card readers.
+        /// The "guard" content setting stores whether to allow sites to access the
+        /// Smart Card API.
+        SmartCardGuard,
+        SmartCardData,
+
+        /// Content settings for access to printers for the Web Printing API.
+        WebPrinting,
+
+        /// Content setting used to indicate whether entering HTML Fullscreen
+        /// automatically (i.e. without transient activation) should be enabled.
+        AutomaticFullscreen,
+
+        /// Content settings used to indicate that a web app is allowed to prompt the
+        /// user for the installation of sub apps.
+        SubAppInstallationPrompts,
+
+        /// Whether an application can enumerate audio output device.
+        SpeakerSelection,
+
+        /// Content settings for access to the Direct Sockets API.
+        DirectSockets,
+
+        /// Keyboard Lock API allows a site to capture keyboard inputs that would
+        /// otherwise be handled by the OS or the browser.
+        KeyboardLock,
+
+        /// Pointer Lock API allows a site to hide the cursor and have exclusive
+        /// access to mouse inputs.
+        PointerLock,
+
+        /// Website setting which is used for RevokedPermissionsService to store
+        /// auto-revoked notification permissions from abusive sites.
+        RevokedAbusiveNotificationPermissions,
+
+        TrackingProtectionDeprecated,
+
+        /// With this permission, when the application calls `getDisplayMedia()`, a
+        /// system audio track can be returned without showing the display media
+        /// selection picker. The application can explicitly specify
+        /// `systemAudio: 'exclude'` or `video: true` to still show the display media
+        /// selection picker if needed. Please note that the setting only works for
+        /// WebUI.
+        DisplayMediaSystemAudio,
+
+        /// Whether to use the higher-tier v8 optimizers for running JavaScript on the
+        /// page.
+        JavaScriptOptimizer,
+
+        /// Content Setting for the Storage Access Headers persistent origin trial
+        /// that allows origins to opt into the storage access header behavior.
+        StorageAccessHeaderOriginTrial,
+
+        /// Whether or not sites can request Hand Tracking data within WebXR Sessions.
+        HandTracking,
+
+        /// Website setting to indicate whether user has opted in to allow web apps to
+        /// install other web apps.
+        WebAppInstallation,
+
+        /// Content settings for private network access in the context of the
+        /// Direct Sockets API.
+        DirectSocketsPrivateNetworkAccess,
+
+        /// Content settings for legacy cookie scope.
+        /// Checks whether cookies scope is handled according to origin-bound cookies
+        /// or legacy behavior.
+        LegacyCookieScope,
+
+        /// Website setting to indicate whether the user has allowlisted suspicious
+        /// notifications for the origin.
+        AreSuspiciousNotificationsAllowlistedByUser,
+
+        /// Content settings for access to the Controlled Frame API.
+        ControlledFrame,
+
+        /// Website setting which is used for RevokedPermissionsService to
+        /// store revoked notification permissions of disruptive sites.
+        RevokedDisruptiveNotificationPermissions,
+
+        /// Content setting for whether the site is allowed to make local network
+        /// requests.
+        LocalNetworkAccess,
+
+        /// Stores information on-device language packs for which a site has
+        /// installed using the Web Speech API.
+        OnDeviceSpeechRecognitionLanguagesDownloaded,
+
+        /// Stores which Translator API language packs the site has initialized.
+        InitializedTranslations,
+
+        /// Stores a list of notification ids where content detection found the
+        /// notification to be suspicious and a warning has already been shown for the
+        /// site. Used for recovering notification contents from the database if the
+        /// user decides they would like to see all of these notifications.
+        SuspiciousNotificationIds,
+
+        /// To support approximate geolocation, the permission is migrating to use
+        /// permissions with options, which won't be stored as ContentSettings. Upon
+        /// launch of the feature, Geolocation and GeolocationWithOptions should be
+        /// merged.
+        GeolocationWithOptions,
+
+        /// Setting for enabling the Device Attributes API. Spec link:
+        /// https://wicg.github.io/WebApiDevice/device_attributes/
+        DeviceAttributes,
+
+        /// Stores per-origin state for permission heuristics. Currently used for
+        /// auto-granting geolocation element permission request after repeated
+        /// temporary grants.
+        PermissionActionsHistory,
+
+        /// Website setting to indicate whether the user has selected "show original"
+        /// when suspicious warning is shown. If the user has selected this, the
+        /// notification permission will not be revoked based on suspicious verdict.
+        SuspiciousNotificationShowOriginal,
+
+        /// Content setting for whether the site is allowed to make local network
+        /// requests. Split from LocalNetworkAccess.
+        LocalNetwork,
+
+        /// Content setting for whether the site is allowed to make loopback network
+        /// requests. Split from LocalNetworkAccess.
+        LoopbackNetwork,
+
+        /// Content setting for whether an IWA can add sub apps without prompting
+        /// users.
+        SubAppsWithoutPrompts,
+
+        /// Content setting for inline cue menus.
+        InlineCueMenu,
+
+        /// Stores allowlist decisions for Suspicious Site Warnings.
+        SuspiciousSiteWarningData,
     }
 }

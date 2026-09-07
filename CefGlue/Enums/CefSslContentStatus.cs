@@ -1,6 +1,6 @@
 ﻿//
 // This file manually written from cef/include/internal/cef_types.h.
-// C API name: cef_ssl_version_t.
+// C API name: cef_ssl_content_status_t.
 //
 namespace Xilium.CefGlue
 {

@@ -9,7 +9,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
 
-    <Version>147.0.10</Version>
+    <Version>152.0.6</Version>
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 
@@ -166,7 +166,6 @@
     <Compile Include="Enums\CefContextMenuMediaStateFlags.cs" />
     <Compile Include="Enums\CefContextMenuMediaType.cs" />
     <Compile Include="Enums\CefContextMenuTypeFlags.cs" />
-    <Compile Include="Enums\CefContextSafetyImplementation.cs" />
     <Compile Include="Enums\CefCookiePriority.cs" />
     <Compile Include="Enums\CefCookieSameSite.cs" />
     <Compile Include="Enums\CefCrossAxisAlignment.cs" />
@@ -235,7 +234,6 @@
     <Compile Include="Enums\CefUriUnescapeRules.cs" />
     <Compile Include="Enums\CefUrlRequestFlags.cs" />
     <Compile Include="Enums\CefUrlRequestStatus.cs" />
-    <Compile Include="Enums\CefV8AccessControl.cs" />
     <Compile Include="Enums\CefV8PropertyAttribute.cs" />
     <Compile Include="Enums\CefValueType.cs" />
     <Compile Include="Enums\CefWindowOpenDisposition.cs" />

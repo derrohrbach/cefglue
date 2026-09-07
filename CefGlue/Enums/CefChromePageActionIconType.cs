@@ -1,4 +1,4 @@
-﻿//
+//
 // This file manually written from cef/include/internal/cef_types.h.
 // C API name: cef_chrome_page_action_icon_type_t.
 //
@@ -13,12 +13,7 @@ namespace Xilium.CefGlue
     public enum CefChromePageActionIconType
     {
         BookmarkStar = 0,
-        /// <summary>
-        /// CEF_CPAIT_CLICK_TO_CALL_DEPRECATED in experimental builds (value 1),
-        /// CEF_CPAIT_CLICK_TO_CALL in non-experimental builds (value 1).
-        /// </summary>
-        ClickToCall = 1,
-        ClickToCallDeprecated = 1,
+        ClickToCall,
         CookieControls,
         FileSystemAccess,
         Find,
@@ -58,8 +53,14 @@ namespace Xilium.CefGlue
         JsOptimizations,
         RecordReplay,
         Indigo,
-        FederationDeprecated,
+        Federation,
         Glic,
+        AnchoredContextualCue,
+        WebAuthnAmbientSignin,
+        AutofillPayment,
+        MultistepFilter,
+        PaymentsChurnedUsers,
+        FakePageActionForDebug,
         NumValues,
     }
 }

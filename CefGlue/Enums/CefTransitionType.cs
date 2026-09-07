@@ -1,6 +1,6 @@
-﻿//
+//
 // This file manually written from cef/include/internal/cef_types.h.
-// C API name: cef_resource_type_t.
+// C API name: cef_transition_type_t.
 //
 namespace Xilium.CefGlue
 {

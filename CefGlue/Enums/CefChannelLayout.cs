@@ -1,4 +1,4 @@
-﻿//
+//
 // This file manually written from cef/include/internal/cef_types.h.
 // C API name: cef_channel_layout_t.
 //
@@ -181,7 +181,26 @@ namespace Xilium.CefGlue
         /// </summary>
         Layout_5_1_4_Downmix = 33,
 
-        // Max value, must always equal the largest entry ever logged.
-        //CEF_CHANNEL_LAYOUT_MAX = CEF_CHANNEL_LAYOUT_5_1_4_DOWNMIX
+        /// <summary>
+        /// Front C, LFE
+        /// </summary>
+        Layout_1_1 = 34,
+
+        /// <summary>
+        /// Front L, Front R, LFE, Back C
+        /// </summary>
+        Layout_3_1_Back = 35,
+
+        /// <summary>
+        /// Front L, Front R, Front C, LFE, Side L, Side R,
+        /// Top Front L, Top Front R, Top Back L, Top Back R
+        /// </summary>
+        Layout_5_1_4 = 36,
+
+        /// <summary>
+        /// Front L, Front R, Front C, LFE, Back L, Back R, Side L, Side R,
+        /// Top Front L, Top Front R, Top Back L, Top Back R
+        /// </summary>
+        Layout_7_1_4 = 37,
     }
 }

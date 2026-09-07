@@ -1,4 +1,4 @@
-﻿//
+//
 // This file manually written from cef/include/internal/cef_types.h.
 // C API name: cef_window_open_disposition_t.
 //
@@ -72,5 +72,10 @@ namespace Xilium.CefGlue
         /// Creates a new document picture-in-picture window showing a child WebView.
         /// </summary>
         NewPictureInPicture,
+
+        /// <summary>
+        /// Opens a link in a split view alongside the current tab.
+        /// </summary>
+        NewSplitView,
     }
 }

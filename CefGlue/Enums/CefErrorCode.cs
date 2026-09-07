@@ -1,4 +1,4 @@
-﻿//
+//
 // This file manually written from cef/include/base/internal/cef_net_error_list.h.
 // C API name: cef_errorcode_t.
 //
@@ -174,19 +174,49 @@ namespace Xilium.CefGlue
         CLEARTEXT_NOT_PERMITTED = -29,
 
         /// <summary>
-        /// The request was blocked by a Content Security Policy.
+        /// The request was blocked by a Content Security Policy
         /// </summary>
         BLOCKED_BY_CSP = -30,
 
-        /// <summary>
-        /// The request was blocked because of no H/2 or QUIC session.
-        /// </summary>
-        H2_OR_QUIC_REQUIRED = -31,
+        // NET_ERROR(H2_OR_QUIC_REQUIRED, -31) was removed. It was:
+        // The request was blocked because of no H/2 or QUIC session.
 
         /// <summary>
         /// The request was blocked by CORB or ORB.
         /// </summary>
         BLOCKED_BY_ORB = -32,
+
+        /// <summary>
+        /// The request was blocked because it originated from a frame that has disabled
+        /// network access.
+        /// </summary>
+        NETWORK_ACCESS_REVOKED = -33,
+
+        /// <summary>
+        /// The request was blocked by fingerprinting protections.
+        /// </summary>
+        BLOCKED_BY_FINGERPRINTING_PROTECTION = -34,
+
+        /// <summary>
+        /// The request was blocked by the Incognito Mode URL block list configured by
+        /// the domain administrator.
+        /// </summary>
+        BLOCKED_IN_INCOGNITO_BY_ADMINISTRATOR = -35,
+
+        /// <summary>
+        /// The request was blocked because the local network permission is missing.
+        /// Note that this is different from BLOCKED_BY_LOCAL_NETWORK_ACCESS_CHECKS
+        /// which is specifically for a CORS error code.
+        /// </summary>
+        LOCAL_NETWORK_PERMISSION_MISSING = -36,
+
+        /// <summary>
+        /// The request was blocked because ECH is strictly required, but:
+        /// - The client could not obtain a valid ECH configuration.
+        /// - The server rejected the ECH, and the client failed to establish a new ECH
+        /// connection after retrying with retry_configs.
+        /// </summary>
+        STRICT_ECH_REQUIRED = -37,
 
         /// <summary>
         /// A connection was closed (corresponding to a TCP FIN).
@@ -247,14 +277,13 @@ namespace Xilium.CefGlue
         SSL_CLIENT_AUTH_CERT_NEEDED = -110,
 
         /// <summary>
-        /// A tunnel connection through the proxy could not be established.
+        /// A tunnel connection through the proxy could not be established. For more info
+        /// see the comment on PROXY_UNABLE_TO_CONNECT_TO_DESTINATION.
         /// </summary>
         TUNNEL_CONNECTION_FAILED = -111,
 
-        /// <summary>
-        /// No SSL protocol versions are enabled.
-        /// </summary>
-        NO_SSL_VERSIONS_ENABLED = -112,
+        // Obsolete:
+        // NET_ERROR(NO_SSL_VERSIONS_ENABLED, -112)
 
         /// <summary>
         /// The client and server don't support a common SSL protocol version or
@@ -392,15 +421,9 @@ namespace Xilium.CefGlue
         /// </summary>
         TEMPORARILY_THROTTLED = -139,
 
-        /// <summary>
-        /// A request to create an SSL tunnel connection through the HTTPS proxy
-        /// received a 302 (temporary redirect) response.  The response body might
-        /// include a description of why the request failed.
-        ///
-        /// TODO(https://crbug.com/928551): This is deprecated and should not be used by
-        /// new code.
-        /// </summary>
-        HTTPS_PROXY_TUNNEL_RESPONSE_REDIRECT = -140,
+        // Obsolete, since we now use the catch-all ERR_TUNNEL_CONNECTION_FAILED when a
+        // proxy tried to redirect a request.
+        // NET_ERROR(HTTPS_PROXY_TUNNEL_RESPONSE_REDIRECT, -140)
 
         /// <summary>
         /// We were unable to sign the CertificateVerify data of an SSL client auth
@@ -420,6 +443,7 @@ namespace Xilium.CefGlue
         MSG_TOO_BIG = -142,
 
         // Error -143 was removed (SPDY_SESSION_ALREADY_EXISTS)
+
         // Error -144 was removed (LIMIT_VIOLATION).
 
         /// <summary>
@@ -435,15 +459,9 @@ namespace Xilium.CefGlue
         /// </summary>
         ADDRESS_IN_USE = -147,
 
-        /// <summary>
-        /// An operation failed because the SSL handshake has not completed.
-        /// </summary>
-        SSL_HANDSHAKE_NOT_COMPLETED = -148,
-
-        /// <summary>
-        /// SSL peer's public key is invalid.
-        /// </summary>
-        SSL_BAD_PEER_PUBLIC_KEY = -149,
+        // Obsolete:
+        // NET_ERROR(SSL_HANDSHAKE_NOT_COMPLETED, -148)
+        // NET_ERROR(SSL_BAD_PEER_PUBLIC_KEY, -149)
 
         /// <summary>
         /// The certificate didn't match the built-in public key pins for the host name.
@@ -640,6 +658,48 @@ namespace Xilium.CefGlue
         /// </summary>
         ECH_FALLBACK_CERTIFICATE_INVALID = -184,
 
+        // Error -185 was removed (PROXY_TUNNEL_REQUEST_FAILED).
+
+        /// <summary>
+        /// An attempt to proxy a request failed because the proxy wasn't able to
+        /// successfully connect to the destination. This likely indicates an issue with
+        /// the request itself (for instance, the hostname failed to resolve to an IP
+        /// address or the destination server refused the connection). This error code
+        /// is used to indicate that the error is outside the control of the proxy server
+        /// and thus the proxy chain should not be marked as bad. This is in contrast to
+        /// ERR_TUNNEL_CONNECTION_FAILED which is used for general purpose errors
+        /// connecting to the proxy and by the proxy request response handling when a
+        /// proxy delegate doesn't indicate via a different error code whether proxy
+        /// fallback should occur. Note that for IP Protection proxies this error code
+        /// causes the proxy to be marked as bad since the preference is to fail open for
+        /// general purpose errors, but for other proxies this error does not cause the
+        /// proxy to be marked as bad.
+        /// </summary>
+        PROXY_UNABLE_TO_CONNECT_TO_DESTINATION = -186,
+
+        /// <summary>
+        /// Some implementations of ProxyDelegate query a separate entity to know whether
+        /// it should cancel tunnel prior to:
+        /// - The HTTP CONNECT requests being sent out
+        /// - The HTTP CONNECT response being parsed by //net
+        /// An example is CronetProxyDelegate: Cronet allows developers to decide whether
+        /// the tunnel being established should be canceled.
+        /// </summary>
+        PROXY_DELEGATE_CANCELED_CONNECT_REQUEST = -187,
+        PROXY_DELEGATE_CANCELED_CONNECT_RESPONSE = -188,
+
+        /// <summary>
+        /// The control message was too large for the transport. (for example a UDP
+        /// message control data exceeds size threshold).
+        /// </summary>
+        CONTROL_MSG_TOO_BIG = -189,
+
+        /// <summary>
+        /// Direct Sockets attempted to connect to or send a packet to a multicast
+        /// address without 'direct-sockets-multicast' permissions policy.
+        /// </summary>
+        MULTICAST_NOT_ALLOWED = -190,
+
         // Certificate error codes
         //
         // The values of certificate error codes must be consecutive.
@@ -649,15 +709,16 @@ namespace Xilium.CefGlue
         /// the host name.  This could mean:
         ///
         /// 1. An attacker has redirected our traffic to their server and is
-        ///    presenting a certificate for which they know the private key.
+        /// presenting a certificate for which they know the private key.
         ///
         /// 2. The server is misconfigured and responding with the wrong cert.
         ///
         /// 3. The user is on a wireless network and is being redirected to the
-        ///    network's login page.
+        /// network's login page.
         ///
         /// 4. The OS has used a DNS search suffix and the server doesn't have
-        ///    a certificate for the abbreviated name in the address bar.
+        /// a certificate for the abbreviated name in the address bar.
+        ///
         /// </summary>
         CERT_COMMON_NAME_INVALID = -200,
 
@@ -666,11 +727,12 @@ namespace Xilium.CefGlue
         /// either not yet be valid or to have expired.  This could mean:
         ///
         /// 1. An attacker is presenting an old certificate for which they have
-        ///    managed to obtain the private key.
+        /// managed to obtain the private key.
         ///
         /// 2. The server is misconfigured and is not presenting a valid cert.
         ///
         /// 3. Our clock is wrong.
+        ///
         /// </summary>
         CERT_DATE_INVALID = -201,
 
@@ -679,13 +741,14 @@ namespace Xilium.CefGlue
         /// we don't trust.  The could mean:
         ///
         /// 1. An attacker has substituted the real certificate for a cert that
-        ///    contains their public key and is signed by their cousin.
+        /// contains their public key and is signed by their cousin.
         ///
         /// 2. The server operator has a legitimate certificate from a CA we don't
-        ///    know about, but should trust.
+        /// know about, but should trust.
         ///
         /// 3. The server is presenting a self-signed certificate, providing no
-        ///    defense against active attackers (but foiling passive attackers).
+        /// defense against active attackers (but foiling passive attackers).
+        ///
         /// </summary>
         CERT_AUTHORITY_INVALID = -202,
 
@@ -694,9 +757,10 @@ namespace Xilium.CefGlue
         /// This error is not recoverable.
         ///
         /// MSDN describes this error as follows:
-        ///   "The SSL certificate contains errors."
+        /// "The SSL certificate contains errors."
         /// NOTE: It's unclear how this differs from ERR_CERT_INVALID. For consistency,
         /// use that code instead of this one from now on.
+        ///
         /// </summary>
         CERT_CONTAINS_ERRORS = -203,
 
@@ -711,10 +775,11 @@ namespace Xilium.CefGlue
         /// available.  This could mean:
         ///
         /// 1. An attacker has compromised the private key in the certificate and is
-        ///    blocking our attempt to find out that the cert was revoked.
+        /// blocking our attempt to find out that the cert was revoked.
         ///
         /// 2. The certificate is unrevoked, but the revocation server is busy or
-        ///    unavailable.
+        /// unavailable.
+        ///
         /// </summary>
         CERT_UNABLE_TO_CHECK_REVOCATION = -205,
 
@@ -730,7 +795,8 @@ namespace Xilium.CefGlue
         /// This error is not recoverable.
         ///
         /// MSDN describes this error as follows:
-        ///   "The SSL certificate is invalid."
+        /// "The SSL certificate is invalid."
+        ///
         /// </summary>
         CERT_INVALID = -207,
 
@@ -769,11 +835,7 @@ namespace Xilium.CefGlue
         /// </summary>
         CERTIFICATE_TRANSPARENCY_REQUIRED = -214,
 
-        /// <summary>
-        /// The certificate chained to a legacy Symantec root that is no longer trusted.
-        /// https://g.co/chrome/symantecpkicerts
-        /// </summary>
-        CERT_SYMANTEC_LEGACY = -215,
+        // Error -215 was removed (CERT_SYMANTEC_LEGACY)
 
         // -216 was QUIC_CERT_ROOT_NOT_KNOWN which has been renumbered to not be in the
         // certificate error range.
@@ -787,13 +849,21 @@ namespace Xilium.CefGlue
         // -218 was SSL_OBSOLETE_VERSION which is not longer used. TLS 1.0/1.1 instead
         // cause SSL_VERSION_OR_CIPHER_MISMATCH now.
 
+        /// <summary>
+        /// The certificate is self signed and it's being used for either an RFC1918 IP
+        /// literal URL, or a url ending in .local.
+        /// </summary>
+        CERT_SELF_SIGNED_LOCAL_NETWORK = -219,
+
         // Add new certificate error codes here.
         //
         // Update the value of CERT_END whenever you add a new certificate error
         // code.
 
-        // The value immediately past the last certificate error code.
-        //CERT_END = -219,
+        /// <summary>
+        /// The value immediately past the last certificate error code.
+        /// </summary>
+        CERT_END = -220,
 
         /// <summary>
         /// The URL is invalid.
@@ -894,23 +964,15 @@ namespace Xilium.CefGlue
         /// </summary>
         NETWORK_IO_SUSPENDED = -331,
 
-        /// <summary>
-        /// FLIP data received without receiving a SYN_REPLY on the stream.
-        /// </summary>
-        SYN_REPLY_NOT_RECEIVED = -332,
+        // Obsolete. This was in earlier SPDY implementations.
+        // NET_ERROR(SYN_REPLY_NOT_RECEIVED, -332)
 
-        /// <summary>
-        /// Converting the response to target encoding failed.
-        /// </summary>
-        ENCODING_CONVERSION_FAILED = -333,
+        // Obsolete. These were both used for FTP, which is no longer supported.
+        // NET_ERROR(ENCODING_CONVERSION_FAILED, -333)
+        // NET_ERROR(UNRECOGNIZED_FTP_DIRECTORY_LISTING_FORMAT, -334)
 
-        /// <summary>
-        /// The server sent an FTP directory listing in a format we do not understand.
-        /// </summary>
-        UNRECOGNIZED_FTP_DIRECTORY_LISTING_FORMAT = -334,
-
-        // Obsolete.  Was only logged in NetLog when an HTTP/2 pushed stream expired.
-        // INVALID_SPDY_STREAM, -335,
+        // Obsolete. Was only logged in NetLog when an HTTP/2 pushed stream expired.
+        // NET_ERROR(INVALID_SPDY_STREAM, -335)
 
         /// <summary>
         /// There are no supported proxies in the provided list.
@@ -1008,7 +1070,7 @@ namespace Xilium.CefGlue
 
         // Obsolete.  Kept here to avoid reuse, as the old error can still appear on
         // histograms.
-        // PIPELINE_EVICTION = -353,
+        // NET_ERROR(PIPELINE_EVICTION, -353)
 
         /// <summary>
         /// The HTTP response body transferred fewer bytes than were advertised by the
@@ -1040,7 +1102,7 @@ namespace Xilium.CefGlue
 
         // Obsolete.  Kept here to avoid reuse, as the old error can still appear on
         // histograms.
-        // REQUEST_FOR_SECURE_RESOURCE_OVER_INSECURE_QUIC = -359,
+        // NET_ERROR(REQUEST_FOR_SECURE_RESOURCE_OVER_INSECURE_QUIC, -359)
 
         /// <summary>
         /// Transport security is inadequate for the HTTP/2 version.
@@ -1082,10 +1144,14 @@ namespace Xilium.CefGlue
         /// </summary>
         PAC_SCRIPT_TERMINATED = -367,
 
+        // Obsolete. Support for CNAME record detection was never fully implemented and
+        // is no longer needed since the IP Protection feature didn't launch.
+        // NET_ERROR(PROXY_REQUIRED, -368)
+
         // Obsolete. Kept here to avoid reuse.
         // Request is throttled because of a Backoff header.
         // See: crbug.com/486891.
-        // TEMPORARY_BACKOFF = -369,
+        // NET_ERROR(TEMPORARY_BACKOFF, -369)
 
         /// <summary>
         /// The server was expected to return an HTTP/1.x response, but did not. Rather
@@ -1105,6 +1171,12 @@ namespace Xilium.CefGlue
         /// </summary>
         HTTP2_RST_STREAM_NO_ERROR_RECEIVED = -372,
 
+        // Obsolete. HTTP/2 push is removed.
+        // NET_ERROR(HTTP2_PUSHED_STREAM_NOT_AVAILABLE, -373)
+
+        // Obsolete. HTTP/2 push is removed.
+        // NET_ERROR(HTTP2_CLAIMED_PUSHED_STREAM_RESET_BY_SERVER, -374)
+
         /// <summary>
         /// An HTTP transaction was retried too many times due for authentication or
         /// invalid certificates. This may be due to a bug in the net stack that would
@@ -1118,10 +1190,16 @@ namespace Xilium.CefGlue
         /// </summary>
         HTTP2_STREAM_CLOSED = -376,
 
+        // Obsolete. HTTP/2 push is removed.
+        // NET_ERROR(HTTP2_CLIENT_REFUSED_STREAM, -377)
+
+        // Obsolete. HTTP/2 push is removed.
+        // NET_ERROR(HTTP2_PUSHED_RESPONSE_DOES_NOT_MATCH, -378)
+
         /// <summary>
         /// The server returned a non-2xx HTTP response code.
         ///
-        /// Not that this error is only used by certain APIs that interpret the HTTP
+        /// Note that this error is only used by certain APIs that interpret the HTTP
         /// response itself. URLRequest for instance just passes most non-2xx
         /// response back as success.
         /// </summary>
@@ -1156,7 +1234,27 @@ namespace Xilium.CefGlue
         /// The IP address space of the cached remote endpoint is blocked by private
         /// network access check.
         /// </summary>
-        CACHED_IP_ADDRESS_SPACE_BLOCKED_BY_PRIVATE_NETWORK_ACCESS_POLICY = -384,
+        CACHED_IP_ADDRESS_SPACE_BLOCKED_BY_LOCAL_NETWORK_ACCESS_POLICY = -384,
+
+        /// <summary>
+        /// The connection is blocked by private network access checks.
+        /// </summary>
+        BLOCKED_BY_LOCAL_NETWORK_ACCESS_CHECKS = -385,
+
+        /// <summary>
+        /// Content decoding failed due to the zstd window size being too big (over 8MB).
+        /// </summary>
+        ZSTD_WINDOW_SIZE_TOO_BIG = -386,
+
+        /// <summary>
+        /// The compression dictionary cannot be loaded.
+        /// </summary>
+        DICTIONARY_LOAD_FAILED = -387,
+
+        /// <summary>
+        /// The header of dictionary compressed stream does not match the expected value.
+        /// </summary>
+        UNEXPECTED_CONTENT_DICTIONARY_HEADER = -388,
 
         /// <summary>
         /// The cache does not have the requested entry.
@@ -1240,6 +1338,11 @@ namespace Xilium.CefGlue
         CACHE_OPEN_OR_CREATE_FAILURE = -413,
 
         /// <summary>
+        /// Zstd compression of a cache entry body failed.
+        /// </summary>
+        CACHE_COMPRESSION_FAILURE = -414,
+
+        /// <summary>
         /// The server's response was insecure (e.g. there was a cert error).
         /// </summary>
         INSECURE_RESPONSE = -501,
@@ -1280,52 +1383,39 @@ namespace Xilium.CefGlue
         /// </summary>
         TRUST_TOKEN_OPERATION_SUCCESS_WITHOUT_SENDING_REQUEST = -507,
 
+        /// <summary>
+        /// This is a placeholder value that should never be used within //net.
+        ///
+        /// When Cronet APIs are being backed by HttpEngine (i.e., HttpEngineProvider is
+        /// being used), org.chromium.net.NetworkException#getCronetInternalErrorCode is
+        /// not supported (android.net.http.NetworkException#getCronetInternalErrorCode
+        /// does not exist). In this scenario, getCronetInternalErrorCode will always
+        /// return this error. This is a first step towards the deprecation of
+        /// getCronetInternalErrorCode.
+        ///
+        /// Temporarily terminate, then restart, ITTT to avoid unsupported nesting.
+        /// LINT.ThenChange(
+        /// //tools/metrics/histograms/enums.xml:HTTPResponseAndNetErrorCodes,
+        /// //tools/metrics/histograms/enums.xml:NetErrorCodes,
+        /// )
+        /// LINT.IfChange(HTTPENGINE_PROVIDER_IN_USE)
+        /// </summary>
+        HTTPENGINE_PROVIDER_IN_USE = -508,
+        // LINT.ThenChange(
+        // //components/cronet/android/java/src/org/chromium/net/impl/AndroidNetworkExceptionWrapper.java:HTTPENGINE_PROVIDER_IN_USE,
+        // //tools/metrics/histograms/enums.xml:HTTPResponseAndNetErrorCodes,
+        // //tools/metrics/histograms/enums.xml:NetErrorCodes,
+        // )
+        // LINT.IfChange
+
         // *** Code -600 is reserved (was FTP_PASV_COMMAND_FAILED). ***
-
-        /// <summary>
-        /// A generic error for failed FTP control connection command.
-        /// If possible, please use or add a more specific error code.
-        /// </summary>
-        FTP_FAILED = -601,
-
-        /// <summary>
-        /// The server cannot fulfill the request at this point. This is a temporary
-        /// error.
-        /// FTP response code 421.
-        /// </summary>
-        FTP_SERVICE_UNAVAILABLE = -602,
-
-        /// <summary>
-        /// The server has aborted the transfer.
-        /// FTP response code 426.
-        /// </summary>
-        FTP_TRANSFER_ABORTED = -603,
-
-        /// <summary>
-        /// The file is busy, or some other temporary error condition on opening
-        /// the file.
-        /// FTP response code 450.
-        /// </summary>
-        FTP_FILE_BUSY = -604,
-
-        /// <summary>
-        /// Server rejected our command because of syntax errors.
-        /// FTP response codes 500, 501.
-        /// </summary>
-        FTP_SYNTAX_ERROR = -605,
-
-        /// <summary>
-        /// Server does not support the command we issued.
-        /// FTP response codes 502, 504.
-        /// </summary>
-        FTP_COMMAND_NOT_SUPPORTED = -606,
-
-        /// <summary>
-        /// Server rejected our command because we didn't issue the commands in right
-        /// order.
-        /// FTP response code 503.
-        /// </summary>
-        FTP_BAD_COMMAND_SEQUENCE = -607,
+        // *** Code -601 is reserved (was FTP_FAILED). ***
+        // *** Code -602 is reserved (was FTP_SERVICE_UNAVAILABLE). ***
+        // *** Code -603 is reserved (was FTP_TRANSFER_ABORTED). ***
+        // *** Code -604 is reserved (was FTP_FILE_BUSY). ***
+        // *** Code -605 is reserved (was FTP_SYNTAX_ERROR). ***
+        // *** Code -606 is reserved (was FTP_COMMAND_NOT_SUPPORTED). ***
+        // *** Code -607 is reserved (was FTP_BAD_COMMAND_SEQUENCE). ***
 
         /// <summary>
         /// PKCS #12 import failed due to incorrect password.
@@ -1415,18 +1505,7 @@ namespace Xilium.CefGlue
         /// </summary>
         DNS_SERVER_REQUIRES_TCP = -801,
 
-        /// <summary>
-        /// DNS server failed.  This error is returned for all of the following
-        /// error conditions:
-        /// 1 - Format error - The name server was unable to interpret the query.
-        /// 2 - Server failure - The name server was unable to process this query
-        ///     due to a problem with the name server.
-        /// 4 - Not Implemented - The name server does not support the requested
-        ///     kind of query.
-        /// 5 - Refused - The name server refuses to perform the specified
-        ///     operation for policy reasons.
-        /// </summary>
-        DNS_SERVER_FAILED = -802,
+        // Error -802 was removed (DNS_SERVER_FAILED)
 
         /// <summary>
         /// DNS transaction timed out.
@@ -1476,12 +1555,110 @@ namespace Xilium.CefGlue
         /// </summary>
         DNS_NO_MATCHING_SUPPORTED_ALPN = -811,
 
-        /// <summary>
-        /// The compression dictionary cannot be loaded.
-        /// </summary>
-        DICTIONARY_LOAD_FAILED = -812,
+        // Error -812 was removed
+        // Error -813 was removed
 
-        // Error -813 was removed (DICTIONARY_ORIGIN_CHECK_FAILED)
+        /// <summary>
+        /// When checking whether secure DNS can be used, the response returned for the
+        /// requested probe record either had no answer or was invalid.
+        /// </summary>
+        DNS_SECURE_PROBE_RECORD_INVALID = -814,
+
+        /// <summary>
+        /// Returned when DNS cache invalidation is in progress. This is a
+        /// transient error. Callers may want to retry later.
+        /// </summary>
+        DNS_CACHE_INVALIDATION_IN_PROGRESS = -815,
+
+        /// <summary>
+        /// The DNS server responded with a format error response code.
+        /// </summary>
+        DNS_FORMAT_ERROR = -816,
+
+        /// <summary>
+        /// The DNS server responded with a server failure response code.
+        /// </summary>
+        DNS_SERVER_FAILURE = -817,
+
+        /// <summary>
+        /// The DNS server responded that the query type is not implemented.
+        /// </summary>
+        DNS_NOT_IMPLEMENTED = -818,
+
+        /// <summary>
+        /// The DNS server responded that the request was refused.
+        /// </summary>
+        DNS_REFUSED = -819,
+
+        /// <summary>
+        /// The DNS server responded with an rcode indicating that the request failed,
+        /// but the rcode is not one that we have a specific error code for. In other
+        /// words, the rcode was not one of the following:
+        /// - NOERR
+        /// - FORMERR
+        /// - SERVFAIL
+        /// - NXDOMAIN
+        /// - NOTIMP
+        /// - REFUSED
+        /// </summary>
+        DNS_OTHER_FAILURE = -820,
+
+        /// <summary>
+        /// Declined to call DNS for a direct_only request of a hostname whose traffic
+        /// would be routed through a proxy.
+        /// </summary>
+        DNS_DIRECT_ONLY = -821,
+
+        // The following errors are for mapped from a subset of invalid
+        // storage::BlobStatus.
+
+        /// <summary>
+        /// The construction arguments are invalid. This is considered a bad IPC.
+        /// </summary>
+        BLOB_INVALID_CONSTRUCTION_ARGUMENTS = -900,
+
+        /// <summary>
+        /// We don't have enough memory for the blob.
+        /// </summary>
+        BLOB_OUT_OF_MEMORY = -901,
+
+        /// <summary>
+        /// We couldn't create or write to a file. File system error, like a full disk.
+        /// </summary>
+        BLOB_FILE_WRITE_FAILED = -902,
+
+        /// <summary>
+        /// The renderer was destroyed while data was in transit.
+        /// </summary>
+        BLOB_SOURCE_DIED_IN_TRANSIT = -903,
+
+        /// <summary>
+        /// The renderer destructed the blob before it was done transferring, and there
+        /// were no outstanding references (no one is waiting to read) to keep the
+        /// blob alive.
+        /// </summary>
+        BLOB_DEREFERENCED_WHILE_BUILDING = -904,
+
+        /// <summary>
+        /// A blob that we referenced during construction is broken, or a browser-side
+        /// builder tries to build a blob with a blob reference that isn't finished
+        /// constructing.
+        /// </summary>
+        BLOB_REFERENCED_BLOB_BROKEN = -905,
+
+        /// <summary>
+        /// A file that we referenced during construction is not accessible to the
+        /// renderer trying to create the blob.
+        /// </summary>
+        BLOB_REFERENCED_FILE_UNAVAILABLE = -906,
+
+        // CAUTION: Before adding errors here, please check the ranges of errors written
+        // in the top of this file.
+
+        // LINT.ThenChange(
+        // //tools/metrics/histograms/enums.xml:HTTPResponseAndNetErrorCodes,
+        // //tools/metrics/histograms/enums.xml:NetErrorCodes,
+        // )
 
         // CefGlue backward compatiblity.
         // Generally we prefer .NET naming rules, but will care about later.
@@ -1510,7 +1687,6 @@ namespace Xilium.CefGlue
         AddressUnreachable = ADDRESS_UNREACHABLE,
         SslClientAuthCertNeeded = SSL_CLIENT_AUTH_CERT_NEEDED,
         TunnelConnectionFailed = TUNNEL_CONNECTION_FAILED,
-        NoSslVersionsEnabled = NO_SSL_VERSIONS_ENABLED,
         SslVersionOrCipherMismatch = SSL_VERSION_OR_CIPHER_MISMATCH,
         SslRenegotiationRequested = SSL_RENEGOTIATION_REQUESTED,
 

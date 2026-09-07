@@ -1,4 +1,8 @@
-﻿namespace Xilium.CefGlue
+//
+// This file manually written from cef/include/internal/cef_types.h.
+// C API name: cef_focus_source_t.
+//
+namespace Xilium.CefGlue
 {
     using System;
 

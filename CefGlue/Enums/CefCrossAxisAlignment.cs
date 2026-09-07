@@ -1,6 +1,6 @@
-﻿//
+//
 // This file manually written from cef/include/internal/cef_types.h.
-// C API name: cef_cross_axis_alignment_t.
+// C API name: cef_axis_alignment_t.
 //
 namespace Xilium.CefGlue
 {
@@ -12,11 +12,6 @@ namespace Xilium.CefGlue
     /// </summary>
     public enum CefCrossAxisAlignment
     {
-        /// <summary>
-        /// Child views will be stretched to fit.
-        /// </summary>
-        Stretch,
-
         /// <summary>
         /// Child views will be left-aligned.
         /// </summary>
@@ -31,5 +26,10 @@ namespace Xilium.CefGlue
         /// Child views will be right-aligned.
         /// </summary>
         End,
+
+        /// <summary>
+        /// Child views will be stretched to fit.
+        /// </summary>
+        Stretch,
     }
 }

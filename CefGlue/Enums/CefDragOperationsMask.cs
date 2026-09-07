@@ -1,6 +1,6 @@
 ﻿//
 // This file manually written from cef/include/internal/cef_types.h.
-// C API name: cef_drag_operations_mask.
+// C API name: cef_drag_operations_mask_t.
 //
 namespace Xilium.CefGlue
 {

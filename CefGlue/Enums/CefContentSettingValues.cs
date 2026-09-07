@@ -1,4 +1,4 @@
-﻿//
+//
 // This file manually written from cef/include/internal/cef_types_content_settings.h.
 // C API name: cef_content_setting_values_t.
 //
@@ -17,6 +17,6 @@ namespace Xilium.CefGlue
         Block,
         Ask,
         SessionOnly,
-        DetectImportantContent,
+        DetectImportantContentDeprecated,
     }
 }
