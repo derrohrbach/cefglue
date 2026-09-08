@@ -83,6 +83,17 @@
         /// </summary>
         protected virtual void OnLoadEnd(CefBrowser browser, CefFrame frame, int httpStatusCode)
         {
+            if (frame.IsMain)
+            {
+                try
+                {
+                    frame.ExecuteJavaScript("document.body.style.backgroundColor = 'red';", frame.Url, 0);
+                }
+                catch (Exception)
+                {
+                    // ignore injection failures
+                }
+            }
         }
 
 
